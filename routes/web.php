@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PlanteController;
 
@@ -18,7 +19,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/front', function () {
-    return view('Front.index');
+    return view('Front.index-2');
 });
 
+Route::resource('event', EventController::class);
 Route::get('plantes', [PlanteController::class, 'index']);
+
+
