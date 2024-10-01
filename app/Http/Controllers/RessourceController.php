@@ -7,26 +7,28 @@ use Illuminate\Http\Request;
 
 class RessourceController extends Controller
 {
-    public function fetchAll()
+    /**
+     * Display a listing of the ressources.
+     */
+    public function index()
     {
         $ressources = Ressource::all();
-        return response()->json($ressources);
+        return view('Front.Ressource.index', compact('ressources'));
     }
 
-    public function fetchById($id)
+    /**
+     * Show the form for creating a new ressource.
+     */
+    public function create()
     {
-        $ressource = Ressource::find($id);
-
-        if (!$ressource) {
-            return response()->json(['message' => 'Ressource not found'], 404);
-        }
-
-        return response()->json($ressource);
+        return view('ressources.create');
     }
 
-    public function createRessource(Request $request)
+    /**
+     * Store a newly created ressource in the database.
+     */
+    public function store(Request $request)
     {
-        // Validate the request
         $request->validate([
             'type' => 'required|string',
             'disponibilité' => 'required|string',
@@ -35,12 +37,10 @@ class RessourceController extends Controller
             'user_id' => 'required|exists:users,id',
         ]);
 
-        // Check if type is valid
+        // Check if type and disponibilité are valid
         if (!Ressource::isValidType($request->type)) {
             return redirect()->back()->withErrors(['type' => 'Invalid type selected.']);
         }
-
-        // Check if disponibilité is valid
         if (!Ressource::isValidDisponibilite($request->disponibilité)) {
             return redirect()->back()->withErrors(['disponibilité' => 'Invalid availability selected.']);
         }
@@ -50,7 +50,26 @@ class RessourceController extends Controller
         return redirect()->route('ressources.index')->with('success', 'Ressource created successfully.');
     }
 
-    public function updateRessource(Request $request, Ressource $ressource)
+    /**
+     * Display the specified ressource.
+     */
+    public function show(Ressource $ressource)
+    {
+        return view('ressources.show', compact('ressource'));
+    }
+
+    /**
+     * Show the form for editing the specified ressource.
+     */
+    public function edit(Ressource $ressource)
+    {
+        return view('ressources.edit', compact('ressource'));
+    }
+
+    /**
+     * Update the specified ressource in the database.
+     */
+    public function update(Request $request, Ressource $ressource)
     {
         $request->validate([
             'type' => 'required|string',
@@ -73,16 +92,13 @@ class RessourceController extends Controller
         return redirect()->route('ressources.index')->with('success', 'Ressource updated successfully.');
     }
 
-    public function deleteRessource($id)
+    /**
+     * Remove the specified ressource from the database.
+     */
+    public function destroy(Ressource $ressource)
     {
-        $ressource = Ressource::find($id);
-
-        if (!$ressource) {
-            return response()->json(['message' => 'Ressource not found'], 404);
-        }
-
         $ressource->delete();
 
-        return response()->json(['message' => 'Ressource deleted successfully']);
+        return redirect()->route('ressources.index')->with('success', 'Ressource deleted successfully.');
     }
 }

@@ -11,6 +11,7 @@ class Ressource extends Model
 
     // Define fillable attributes
     protected $fillable = [
+        'titre',
         'type',
         'description',
         'disponibilité',
