@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\JardinController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,3 +20,6 @@ Route::get('/', function () {
 Route::get('/front', function () {
     return view('Front.index');
 });
+
+
+Route::resource('jardins', JardinController::class);
