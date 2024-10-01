@@ -3,6 +3,7 @@
 use App\Http\Controllers\JardinController;
 use App\Http\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PlanteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,4 +26,6 @@ Route::get('/front', function () {
 
 Route::resource('jardins', JardinController::class);
 Route::resource('event', EventController::class);
+Route::get('plantes', [PlanteController::class, 'index']);
+
 
