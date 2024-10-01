@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\JardinController;
+use App\Http\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,8 +19,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/front', function () {
-    return view('Front.index');
+    return view('Front.index-2');
 });
 
 
 Route::resource('jardins', JardinController::class);
+Route::resource('event', EventController::class);
+
