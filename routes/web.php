@@ -29,3 +29,5 @@ Route::resource('ressource', RessourceController::class);
 Route::resource('jardins', JardinController::class);
 Route::resource('event', EventController::class);
 Route::get('plantes', [PlanteController::class, 'index']);
+Route::resource('blogs', BlogController::class);
+Route::get('/blogs', [BlogController::class, 'index'])->name('blogs.index');
