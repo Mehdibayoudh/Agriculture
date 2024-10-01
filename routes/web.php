@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PlanteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,3 +20,5 @@ Route::get('/', function () {
 Route::get('/front', function () {
     return view('Front.index');
 });
+
+Route::get('plantes', [PlanteController::class, 'index']);
