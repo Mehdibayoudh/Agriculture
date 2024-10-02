@@ -21,7 +21,7 @@ class EventController extends Controller
      */
     public function create()
     {
-        return view('events.create');
+        return view('Front.Event.create');
     }
 
     /**
@@ -29,18 +29,22 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        // Validate the request data
+        $validatedData = $request->validate([
             'titre' => 'required|string|max:255',
-            'description' => 'required|string',
-            'date' => 'required|date',
+            'description' => 'nullable|string',  // Made description optional
+            'date' => 'required|date',  // Ensure date is in correct format
             'localisation' => 'required|string|max:255',
-            'utilisateur_id' => 'required|exists:users,id',
         ]);
+        $validatedData['utilisateur_id'] = 1; // Set static user ID to 1
 
-        Event::create($request->all());
+        // Create the event using validated data
+        Event::create($validatedData);
 
-        return redirect()->route('events.index')->with('success', 'Événement created successfully.');
+        // Redirect back with success message
+        return redirect()->route('Front.Event.index')->with('success', 'Événement created successfully.');
     }
+
 
     /**
      * Display the specified event.
@@ -55,7 +59,7 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        return view('events.edit', compact('event'));
+        return view('Front.Event.edit', compact('event'));
     }
 
     /**
@@ -68,12 +72,10 @@ class EventController extends Controller
             'description' => 'required|string',
             'date' => 'required|date',
             'localisation' => 'required|string|max:255',
-            'utilisateur_id' => 'required|exists:users,id',
         ]);
-
         $event->update($request->all());
 
-        return redirect()->route('events.index')->with('success', 'Événement updated successfully.');
+        return redirect()->route('Front.Event.index')->with('success', 'Événement updated successfully.');
     }
 
     /**
@@ -83,5 +85,5 @@ class EventController extends Controller
     {
         $event->delete();
 
-        return redirect()->route('events.index')->with('success', 'Événement deleted successfully.');
+        return redirect()->route('Front.Event.index')->with('success', 'Événement deleted successfully.');
     }}

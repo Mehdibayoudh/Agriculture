@@ -213,8 +213,14 @@
                                 <div class="product-card__image">
                                     <img src="assets/images/products/product-1-1.jpg" alt="">
                                     <div class="product-card__image-content">
-                                        <a href="#"><i class="organik-icon-heart"></i></a>
-                                        <a href="cart.html"><i class="organik-icon-shopping-cart"></i></a>
+                                        <a  href="{{ route('event.edit', $event->id) }}"><i class="organik-icon-boiled"></i></a>
+                                        <form action="{{ route('event.destroy', $event->id) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" style="border:none; background:none;"><i class="organik-icon-shopping-cart"></i></button>
+
+                                        </form>
+
                                     </div><!-- /.product-card__image-content -->
                                 </div><!-- /.product-card__image -->
 
@@ -243,8 +249,9 @@
 
                     </div><!-- /.row -->
                     <div class="text-center">
-                        <a href="#" class="thm-btn products__load-more">Load More</a><!-- /.thm-btn -->
-                    </div><!-- /.text-center -->
+                        <a href="{{ route('event.create') }}" class="thm-btn products__load-more">Add Event</a>
+                    </div>
+
                 </div><!-- /.col-sm-12 col-md-12 col-lg-9 -->
             </div><!-- /.row -->
         </div><!-- /.container -->

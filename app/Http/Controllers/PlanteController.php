@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Plante;
 use Illuminate\Http\Request;
 
 class PlanteController extends Controller
@@ -14,7 +15,7 @@ class PlanteController extends Controller
     public function index()
     {
         $plantes = Plante::all(); // Retrieve all Plante records
-        return view('plantes.index', compact('plantes')); // Return to the index view
+        return view('Front.jardin.index', compact('plantes')); // Return to the index view
     }
 
     /**
