@@ -42,7 +42,7 @@ class EventController extends Controller
         Event::create($validatedData);
 
         // Redirect back with success message
-        return redirect()->route('Front.Event.index')->with('success', 'Événement created successfully.');
+        return redirect()->route('Front.Event.index');
     }
 
 
@@ -75,7 +75,7 @@ class EventController extends Controller
         ]);
         $event->update($request->all());
 
-        return redirect()->route('Front.Event.index')->with('success', 'Événement updated successfully.');
+        return redirect()->route('Front.Event.index');
     }
 
     /**
@@ -85,5 +85,5 @@ class EventController extends Controller
     {
         $event->delete();
 
-        return redirect()->route('Front.Event.index')->with('success', 'Événement deleted successfully.');
+        return redirect()->route('Front.Event.index');
     }}
