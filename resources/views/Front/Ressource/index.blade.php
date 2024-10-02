@@ -211,7 +211,7 @@
                         <div class="row">
                             <div class="col-md-6 col-lg-4">
                                 <div class="product-card">
-                                    @foreach($Ressources as $Ressource)
+                                    @foreach($ressources as $ressource)
                                     <div class="product-card__image">
                                         <img src="assets/images/products/product-1-1.jpg" alt="">
                                         <div class="product-card__image-content">
@@ -224,10 +224,11 @@
                                         <div class="product-card__content">
                                             <div class="product-card__left">
                                                 <!-- Display event title -->
-                                                <h3><a href="event-details/{{ $Ressource->id }}">{{ $Ressource->titre }}</a></h3>
+                                                <h3><a href="event-details/{{ $ressource->id }}">{{ $ressource->titre }}</a></h3>
+                                                <h3><a href="event-details/{{ $ressource->id }}">{{ $ressource->type }}</a></h3>
                                                 <!-- Display event date -->
                                                 <!-- Display event location -->
-                                                <p>{{ $Ressource->description }}</p>
+                                                <p>{{ $ressource->description }}</p>
                                             </div><!-- /.product-card__left -->
                                             <div class="product-card__right">
                                                 <!-- Static star rating (you can make this dynamic if you want to show actual ratings) -->

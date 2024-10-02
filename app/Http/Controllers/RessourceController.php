@@ -21,7 +21,7 @@ class RessourceController extends Controller
      */
     public function create()
     {
-        return view('ressources.create');
+        return view('Front.Ressource.create');
     }
 
     /**
@@ -30,12 +30,17 @@ class RessourceController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'titre' => 'required|string',
             'type' => 'required|string',
             'disponibilité' => 'required|string',
             'description' => 'nullable|string',
             'image' => 'nullable|string',
-            'user_id' => 'required|exists:users,id',
+            // 'user_id' => 'required|exists:users,id',
+
         ]);
+        //hard coding user for now
+        $data = $request->all();
+        $data['user_id'] = 1;
 
         // Check if type and disponibilité are valid
         if (!Ressource::isValidType($request->type)) {
@@ -45,9 +50,10 @@ class RessourceController extends Controller
             return redirect()->back()->withErrors(['disponibilité' => 'Invalid availability selected.']);
         }
 
-        Ressource::create($request->all());
+        // Ressource::create($request->all());
+        Ressource::create($data);
 
-        return redirect()->route('ressources.index')->with('success', 'Ressource created successfully.');
+        return redirect()->route('ressource.index')->with('success', 'Ressource created successfully.');
     }
 
     /**
@@ -71,13 +77,17 @@ class RessourceController extends Controller
      */
     public function update(Request $request, Ressource $ressource)
     {
+
         $request->validate([
+            'titre' => 'required|string',
             'type' => 'required|string',
             'disponibilité' => 'required|string',
             'description' => 'nullable|string',
             'image' => 'nullable|string',
             'user_id' => 'required|exists:users,id',
         ]);
+        $data = $request->all();
+        $data['user_id'] = 1;
 
         if (!Ressource::isValidType($request->type)) {
             return redirect()->back()->withErrors(['type' => 'Invalid type selected.']);
@@ -87,9 +97,11 @@ class RessourceController extends Controller
             return redirect()->back()->withErrors(['disponibilité' => 'Invalid availability selected.']);
         }
 
+
+
         $ressource->update($request->all());
 
-        return redirect()->route('ressources.index')->with('success', 'Ressource updated successfully.');
+        return redirect()->route('Front.Ressource.index')->with('success', 'Ressource updated successfully.');
     }
 
     /**
