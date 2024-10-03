@@ -126,6 +126,7 @@
     <!-- /.main-menu -->
 </header><!-- /.main-header -->
 
+
 <div class="container">
     @yield('content') <!-- Content will be injected here -->
 </div>
