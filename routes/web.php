@@ -26,11 +26,10 @@ Route::get('/front', function () {
 
 Route::resource('ressource', RessourceController::class);
 
+
 Route::resource('jardins', JardinController::class);
 Route::resource('event', EventController::class);
 Route::get('plantes', [PlanteController::class, 'index']);
 Route::get('/event', [EventController::class, 'index'])->name('Front.Event.index');
 Route::post('/event', [EventController::class, 'store'])->name('Front.Event.store');
 Route::put('/event/{id}', [EventController::class, 'update'])->name('events.update');
-
-

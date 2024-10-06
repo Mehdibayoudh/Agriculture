@@ -61,7 +61,7 @@ class RessourceController extends Controller
      */
     public function show(Ressource $ressource)
     {
-        return view('ressources.show', compact('ressource'));
+        return view('Front.Ressource.show', compact('ressource'));
     }
 
     /**
@@ -69,7 +69,7 @@ class RessourceController extends Controller
      */
     public function edit(Ressource $ressource)
     {
-        return view('ressources.edit', compact('ressource'));
+        return view('Front.Ressource.edit', compact('ressource'));
     }
 
     /**
@@ -84,10 +84,8 @@ class RessourceController extends Controller
             'disponibilité' => 'required|string',
             'description' => 'nullable|string',
             'image' => 'nullable|string',
-            'user_id' => 'required|exists:users,id',
         ]);
-        $data = $request->all();
-        $data['user_id'] = 1;
+
 
         if (!Ressource::isValidType($request->type)) {
             return redirect()->back()->withErrors(['type' => 'Invalid type selected.']);
