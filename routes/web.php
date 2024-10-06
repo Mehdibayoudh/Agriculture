@@ -5,6 +5,8 @@ use App\Http\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RessourceController;
 use App\Http\Controllers\PlanteController;
+use App\Http\Controllers\BlogController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +30,11 @@ Route::resource('ressource', RessourceController::class);
 
 Route::resource('jardins', JardinController::class);
 Route::resource('event', EventController::class);
-Route::get('plantes', [PlanteController::class, 'index']);
+Route::resource('plante', PlanteController::class);
+Route::get('/event', [EventController::class, 'index'])->name('Front.Event.index');
+Route::post('/event', [EventController::class, 'store'])->name('Front.Event.store');
+Route::put('/event/{id}', [EventController::class, 'update'])->name('events.update');
+
 Route::resource('blogs', BlogController::class);
-Route::get('/blogs', [BlogController::class, 'index'])->name('blogs.index');
+
+

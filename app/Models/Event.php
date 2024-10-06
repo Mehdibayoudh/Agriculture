@@ -19,7 +19,9 @@ class Event extends Model
         'localisation',
         'utilisateur_id',
     ];
-
+    protected $casts = [
+        'date' => 'datetime',
+    ];
     // Si vous avez des relations, vous pouvez les ajouter ici
     // Par exemple, si un événement est lié à un utilisateur :
     public function user()
