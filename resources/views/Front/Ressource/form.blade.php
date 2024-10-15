@@ -19,7 +19,7 @@
             <!-- Title -->
             <div class="col-md-6">
                 <label for="titre">Titre</label>
-                <input type="text" name="titre" id="titre" class="form-control" value="{{ old('titre') }}" required style="padding-left: 0; padding-right: 0;">
+                <input type="text" name="titre" id="titre" class="form-control" value="{{ $ressource->titre }}" required style="padding-left: 0; padding-right: 0;">
                 @error('titre')
                 <span class="text-danger">{{ $message }}</span>
                 @enderror
@@ -28,7 +28,7 @@
             <!-- Type -->
             <div class="col-md-6">
                 <label for="type">Type</label>
-                <input type="text" name="type" id="type" class="form-control" value="{{ old('type') }}" required style="padding-left: 0; padding-right: 0;">
+                <input type="text" name="type" id="type" class="form-control" value="{{ $ressource->type }}" required style="padding-left: 0; padding-right: 0;">
                 @error('type')
                 <span class="text-danger">{{ $message }}</span>
                 @enderror
@@ -37,7 +37,7 @@
             <!-- Disponibilité -->
             <div class="col-md-6">
                 <label for="disponibilité">Disponibilité</label>
-                <input type="text" name="disponibilité" id="disponibilité" class="form-control" value="{{ old('disponibilité') }}" required style="padding-left: 0; padding-right: 0;">
+                <input type="text" name="disponibilité" id="disponibilité" class="form-control" value="{{ $ressource->disponibilité }}" required style="padding-left: 0; padding-right: 0;">
                 @error('disponibilité')
                 <span class="text-danger">{{ $message }}</span>
                 @enderror
@@ -46,7 +46,7 @@
             <!-- Description -->
             <div class="col-md-6">
                 <label for="description">Description</label>
-                <textarea name="description" id="description" class="form-control" style="padding-left: 0; padding-right: 0; height: auto;">{{ old('description') }}</textarea>
+                <textarea name="description" id="description" class="form-control" style="padding-left: 0; padding-right: 0; height: auto;">{{ $ressource->description }}</textarea>
                 @error('description')
                 <span class="text-danger">{{ $message }}</span>
                 @enderror

@@ -99,7 +99,7 @@ class RessourceController extends Controller
 
         $ressource->update($request->all());
 
-        return redirect()->route('Front.Ressource.index')->with('success', 'Ressource updated successfully.');
+        return redirect()->route('ressource.index')->with('success', 'Ressource updated successfully.');
     }
 
     /**
@@ -109,6 +109,6 @@ class RessourceController extends Controller
     {
         $ressource->delete();
 
-        return redirect()->route('ressources.index')->with('success', 'Ressource deleted successfully.');
+        return redirect()->route('ressource.index')->with('success', 'Ressource deleted successfully.');
     }
 }

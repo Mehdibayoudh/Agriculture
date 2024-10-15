@@ -75,42 +75,44 @@
                         </div><!-- /.product-sorter__select -->
                     </div><!-- /.product-sorter -->
                     <div class="row">
-                        <div class="col-md-6 col-lg-4">
+                        @foreach($ressources as $ressource)
+                        <div class="col-md-6 col-lg-4 mb-4"> <!-- Each product takes 1/3rd of the row on large screens -->
                             <div class="product-card">
-                                @foreach($ressources as $ressource)
+
                                 <div class="product-card__image">
                                     <img src="assets/images/products/product-1-1.jpg" alt="">
                                     <div class="product-card__image-content">
-                                        <a href="#"><i class="organik-icon-heart"></i></a>
-                                        <a href="cart.html"><i class="organik-icon-shopping-cart"></i></a>
-                                    </div><!-- /.product-card__image-content -->
+                                        <a href="{{ route('ressource.edit', $ressource->id) }}"><i class="fa fa-edit"></i></a>
+                                        <form action="{{ route('ressource.destroy', $ressource->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this ressource?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" style="background:none; border:none; cursor:pointer;">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+
                                 </div><!-- /.product-card__image -->
 
-                                <div class="col-md-4">
-                                    <div class="product-card__content">
-                                        <div class="product-card__left">
-                                            <!-- Display event title -->
-                                            <h3><a href="event-details/{{ $ressource->id }}">{{ $ressource->titre }}</a></h3>
-                                            <h3><a href="event-details/{{ $ressource->id }}">{{ $ressource->type }}</a></h3>
-                                            <!-- Display event date -->
-                                            <!-- Display event location -->
-                                            <p>{{ $ressource->description }}</p>
-                                        </div><!-- /.product-card__left -->
-                                        <div class="product-card__right">
-                                            <!-- Static star rating (you can make this dynamic if you want to show actual ratings) -->
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div><!-- /.product-card__right -->
-                                    </div><!-- /.product-card__content -->
-                                </div>
-                                @endforeach
-                            </div><!-- /.product-card -->
-                        </div><!-- /.col-md-6 col-lg-4 -->
+                                <div class="product-card__content">
+                                    <div class="product-card__left">
+                                        <h3><a href="event-details/{{ $ressource->id }}">{{ $ressource->titre }}</a></h3>
+                                        <p>{{ $ressource->type }}</p>
+                                    </div>
+                                    <div class="product-card__right">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                </div><!-- /.product-card__content -->
 
+                            </div><!-- /.product-card -->
+                        </div><!-- /.col -->
+                        @endforeach
                     </div><!-- /.row -->
+
                     <div class="text-center">
                         <a href="#" class="thm-btn products__load-more">Load More</a><!-- /.thm-btn -->
                     </div><!-- /.text-center -->
@@ -120,109 +122,7 @@
     </section><!-- /.products-page -->
 
 
-    <footer class="site-footer background-black-2">
-        <img src="assets/images/shapes/footer-bg-1-1.png" alt="" class="site-footer__shape-1">
-        <img src="assets/images/shapes/footer-bg-1-2.png" alt="" class="site-footer__shape-2">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
-                    <div class="footer-widget footer-widget__about-widget">
-                        <a href="index.html" class="footer-widget__logo">
-                            <img src="assets/images/logo-light.png" alt="" width="105" height="43">
-                        </a>
-                        <p class="thm-text-dark">Atiam rhoncus sit amet adip
-                            scing sed ipsum. Lorem ipsum
-                            dolor sit amet adipiscing <br>
-                            sem neque.</p>
-                    </div><!-- /.footer-widget -->
-                </div><!-- /.col-sm-12 col-md-6 -->
-                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-2">
-                    <div class="footer-widget footer-widget__contact-widget">
-                        <h3 class="footer-widget__title">Contact</h3><!-- /.footer-widget__title -->
-                        <ul class="list-unstyled footer-widget__contact">
-                            <li>
-                                <i class="fa fa-phone-square"></i>
-                                <a href="tel:666-888-0000">666 888 0000</a>
-                            </li>
-                            <li>
-                                <i class="fa fa-envelope"></i>
-                                <a href="mailto:info@company.com">info@company.com</a>
-                            </li>
-                            <li>
-                                <i class="fa fa-map-marker-alt"></i>
-                                <a href="#">66 top broklyn street.
-                                    New York</a>
-                            </li>
-                        </ul><!-- /.list-unstyled footer-widget__contact -->
-                    </div><!-- /.footer-widget -->
-                </div><!-- /.col-sm-12 col-md-6 col-lg-2 -->
-                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-2">
-                    <div class="footer-widget footer-widget__links-widget">
-                        <h3 class="footer-widget__title">Links</h3><!-- /.footer-widget__title -->
-                        <ul class="list-unstyled footer-widget__links">
-                            <li>
-                                <a href="index.html">Top Sellers</a>
-                            </li>
-                            <li>
-                                <a href="products.html">Shopping</a>
-                            </li>
-                            <li>
-                                <a href="about.html">About Store</a>
-                            </li>
-                            <li>
-                                <a href="contact.html">Contact</a>
-                            </li>
-                            <li>
-                                <a href="contact.html">Help</a>
-                            </li>
-                        </ul><!-- /.list-unstyled footer-widget__contact -->
-                    </div><!-- /.footer-widget -->
-                </div><!-- /.col-sm-12 col-md-6 col-lg-2 -->
-                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-2">
-                    <div class="footer-widget">
-                        <h3 class="footer-widget__title">Explore</h3><!-- /.footer-widget__title -->
-                        <ul class="list-unstyled footer-widget__links">
-                            <li>
-                                <a href="products.html">New Products</a>
-                            </li>
-                            <li>
-                                <a href="checkout.html">My Account</a>
-                            </li>
-                            <li>
-                                <a href="contact.html">Support</a>
-                            </li>
-                            <li>
-                                <a href="contact.html">FAQs</a>
-                            </li>
-                        </ul><!-- /.list-unstyled footer-widget__contact -->
-                    </div><!-- /.footer-widget -->
-                </div><!-- /.col-sm-12 col-md-6 col-lg-2 -->
-                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
-                    <div class="footer-widget">
-                        <h3 class="footer-widget__title">Newsletter</h3><!-- /.footer-widget__title -->
-                        <form action="#" data-url="YOUR_MAILCHIMP_URL" class="mc-form">
-                            <input type="email" name="EMAIL" id="mc-email" placeholder="Email Address">
-                            <button type="submit">Subscribe</button>
-                        </form>
-                        <div class="mc-form__response"></div><!-- /.mc-form__response -->
-                    </div><!-- /.footer-widget -->
-                </div><!-- /.col-sm-12 col-md-6 col-lg-2 -->
-            </div><!-- /.row -->
-        </div><!-- /.container -->
-        <div class="bottom-footer">
-            <div class="container">
-                <hr>
-                <div class="inner-container text-center">
-                    <div class="bottom-footer__social">
-                        <a href="#" class="fab fa-twitter"></a>
-                        <a href="#" class="fab fa-facebook-square"></a>
-                        <a href="#" class="fab fa-instagram"></a>
-                    </div><!-- /.bottom-footer__social -->
-                    <p class="thm-text-dark">© Copyright <span class="dynamic-year"></span> by Company.com</p>
-                </div><!-- /.inner-container -->
-            </div><!-- /.container -->
-        </div><!-- /.bottom-footer -->
-    </footer><!-- /.site-footer -->
+
 
 </div><!-- /.page-wrapper -->
 
