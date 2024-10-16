@@ -208,26 +208,33 @@
                     </div><!-- /.product-sorter -->
                     <div class="row">
                         @foreach($jardins as $jardin)
+
                             <div class="col-md-6 col-lg-4">
                                 <div class="product-card">
                                     <div class="product-card__image">
-                                        <!-- If you have an image for the jardin, you can replace the placeholder -->
+                                        <!-- Use an image field from the database if available, or default to placeholder -->
                                         <img src="{{ asset('assets/images/products/product-1-1.jpg') }}" alt="{{ $jardin->nom }}">
                                         <div class="product-card__image-content">
-                                            <!-- You can add links to details or actions related to the jardin -->
-                                            <a href="#"><i class="organik-icon-heart"></i></a>
-{{--
-                                            <a href="{{ route('cart.add', $jardin->id) }}"><i class="organik-icon-shopping-cart"></i></a>
---}}
+                                            <div class="product-card__image-content">
+                                                <a  href="{{ route('jardins.edit', $jardin->id) }}"><i class="organik-icon-boiled"></i></a>
+                                                <form action="{{ route('jardins.destroy', $jardin->id) }}" method="POST" style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" style="border:none; background:none;"><i class="organik-icon-shopping-cart"></i></button>
+
+                                                </form>
+
+                                            </div><!-- /.product-card__image-content -->
+                                            {{-- Optionally add a button to take an action --}}
+                                            {{-- <a href="{{ route('cart.add', $jardin->id) }}"><i class="organik-icon-shopping-cart"></i></a> --}}
                                         </div><!-- /.product-card__image-content -->
                                     </div><!-- /.product-card__image -->
+
                                     <div class="product-card__content">
                                         <div class="product-card__left">
-                                            <!-- Display jardin name -->
-{{--
-                                            <h3><a href="{{ route('jardin.show', $jardin->id) }}">{{ $jardin->nom }}</a></h3>
---}}
-                                            <!-- Optionally display the jardin's localization or other data -->
+                                            <!-- Jardin Name -->
+                                            <h3><a href="{{ route('jardins.show', $jardin->id) }}">{{ $jardin->nom }}</a></h3>
+                                            <!-- Display Jardin Localisation -->
                                             <p>{{ $jardin->localisation }}</p>
                                         </div><!-- /.product-card__left -->
                                         <div class="product-card__right">
@@ -244,7 +251,7 @@
                         @endforeach
                     </div><!-- /.row -->
                     <div class="text-center">
-                        <a href="#" class="thm-btn products__load-more">Load More</a><!-- /.thm-btn -->
+                        <a href="{{ route('jardins.create') }}" class="thm-btn products__load-more">add garden</a><!-- /.thm-btn -->
                     </div><!-- /.text-center -->
                 </div><!-- /.col-sm-12 col-md-12 col-lg-9 -->
             </div><!-- /.row -->
