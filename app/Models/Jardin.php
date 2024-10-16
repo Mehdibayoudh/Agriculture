@@ -19,6 +19,7 @@ class Jardin extends Model
         'localisation',
         'type',
         'surface',
+        'etat',
         'utilisateur_id',
     ];
 

@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\JardinController;
 use App\Http\Controllers\EventController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\RessourceController;
+use App\Http\Controllers\jardins\JardinController;
+use App\Http\Controllers\jardins\backJardinController;
 use App\Http\Controllers\PlanteController;
+use App\Http\Controllers\RessourceController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +30,13 @@ Route::get('/front', function () {
 
 Route::resource('ressource', RessourceController::class);
 
+//JARDINS
 Route::resource('jardins', JardinController::class);
+Route::resource('jardinBack', backJardinController::class);
+Route::patch('jardinBack/{id}/accept', [backJardinController::class, 'accept'])->name('jardinBack.accept');
+Route::patch('jardinBack/{id}/decline', [backJardinController::class, 'decline'])->name('jardinBack.decline');
+//JARDINS
+
 Route::resource('event', EventController::class);
 Route::get('plantes', [PlanteController::class, 'index']);
 Route::get('/event', [EventController::class, 'index'])->name('Front.Event.index');

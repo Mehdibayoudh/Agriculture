@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('localisation');
             $table->string('type');
             $table->float('surface');
+            $table->integer('etat')->default(0);
             $table->foreignId('utilisateur_id')->constrained('users'); // This links the jardin to the user
             $table->timestamps();
         });

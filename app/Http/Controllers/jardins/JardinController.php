@@ -1,17 +1,21 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\jardins;
 
+use App\Http\Controllers\Controller;
 use App\Models\Jardin;
 use Illuminate\Http\Request;
 
 class JardinController extends Controller
 {
-    // Display a listing of the resource
-    public function index()
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */    public function index()
     {
         // Fetch all jardins, optionally with relationships
-        $jardins = Jardin::with('utilisateur')->get();
+        $jardins = Jardin::all();
 
         // Return a view with the jardins
         return view('Front.garden.index', compact('jardins'));
@@ -40,14 +44,14 @@ class JardinController extends Controller
         Jardin::create($request->all());
 
         // Redirect back to the index page with success message
-        return redirect()->route('jardins.index')->with('success', 'Jardin created successfully.');
+        return redirect()->route('jardins.index');
     }
 
     // Display the specified resource
-    public function show(Jardin $jardin)
+    public function show(Jardin $garden)
     {
         // Return a view showing the details of a specific jardin
-        return view('Front.garden.show', compact('jardin'));
+        return view('Front.garden.gardenDetails', compact('garden'));
     }
 
     // Show the form for editing the specified resource
