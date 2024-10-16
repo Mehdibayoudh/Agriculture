@@ -34,3 +34,4 @@ Route::resource('jardins', JardinController::class);
 Route::resource('event', EventController::class);
 Route::resource('eventadmin', EventAdminController::class);
 Route::get('plantes', [PlanteController::class, 'index']);
+Route::resource('plante', PlanteController::class);
