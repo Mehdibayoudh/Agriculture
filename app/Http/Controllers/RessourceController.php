@@ -12,8 +12,8 @@ class RessourceController extends Controller
      */
     public function index()
     {
-        $ressources = Ressource::all();
-        return view('Front.Ressource.index', compact('ressources'));
+        $Ressources = Ressource::all();
+        return view('Front.Ressource.index', compact('Ressources'));
     }
 
     /**

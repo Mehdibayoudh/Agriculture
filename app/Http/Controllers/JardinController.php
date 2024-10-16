@@ -21,7 +21,7 @@ class JardinController extends Controller
     public function create()
     {
         // Return a view for creating a new jardin
-        return view('jardins.create');
+        return view('Front.garden.create');
     }
 
     // Store a newly created resource in storage
@@ -47,14 +47,14 @@ class JardinController extends Controller
     public function show(Jardin $jardin)
     {
         // Return a view showing the details of a specific jardin
-        return view('jardins.show', compact('jardin'));
+        return view('Front.garden.show', compact('jardin'));
     }
 
     // Show the form for editing the specified resource
     public function edit(Jardin $jardin)
     {
         // Return a view for editing the selected jardin
-        return view('jardins.edit', compact('jardin'));
+        return view('Front.garden.edit', compact('jardin'));
     }
 
     // Update the specified resource in storage
