@@ -83,9 +83,9 @@
                             <div class="product-card">
 
                                 <div class="product-card__image">
-                                    <!-- @if($ressource->image)
+                                    @if($ressource->image)
                                     <img src="{{ asset('storage/' . $ressource->image) }}" alt="{{ $ressource->titre }}" style="width: 100%; height: auto;">
-                                    @else -->
+                                    @else
                                     <img src="assets/images/products/product-1-1.jpg" alt=""> <!-- @endif -->
 
                                     <div class="product-card__image-content">

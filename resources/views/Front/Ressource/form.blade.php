@@ -7,7 +7,7 @@
 
 <body>
 
-    <form action="{{ $route }}" method="POST" class="contact-form-validated contact-one__form" enctype="multipart/form-data">
+    <form action="{{ $route }}" method="POST" class=" contact-one__form" enctype="multipart/form-data">
         @csrf
         @if($ressource->exists)
         @method('PUT')

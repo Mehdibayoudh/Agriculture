@@ -32,6 +32,7 @@
                                     <div class="d-flex px-2 py-1">
                                         <div class="d-flex flex-column justify-content-center">
                                             <h6 class="mb-0 text-sm">{{ $r->titre }}</h6>
+                                            <img style="width: 100px;" src="{{ asset('storage/' . $r->image) }}" alt="{{ $r->titre }}" style="width: 100%; height: auto;">
                                         </div>
                                     </div>
                                 </td>

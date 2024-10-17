@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('type');
             $table->string('disponibilité');
             $table->text('description')->nullable();
-            $table->string('image')->nullable();
+            $table->string('image', 300)->nullable();
             $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });
