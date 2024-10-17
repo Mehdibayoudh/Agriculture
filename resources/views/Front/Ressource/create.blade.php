@@ -17,6 +17,9 @@
     </div><!-- /.container -->
 </section><!-- /.page-header -->
 
+<div style="padding-top: 20px;">
+    <a class="thm-btn" href="{{ route('ressource.index') }}">See Ressources</a>
+</div>
 <div style="display: flex;
         flex-direction: column;
         width: 100%;
@@ -27,6 +30,8 @@
         padding: 20px;
         border: solid thin #00000026;">
         <h1>Create a New Ressource</h1>
+
+
 
         @include('Front.Ressource.form', ['ressource' => new \App\Models\Ressource, 'route' => route('ressource.store')])
     </div>

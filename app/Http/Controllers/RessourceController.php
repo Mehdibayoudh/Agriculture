@@ -34,7 +34,7 @@ class RessourceController extends Controller
             'type' => 'required|string',
             'disponibilité' => 'required|string',
             'description' => 'nullable|string',
-            'image' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,gif,svg|max:2048',
             // 'user_id' => 'required|exists:users,id',
 
         ]);
@@ -42,15 +42,13 @@ class RessourceController extends Controller
         $data = $request->all();
         $data['user_id'] = 1;
 
-        // Check if type and disponibilité are valid
-        if (!Ressource::isValidType($request->type)) {
-            return redirect()->back()->withErrors(['type' => 'Invalid type selected.']);
-        }
-        if (!Ressource::isValidDisponibilite($request->disponibilité)) {
-            return redirect()->back()->withErrors(['disponibilité' => 'Invalid availability selected.']);
+        //image upload
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images', 'public');
+            $data['image'] = $imagePath; // Save the path in the database
         }
 
-        // Ressource::create($request->all());
+
         Ressource::create($data);
 
         return redirect()->route('ressource.index')->with('success', 'Ressource created successfully.');
@@ -87,13 +85,7 @@ class RessourceController extends Controller
         ]);
 
 
-        if (!Ressource::isValidType($request->type)) {
-            return redirect()->back()->withErrors(['type' => 'Invalid type selected.']);
-        }
 
-        if (!Ressource::isValidDisponibilite($request->disponibilité)) {
-            return redirect()->back()->withErrors(['disponibilité' => 'Invalid availability selected.']);
-        }
 
 
 

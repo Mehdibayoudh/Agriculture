@@ -8,7 +8,7 @@
     <div class="page-header__bg" style="background-image: url(assets/images/backgrounds/page-header-bg-1-1.jpg);"></div>
     <!-- /.page-header__bg -->
     <div class="container">
-        <h2>Create Ressource</h2>
+        <h2>Update Ressource</h2>
         <ul class="thm-breadcrumb list-unstyled">
             <li><a href="index.html">Home</a></li>
             <li>/</li>
@@ -17,6 +17,9 @@
     </div><!-- /.container -->
 </section><!-- /.page-header -->
 
+<div style="padding-top: 20px;">
+    <a class="thm-btn" href="{{ route('ressource.index') }}">See Ressources</a>
+</div>
 <div style="display: flex;
         flex-direction: column;
         width: 100%;

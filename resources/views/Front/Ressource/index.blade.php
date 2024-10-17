@@ -28,6 +28,9 @@
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-3">
                     <div class="product-sidebar">
+                        <div style="padding-bottom: 20px;">
+                            <a class="thm-btn" href="{{ route('ressource.create') }}">Create Ressource</a>
+                        </div>
                         <div class="product-sidebar__single product-sidebar__search-widget">
                             <form action="#">
                                 <input type="text" placeholder="Search">
@@ -80,14 +83,18 @@
                             <div class="product-card">
 
                                 <div class="product-card__image">
-                                    <img src="assets/images/products/product-1-1.jpg" alt="">
+                                    <!-- @if($ressource->image)
+                                    <img src="{{ asset('storage/' . $ressource->image) }}" alt="{{ $ressource->titre }}" style="width: 100%; height: auto;">
+                                    @else -->
+                                    <img src="assets/images/products/product-1-1.jpg" alt=""> <!-- @endif -->
+
                                     <div class="product-card__image-content">
                                         <a href="{{ route('ressource.edit', $ressource->id) }}"><i class="fa fa-edit"></i></a>
                                         <form action="{{ route('ressource.destroy', $ressource->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this ressource?');">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" style="background:none; border:none; cursor:pointer;">
-                                                <i class="fa fa-trash"></i>
+                                            <button type="submit" style="border:none; background:#ff003e; padding: 10px; border-radius: 100%; margin-left: 5px;">
+                                                <i class="fa fa-trash" style="color: white; margin-left: 10px; margin-right: 10px;"></i>
                                             </button>
                                         </form>
                                     </div>
@@ -112,6 +119,7 @@
                         </div><!-- /.col -->
                         @endforeach
                     </div><!-- /.row -->
+
 
                     <div class="text-center">
                         <a href="#" class="thm-btn products__load-more">Load More</a><!-- /.thm-btn -->
