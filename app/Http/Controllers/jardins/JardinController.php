@@ -5,6 +5,8 @@ namespace App\Http\Controllers\jardins;
 use App\Http\Controllers\Controller;
 use App\Models\Jardin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+
 
 class JardinController extends Controller
 {
@@ -25,12 +27,14 @@ class JardinController extends Controller
     public function create()
     {
         // Return a view for creating a new jardin
-        return view('Front.garden.create');
+        $conectedJardinier=2;
+        return view('Front.garden.create',compact('conectedJardinier'));
     }
 
     // Store a newly created resource in storage
     public function store(Request $request)
     {
+
         // Validate the incoming request
         $request->validate([
             'nom' => 'required|string|max:255',
@@ -38,10 +42,27 @@ class JardinController extends Controller
             'type' => 'required|string|max:255',
             'surface' => 'required|numeric',
             'utilisateur_id' => 'required|exists:users,id',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        // Create a new jardin
-        Jardin::create($request->all());
+
+
+        $imagePath = null;
+        if ($request->hasFile('photo')) {
+            $imagePath = $request->file('photo')->store('jardin', 'public');
+            //log::info('Image uploaded to: ' . $imagePath);
+
+        }
+
+        // Create a new jardin with image path
+        Jardin::create([
+            'nom' => $request->nom,
+            'localisation' => $request->localisation,
+            'type' => $request->type,
+            'surface' => $request->surface,
+            'utilisateur_id' => $request->utilisateur_id,
+            'photo' => $imagePath, // Save the image path
+        ]);
 
         // Redirect back to the index page with success message
         return redirect()->route('jardins.index');
@@ -57,8 +78,9 @@ class JardinController extends Controller
     // Show the form for editing the specified resource
     public function edit(Jardin $jardin)
     {
+        $conectedJardinier=2;
         // Return a view for editing the selected jardin
-        return view('Front.garden.edit', compact('jardin'));
+        return view('Front.garden.edit', compact('jardin'),compact('conectedJardinier'));
     }
 
     // Update the specified resource in storage

@@ -6,13 +6,22 @@
         <div class="row">
             <div class="col-lg-6">
                 <h3>Garden Details</h3>
-                <form action="{{ $route }}" method="POST" class="contact-form-validated contact-one__form">
+                <form action="{{ $route }}" method="POST" class="contact-form-validated contact-one__form" enctype="multipart/form-data">
                     @csrf
                     @if($jardin->exists)
                         @method('PUT') <!-- Use PUT for updates -->
                     @endif
 
+
                     <div class="row">
+                        <!-- Image Upload Field -->
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="image" class="form-label">Image du poste</label>
+                                <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
+                            </div>
+
+                        </div>
                         <!-- Garden Name -->
                         <div class="col-md-12">
                             <input type="text" name="nom" placeholder="Garden Name" value="{{ old('nom', $jardin->nom) }}" required>
@@ -47,11 +56,13 @@
 
                         <!-- Utilisateur ID -->
                         <div class="col-md-12">
-                            <input type="text" name="utilisateur_id" placeholder="User ID (Garden Owner)" value="{{ old('utilisateur_id', $jardin->utilisateur_id) }}" required>
+                            <input type="text" name="utilisateur_id" placeholder="User ID (Garden Owner)" value="{{ $conectedJardinier }}" required>
                             @error('utilisateur_id')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
+
+
 
                         <div class="col-md-12">
                             <button type="submit" class="thm-btn">Save Garden</button>

@@ -6,7 +6,9 @@
         <div class="row">
             <div class="col-xl-6 col-lg-6">
                 <div class="product_detail_image">
-                    <img src="assets/images/products/product-d-1.jpg" alt="">
+                    @if($garden->photo)
+                        <img src="{{ asset('storage/' . $garden->photo) }}" alt="Image of {{ $garden->nom }}" style="max-width: 200px;">
+                    @endif
                 </div>
             </div>
             <div class="col-xl-6 col-lg-6">

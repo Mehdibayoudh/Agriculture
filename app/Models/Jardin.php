@@ -21,6 +21,7 @@ class Jardin extends Model
         'surface',
         'etat',
         'utilisateur_id',
+        'photo',
     ];
 
     // Define the relationship between Jardin and Utilisateur (one-to-many inverse)
