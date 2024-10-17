@@ -78,7 +78,7 @@
                         </div><!-- /.product-sorter__select -->
                     </div><!-- /.product-sorter -->
                     <div class="row">
-                        @foreach($ressources as $ressource)
+                        @foreach($Ressources as $ressource)
                         <div class="col-md-6 col-lg-4 mb-4"> <!-- Each product takes 1/3rd of the row on large screens -->
                             <div class="product-card">
 
