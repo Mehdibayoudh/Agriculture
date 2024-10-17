@@ -84,7 +84,7 @@
                                     <div class="product-card__image">
                                         <!-- Use an image field from the database if available, or default to placeholder -->
                                         @if($jardin->photo)
-                                            <img src="{{ asset('storage/' . $jardin->photo) }}" alt="Image of {{ $jardin->nom }}" style="max-width: 200px;">
+                                            <img src="{{ asset('storage/' . $jardin->photo) }}" alt="Image of {{ $jardin->nom }}" style="max-width: 400px;max-height: 150px">
                                         @else
                                             <p>No image available</p>
                                         @endif                                        <div class="product-card__image-content">

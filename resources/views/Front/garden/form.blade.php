@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <h3>Garden Details</h3>
-                <form action="{{ $route }}" method="POST" class="contact-form-validated contact-one__form" enctype="multipart/form-data">
+                <form action="{{ $route }}" method="POST" class="contact-one__form" enctype="multipart/form-data">
                     @csrf
                     @if($jardin->exists)
                         @method('PUT') <!-- Use PUT for updates -->
@@ -15,6 +15,7 @@
 
                     <div class="row">
                         <!-- Image Upload Field -->
+                        @if(!$jardin->exists)
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label for="image" class="form-label">Image du poste</label>
@@ -22,6 +23,8 @@
                             </div>
 
                         </div>
+                        @endif
+
                         <!-- Garden Name -->
                         <div class="col-md-12">
                             <input type="text" name="nom" placeholder="Garden Name" value="{{ old('nom', $jardin->nom) }}" required>

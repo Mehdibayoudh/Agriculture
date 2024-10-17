@@ -69,10 +69,10 @@ class JardinController extends Controller
     }
 
     // Display the specified resource
-    public function show(Jardin $garden)
+    public function show(Jardin $jardin)
     {
         // Return a view showing the details of a specific jardin
-        return view('Front.garden.gardenDetails', compact('garden'));
+        return view('Front.garden.gardenDetails', compact('jardin'));
     }
 
     // Show the form for editing the specified resource

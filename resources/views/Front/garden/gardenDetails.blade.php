@@ -6,18 +6,15 @@
         <div class="row">
             <div class="col-xl-6 col-lg-6">
                 <div class="product_detail_image">
-                    @if($garden->photo)
-                        <img src="{{ asset('storage/' . $garden->photo) }}" alt="Image of {{ $garden->nom }}" style="max-width: 200px;">
+                    @if($jardin->photo)
+                        <img src="{{ asset('storage/' . $jardin->photo) }}" alt="Image of {{ $jardin->nom }}" style="max-width: 400px;">
                     @endif
                 </div>
             </div>
             <div class="col-xl-6 col-lg-6">
                 <div class="product_detail_content">
-                    <h2>Apples</h2>
+                    <h2>{{$jardin->nom}}</h2>
                     <div class="product_detail_review_box">
-                        <div class="product_detail_price_box">
-                            <p>$9.98</p>
-                        </div>
                         <div class="product_detail_review">
                             <a href="#"><i class="fa fa-star"></i></a>
                             <a href="#"><i class="fa fa-star"></i></a>
@@ -28,41 +25,9 @@
                         </div>
                     </div>
                     <div class="product_detail_text">
-                        <p>Aliquam hendrerit a augue insuscipit. Etiam aliquam massa quis des mauris commodo
-                            venenatis ligula commodo leez sed blandit convallis dignissim onec vel pellentesque
-                            neque.</p>
+                        <p>localisation : {{$jardin->localisation}}</p>
                     </div>
-                    <ul class="list-unstyled product_detail_address">
-                        <li>REF. 4231/406</li>
-                        <li>Available in store</li>
-                    </ul>
-                    <div class="product-quantity-box">
-                        <div class="quantity-box">
-                            <button type="button" class="sub">-</button>
-                            <input type="number" id="2" value="1" />
-                            <button type="button" class="add">+</button>
-                        </div>
-                        <div class="addto-cart-box">
-                            <button class="thm-btn" type="submit">Add to Cart</button>
-                        </div>
-                        <div class="wishlist_btn">
-                            <a href="#" class="thm-btn">Add to Wishlist</a>
-                        </div>
-                    </div>
-                    <ul class="list-unstyled category_tag_list">
-                        <li><span>Category:</span> Food</li>
-                        <li><span>Tags:</span> Vegetables, Fruits</li>
-                    </ul>
-                    <div class="product_detail_share_box">
-                        <div class="share_box_title">
-                            <h2>Share with friends</h2>
-                        </div>
-                        <div class="share_box_social">
-                            <a href="#"><i class="fab fa-facebook-square"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -200,112 +165,4 @@
     </div>
 </section>
 
-<section class="product-two">
-    <div class="container">
-        <div class="block-title text-center">
-            <div class="block-title__decor"></div><!-- /.block-title__decor -->
-            <p>Recently Added</p>
-            <h3>Similar Products</h3>
-        </div><!-- /.block-title -->
-        <div class="thm-tiny__slider" id="product-two__carousel" data-tiny-options='{
-            "container": "#product-two__carousel",
-            "items": 1,
-            "slideBy": "page",
-            "gutter": 0,
-            "mouseDrag": true,
-            "autoplay": true,
-            "nav": false,
-            "controlsPosition": "bottom",
-            "controlsText": ["<i class=\"fa fa-angle-left\"></i>", "<i class=\"fa fa-angle-right\"></i>"],
-            "autoplayButtonOutput": false,
-            "responsive": {
-                "640": {
-                  "items": 2,
-                  "gutter": 30
-                },
-                "992": {
-                  "gutter": 30,
-                  "items": 3
-                },
-                "1200": {
-                  "disable": true
-                }
-              }
-        }'>
-            <div>
-                <div class="product-card__two">
-                    <div class="product-card__two-image">
-                        <span class="product-card__two-sale">sale</span>
-                        <img src="assets/images/products/product-2-1.jpg" alt="">
-                        <div class="product-card__two-image-content">
-                            <a href="#"><i class="organik-icon-visibility"></i></a>
-                            <a href="#"><i class="organik-icon-heart"></i></a>
-                            <a href="cart.html"><i class="organik-icon-shopping-cart"></i></a>
-                        </div><!-- /.product-card__two-image-content -->
-                    </div><!-- /.product-card__two-image -->
-                    <div class="product-card__two-content">
-                        <h3><a href="product-details.html">Banana</a></h3>
-                        <div class="product-card__two-stars">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div><!-- /.product-card__two-stars -->
-                        <p>$1.00</p>
-
-                    </div><!-- /.product-card__two-content -->
-                </div><!-- /.product-card__two -->
-            </div>
-            <div>
-                <div class="product-card__two">
-                    <div class="product-card__two-image">
-                        <img src="assets/images/products/product-2-2.jpg" alt="">
-                        <div class="product-card__two-image-content">
-                            <a href="#"><i class="organik-icon-visibility"></i></a>
-                            <a href="#"><i class="organik-icon-heart"></i></a>
-                            <a href="cart.html"><i class="organik-icon-shopping-cart"></i></a>
-                        </div><!-- /.product-card__two-image-content -->
-                    </div><!-- /.product-card__two-image -->
-                    <div class="product-card__two-content">
-                        <h3><a href="product-details.html">Olive Oil</a></h3>
-                        <div class="product-card__two-stars">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div><!-- /.product-card__two-stars -->
-                        <p>$7.00</p>
-
-                    </div><!-- /.product-card__two-content -->
-                </div><!-- /.product-card__two -->
-            </div>
-            <div>
-                <div class="product-card__two">
-                    <div class="product-card__two-image">
-                        <img src="assets/images/products/product-2-3.jpg" alt="">
-                        <div class="product-card__two-image-content">
-                            <a href="#"><i class="organik-icon-visibility"></i></a>
-                            <a href="#"><i class="organik-icon-heart"></i></a>
-                            <a href="cart.html"><i class="organik-icon-shopping-cart"></i></a>
-                        </div><!-- /.product-card__two-image-content -->
-                    </div><!-- /.product-card__two-image -->
-                    <div class="product-card__two-content">
-                        <h3><a href="product-details.html">Eggs</a></h3>
-                        <div class="product-card__two-stars">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div><!-- /.product-card__two-stars -->
-                        <p>$3.00</p>
-
-                    </div><!-- /.product-card__two-content -->
-                </div><!-- /.product-card__two -->
-            </div>
-        </div>
-    </div><!-- /.container -->
-</section><!-- /.product-two -->
 @endsection
