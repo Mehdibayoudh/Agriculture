@@ -20,7 +20,7 @@
                             <!-- If the garden is being created (new garden, no image yet) -->
                             <div class="col-md-12">
                                 <div class="mb-3">
-                                    <label for="photo" class="form-label">Image du poste</label>
+                                    <label for="photo" class="form-label">Image du jardin</label>
                                     <input type="file" class="form-control" id="photo" name="photo">
                                 </div>
                             </div>
@@ -59,7 +59,13 @@
 
                         <!-- Garden Type -->
                         <div class="col-md-12">
-                            <input type="text" name="type" placeholder="Garden Type" value="{{ old('type', $jardin->type) }}" required>
+                            <select name="type" id="type" class="form-control" required>
+                                @foreach(\App\Models\Jardin::GARDEN_TYPES as $type)
+                                    <option value="{{ $type }}" {{ old('type', $jardin->type ?? '') == $type ? 'selected' : '' }}>
+                                        {{ $type }}
+                                    </option>
+                                @endforeach
+                            </select>
                             @error('type')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
@@ -75,7 +81,7 @@
 
                         <!-- Utilisateur ID -->
                         <div class="col-md-12">
-                            <input type="text" name="utilisateur_id" placeholder="User ID (Garden Owner)" value="{{ $conectedJardinier }}" required>
+                            <input readonly  type="text" name="utilisateur_id" placeholder="User ID (Garden Owner)" value="{{ $conectedJardinier }}" required>
                             @error('utilisateur_id')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror

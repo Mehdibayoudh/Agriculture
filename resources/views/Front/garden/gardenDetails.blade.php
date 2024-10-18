@@ -27,7 +27,9 @@
                     <div class="product_detail_text">
                         <p>localisation : {{$jardin->localisation}}</p>
                     </div>
-
+                    <div class="product_detail_text">
+                        <p>type : {{$jardin->type}}</p>
+                    </div>
                 </div>
             </div>
         </div>

@@ -15,11 +15,11 @@
         <div class="page-header__bg" style="background-image: url(assets/images/backgrounds/page-header-bg-1-1.jpg);"></div>
         <!-- /.page-header__bg -->
         <div class="container">
-            <h2>Products</h2>
+            <h2>Gardens</h2>
             <ul class="thm-breadcrumb list-unstyled">
-                <li><a href="index.html">Home</a></li>
+                <li><a href="{{ url('/') }}">Home</a></li>
                 <li>/</li>
-                <li><span>Products</span></li>
+                <li><span>Gardens</span></li>
             </ul><!-- /.thm-breadcrumb list-unstyled -->
         </div><!-- /.container -->
     </section><!-- /.page-header -->
@@ -36,22 +36,7 @@
                                 <button class="organik-icon-magnifying-glass" type="submit"></button>
                             </form>
                         </div><!-- /.product-sidebar__single -->
-                        <div class="product-sidebar__single">
-                            <h3>Price</h3>
-                            <div class="product-sidebar__price-range">
-                                <div class="range-slider-price" id="range-slider-price"></div>
-                                <div class="form-group">
-                                    <div class="left">
-                                        <p>$<span id="min-value-rangeslider"></span></p>
-                                        <span>-</span>
-                                        <p>$<span id="max-value-rangeslider"></span></p>
-                                    </div><!-- /.left -->
-                                    <div class="right">
-                                        <input type="submit" class="thm-btn" value="Filter">
-                                    </div><!-- /.right -->
-                                </div>
-                            </div><!-- /.product-sidebar__price-range -->
-                        </div><!-- /.product-sidebar__single -->
+
                         <div class="product-sidebar__single">
                             <h3>Categories</h3>
                             <ul class="list-unstyled product-sidebar__links">
@@ -87,20 +72,7 @@
                                             <img src="{{ asset('storage/' . $jardin->photo) }}" alt="Image of {{ $jardin->nom }}" style="max-width: 400px;max-height: 150px">
                                         @else
                                             <p>No image available</p>
-                                        @endif                                        <div class="product-card__image-content">
-                                            <div class="product-card__image-content">
-                                                <a style="background:#9f9f00;margin-right: 10px" href="{{ route('jardins.edit', $jardin->id) }}"><i class="fa fa-edit"></i></a>
-                                                <form action="{{ route('jardins.destroy', $jardin->id) }}" method="POST" style="display:inline;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" style="border:none; background:red; padding: 10px ;border-radius: 100%"><i style="color: white;margin-left: 10px;margin-right: 10px" class="fa fa-trash"></i></button>
-
-                                                </form>
-
-                                            </div><!-- /.product-card__image-content -->
-                                            {{-- Optionally add a button to take an action --}}
-                                            {{-- <a href="{{ route('cart.add', $jardin->id) }}"><i class="organik-icon-shopping-cart"></i></a> --}}
-                                        </div><!-- /.product-card__image-content -->
+                                        @endif
                                     </div><!-- /.product-card__image -->
 
                                     <div class="product-card__content">

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 
+
 class JardinController extends Controller
 {
     /**
@@ -18,10 +19,23 @@ class JardinController extends Controller
     {
         // Fetch all jardins, optionally with relationships
         $jardins = Jardin::all();
+        $conectedJardinier=2;
 
         // Return a view with the jardins
-        return view('Front.garden.index', compact('jardins'));
+        return view('Front.garden.index', compact('jardins','conectedJardinier'));
     }
+
+    public function jardinierGardens()
+    {
+        $conectedJardinier = 2;
+
+        $jardins = Jardin::where('utilisateur_id', $conectedJardinier)->get();
+
+        // Return a view with the jardins
+        return view('Front.garden.jardinierGardens', compact('jardins', 'conectedJardinier'));
+    }
+
+
 
     // Show the form for creating a new resource
     public function create()
@@ -39,7 +53,7 @@ class JardinController extends Controller
         $request->validate([
             'nom' => 'required|string|max:255',
             'localisation' => 'required|string|max:255',
-            'type' => 'required|string|max:255',
+            'type' => ['required', 'in:' . implode(',', Jardin::GARDEN_TYPES)], // Enum validation from array
             'surface' => 'required|numeric',
             'utilisateur_id' => 'required|exists:users,id',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -65,7 +79,7 @@ class JardinController extends Controller
         ]);
 
         // Redirect back to the index page with success message
-        return redirect()->route('jardins.index');
+        return redirect()->route('jardins.index')->with('success', 'Jardin created successfully.');
     }
 
     // Display the specified resource
@@ -80,7 +94,7 @@ class JardinController extends Controller
     {
         $conectedJardinier=2;
         // Return a view for editing the selected jardin
-        return view('Front.garden.edit', compact('jardin'),compact('conectedJardinier'));
+        return view('Front.garden.edit', compact('jardin','conectedJardinier'));
     }
 
     // Update the specified resource in storage

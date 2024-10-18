@@ -24,6 +24,15 @@ class Jardin extends Model
         'photo',
     ];
 
+    // Enum for garden types
+    const GARDEN_TYPES = [
+        'Vegetable',
+        'Fruit',
+        'Flower',
+        'Herb' ,
+        'Mixed'
+    ];
+
     // Define the relationship between Jardin and Utilisateur (one-to-many inverse)
 
     public function utilisateur()
