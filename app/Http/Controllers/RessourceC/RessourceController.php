@@ -83,15 +83,22 @@ class RessourceController extends Controller
             'type' => 'required|string',
             'disponibilité' => 'required|string',
             'description' => 'nullable|string',
-            'image' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,gif,svg|max:2048',
         ]);
+        $data = $request->all();
+
+        //image upload
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images', 'public');
+            $data['image'] = $imagePath; // Save the path in the database
+        }
 
 
 
 
 
 
-        $ressource->update($request->all());
+        $ressource->update($data);
 
         return redirect()->route('ressource.index')->with('success', 'Ressource updated successfully.');
     }
