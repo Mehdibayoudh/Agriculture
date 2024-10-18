@@ -85,9 +85,12 @@ class JardinController extends Controller
     // Display the specified resource
     public function show(Jardin $jardin)
     {
+        //$jardin->load('utilisateur'); // Eager load the utilisateur relationship
+
         // Return a view showing the details of a specific jardin
         return view('Front.garden.gardenDetails', compact('jardin'));
     }
+
 
     // Show the form for editing the specified resource
     public function edit(Jardin $jardin)

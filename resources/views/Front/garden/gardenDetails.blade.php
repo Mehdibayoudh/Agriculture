@@ -25,10 +25,14 @@
                         </div>
                     </div>
                     <div class="product_detail_text">
-                        <p>localisation : {{$jardin->localisation}}</p>
+                        <p><strong>localisation : </strong>  {{$jardin->localisation}}</p>
                     </div>
                     <div class="product_detail_text">
-                        <p>type : {{$jardin->type}}</p>
+                        <p><strong>type : </strong> {{$jardin->type}}</p>
+                    </div>
+                    <div class="product_detail_text">
+                        <p><strong>Jardinier : </strong> {{ $jardin->utilisateur->name }}</p> <!-- Display user name -->
+
                     </div>
                 </div>
             </div>

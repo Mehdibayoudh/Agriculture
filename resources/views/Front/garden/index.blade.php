@@ -96,9 +96,6 @@
                             @endif
                         @endforeach
                     </div><!-- /.row -->
-                    <div class="text-center">
-                        <a href="{{ route('jardins.create') }}" class="thm-btn products__load-more">add garden</a><!-- /.thm-btn -->
-                    </div><!-- /.text-center -->
                 </div><!-- /.col-sm-12 col-md-12 col-lg-9 -->
             </div><!-- /.row -->
         </div><!-- /.container -->
