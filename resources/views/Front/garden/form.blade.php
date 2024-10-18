@@ -18,8 +18,8 @@
                         @if(!$jardin->exists)
                         <div class="col-md-12">
                             <div class="mb-3">
-                                <label for="image" class="form-label">Image du poste</label>
-                                <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
+                                <label for="photo" class="form-label">Image du poste</label>
+                                <input type="file" class="form-control" id="photo" name="photo">
                             </div>
 
                         </div>
