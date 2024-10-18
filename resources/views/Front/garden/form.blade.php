@@ -15,15 +15,31 @@
 
                     <div class="row">
                         <!-- Image Upload Field -->
-                        @if(!$jardin->exists)
-                        <div class="col-md-12">
-                            <div class="mb-3">
-                                <label for="photo" class="form-label">Image du poste</label>
-                                <input type="file" class="form-control" id="photo" name="photo">
-                            </div>
 
-                        </div>
+                        @if(!$jardin->exists)
+                            <!-- If the garden is being created (new garden, no image yet) -->
+                            <div class="col-md-12">
+                                <div class="mb-3">
+                                    <label for="photo" class="form-label">Image du poste</label>
+                                    <input type="file" class="form-control" id="photo" name="photo">
+                                </div>
+                            </div>
+                        @else
+                            <!-- If the garden already exists (editing), show the current image and option to upload a new one -->
+                            <div class="col-md-12">
+                                <div class="mb-3">
+                                    <label for="photo" class="form-label">Image actuelle</label>
+                                    @if($jardin->photo)
+                                        <div class="current-image mb-3">
+                                            <img src="{{ asset('storage/' . $jardin->photo) }}" alt="Image de {{ $jardin->nom }}" style="max-width: 400px;">
+                                        </div>
+                                    @else
+                                        <p>Aucune image disponible.</p>
+                                    @endif
+                                </div>
+                            </div>
                         @endif
+
 
                         <!-- Garden Name -->
                         <div class="col-md-12">
