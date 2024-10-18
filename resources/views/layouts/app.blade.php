@@ -98,7 +98,7 @@
                     <a href="{{ url('/') }}">Gardens</a>
                     <ul>
                         <li><a href="{{ url('/jardins') }}">all gardens</a></li>
-                        <li><a href="{{ route('getJardinierGardens') }}">my gardens</a></li>
+                        <li><a href="{{ route('getJardinierGardens', ['etat' => 1]) }}">my gardens</a></li>
 
                     </ul>
                 </li>

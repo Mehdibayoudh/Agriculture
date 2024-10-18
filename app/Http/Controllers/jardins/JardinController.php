@@ -19,20 +19,29 @@ class JardinController extends Controller
     {
         // Fetch all jardins, optionally with relationships
         $jardins = Jardin::all();
-        $conectedJardinier=2;
 
         // Return a view with the jardins
-        return view('Front.garden.index', compact('jardins','conectedJardinier'));
+        return view('Front.garden.index', compact('jardins'));
     }
 
-    public function jardinierGardens()
+    public function jardinierGardens(Request $request)
     {
         $conectedJardinier = 2;
 
-        $jardins = Jardin::where('utilisateur_id', $conectedJardinier)->get();
+        // Get the filter for etat from the request, default is null (no filter)
+        $etat = $request->input('etat');
 
-        // Return a view with the jardins
-        return view('Front.garden.jardinierGardens', compact('jardins', 'conectedJardinier'));
+        // Query the gardens based on the 'etat' filter
+        $query = Jardin::where('utilisateur_id', $conectedJardinier);
+
+        if (!is_null($etat)) {
+            $query->where('etat', $etat); // Filter by etat if set
+        }
+
+        $jardins = $query->get();
+
+        // Return a view with the filtered gardens
+        return view('Front.garden.jardinierGardens', compact('jardins', 'conectedJardinier', 'etat'));
     }
 
 
@@ -79,7 +88,7 @@ class JardinController extends Controller
         ]);
 
         // Redirect back to the index page with success message
-        return redirect()->route('jardins.index')->with('success', 'Jardin created successfully.');
+        return redirect()->route('getJardinierGardens', ['etat' => 0])->with('success', 'Jardin created successfully.');
     }
 
     // Display the specified resource
@@ -112,20 +121,24 @@ class JardinController extends Controller
             'utilisateur_id' => 'required|exists:users,id',
         ]);
 
-        // Update the jardin with new data
-        $jardin->update($request->all());
+        // Update the jardin with new data except 'etat'
+        $data = $request->all();
+        $data['etat'] = 0;
+
+        $jardin->update($data);
 
         // Redirect back to the index page with success message
-        return redirect()->route('jardins.index')->with('success', 'Jardin updated successfully.');
+        return redirect()->route('getJardinierGardens', ['etat' => 0])->with('success', 'Jardin updated successfully, and is now pending approval.');
     }
 
     // Remove the specified resource from storage
     public function destroy(Jardin $jardin)
     {
         // Delete the selected jardin
+        $etat = $jardin->etat;
         $jardin->delete();
 
         // Redirect back to the index page with success message
-        return redirect()->route('jardins.index')->with('success', 'Jardin deleted successfully.');
+        return redirect()->route('getJardinierGardens', ['etat' => $etat])->with('success', 'Jardin deleted successfully.');
     }
 }

@@ -15,7 +15,17 @@
             <div class="page-header__bg" style="background-image: url(assets/images/backgrounds/page-header-bg-1-1.jpg);"></div>
             <!-- /.page-header__bg -->
             <div class="container">
-                <h2>My Gardens</h2>
+                <h2>
+                    My
+                    @if($etat == 1)
+                        Active
+                    @elseif($etat == 0)
+                        Pending
+                    @else
+                        Inactive
+                    @endif
+                    Gardens
+                </h2>
                 <ul class="thm-breadcrumb list-unstyled">
                     <li><a href="{{ url('/') }}">Home</a></li>
                     <li>/</li>
@@ -40,12 +50,33 @@
                             <div class="product-sidebar__single">
                                 <h3>Categories</h3>
                                 <ul class="list-unstyled product-sidebar__links">
-                                    <li><a href="#">Vegetables <i class="fa fa-angle-right"></i></a></li>
-                                    <li><a href="#">Fresh Fruits <i class="fa fa-angle-right"></i></a></li>
-                                    <li><a href="#">Dairy Products <i class="fa fa-angle-right"></i></a></li>
-                                    <li><a href="#">Tomatos <i class="fa fa-angle-right"></i></a></li>
-                                    <li><a href="#">Oranges <i class="fa fa-angle-right"></i></a></li>
+                                    <!-- Filter for Active Gardens (etat = 1) -->
+                                   @if($etat != 1)
+                                    <li>
+                                        <a href="{{ route('getJardinierGardens', ['etat' => 1]) }}" class="{{ $etat == 1 ? 'active' : '' }}">
+                                            Active Gardens <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </li>
+                                    @endif
+                                    <!-- Filter for Pending Gardens (etat = 0) -->
+                                    @if($etat != 0)
+                                    <li>
+                                        <a href="{{ route('getJardinierGardens', ['etat' => 0]) }}" class="{{ $etat == 0 ? 'active' : '' }}">
+                                            Pending Gardens <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </li>
+                                    @endif
+                                    @if($etat != -1)
+                                    <!-- Filter for Inactive Gardens (etat = -1) -->
+                                    <li>
+                                        <a href="{{ route('getJardinierGardens', ['etat' => -1]) }}" class="{{ $etat == -1 ? 'active' : '' }}">
+                                            Inactive Gardens <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </li>
+                                    @endif
+
                                 </ul><!-- /.list-unstyled product-sidebar__links -->
+
                             </div><!-- /.product-sidebar__single -->
                         </div><!-- /.product-sidebar -->
                     </div><!-- /.col-sm-12 col-md-12 col-lg-3 -->
@@ -63,7 +94,7 @@
                         </div><!-- /.product-sorter -->
                         <div class="row">
                             @foreach($jardins as $jardin)
-                                @if($jardin->etat == 1)
+
                                     <div class="col-md-6 col-lg-4">
                                         <div class="product-card">
                                             <div class="product-card__image">
@@ -78,7 +109,11 @@
                                                 <div class="product-card__image-content">
                                                     @if($jardin->utilisateur_id==$conectedJardinier)
                                                         <div class="product-card__image-content">
+
+                                                            @if($etat != 0)
                                                             <a style="background:#9f9f00;margin-right: 10px" href="{{ route('jardins.edit', $jardin->id) }}"><i class="fa fa-edit"></i></a>
+                                                            @endif
+
                                                             <form action="{{ route('jardins.destroy', $jardin->id) }}" method="POST" style="display:inline;">
                                                                 @csrf
                                                                 @method('DELETE')
@@ -111,7 +146,6 @@
                                             </div><!-- /.product-card__content -->
                                         </div><!-- /.product-card -->
                                     </div><!-- /.col-md-6 col-lg-4 -->
-                                @endif
                             @endforeach
                         </div><!-- /.row -->
                         <div class="text-center">
