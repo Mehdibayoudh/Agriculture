@@ -76,22 +76,16 @@
                             </select>
                         </div><!-- /.product-sorter__select -->
                     </div><!-- /.product-sorter -->
+
                     <div class="row">
+                        @foreach($events as $event)
+
                         <div class="col-md-6 col-lg-4">
+
                             <div class="product-card">
-                                @foreach($events as $event)
                                 <div class="product-card__image">
                                     <img src="assets/images/products/product-1-1.jpg" alt="">
-                                    <div class="product-card__image-content">
-                                        <a  href="{{ route('event.edit', $event->id) }}"><i class="organik-icon-boiled"></i></a>
-                                        <form action="{{ route('event.destroy', $event->id) }}" method="POST" style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" style="border:none; background:none;"><i class="organik-icon-shopping-cart"></i></button>
 
-                                        </form>
-
-                                    </div><!-- /.product-card__image-content -->
                                 </div><!-- /.product-card__image -->
 
                                     <div class="col-md-4">
@@ -113,14 +107,12 @@
                                             </div><!-- /.product-card__right -->
                                         </div><!-- /.product-card__content -->
                                     </div>
-                                @endforeach
                             </div><!-- /.product-card -->
                         </div><!-- /.col-md-6 col-lg-4 -->
+                        @endforeach
 
                     </div><!-- /.row -->
-                    <div class="text-center">
-                        <a href="{{ route('event.create') }}" class="thm-btn products__load-more">Add Event</a>
-                    </div>
+
 
                 </div><!-- /.col-sm-12 col-md-12 col-lg-9 -->
             </div><!-- /.row -->

@@ -1,12 +1,13 @@
 <?php
 
+use App\Http\Controllers\EventC\EventAdminController;
+use App\Http\Controllers\EventC\EventController;
 use App\Http\Controllers\JardinController;
-use App\Http\Controllers\EventController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\RessourceController;
 use App\Http\Controllers\PlanteController;
 use App\Http\Controllers\BlogController;
 
+use App\Http\Controllers\RessourceController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,16 +26,19 @@ Route::get('/', function () {
 Route::get('/front', function () {
     return view('Front.index-2');
 });
+ Route::get('/admin', function () {
+    return view('Back.home');
+});
 
 Route::resource('ressource', RessourceController::class);
 
 Route::resource('jardins', JardinController::class);
 Route::resource('event', EventController::class);
+Route::resource('eventadmin', EventAdminController::class);
+Route::get('plantes', [PlanteController::class, 'index']);
 Route::resource('plante', PlanteController::class);
-Route::get('/event', [EventController::class, 'index'])->name('Front.Event.index');
-Route::post('/event', [EventController::class, 'store'])->name('Front.Event.store');
-Route::put('/event/{id}', [EventController::class, 'update'])->name('events.update');
 
 Route::resource('blogs', BlogController::class);
 
 
+Route::get('admin/blogs', [BlogController::class, 'indexA'])->name('admin.blogs.index');

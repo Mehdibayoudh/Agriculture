@@ -13,6 +13,7 @@ class Blog extends Model
         'titre',
         'image',
         'content',
+        'date',
         'utilisateur_id'
 
     ];

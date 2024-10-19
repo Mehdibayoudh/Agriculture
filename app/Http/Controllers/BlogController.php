@@ -15,6 +15,11 @@ class BlogController extends Controller
         $blogs = Blog::all();
         return view('Front.Blog.index', compact('blogs'));
     }
+    public function indexA()
+    {
+        $blogs = Blog::all();
+        return view('Back.Blog.index', compact('blogs'));
+    }
 
     /**
      * Show the form for creating a new blog.
@@ -39,6 +44,7 @@ class BlogController extends Controller
         $blog->titre = $request->input('titre');
         $blog->content = $request->input('content');
         $blog->utilisateur_id = 1;
+        $blog->date = now(); // Store the current date and time in the 'date' field
 
         // Handle file upload
         if ($request->hasFile('image')) {
@@ -49,6 +55,7 @@ class BlogController extends Controller
 
         return redirect()->route('blogs.index')->with('success', 'Blog created successfully.');
     }
+
 
 
 
