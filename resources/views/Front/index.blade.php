@@ -89,20 +89,11 @@
                     </div><!-- /.main-menu__login -->
                     <ul class="main-menu__list">
                         <li class="dropdown">
-                            <a href="index.html">Home</a>
-                            <ul>
-                                <li>
-                                    <a href="index.html">Home One</a>
-                                </li>
-                                <li><a href="index-2.html">Home Two</a></li>
-                                <li class="dropdown">
-                                    <a href="#">Header Styles</a>
-                                    <ul>
-                                        <li><a href="index.html">Header One</a></li>
-                                        <li><a href="index-2.html">Header Two</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <a href="{{ url('/') }}">Home</a>
+
+                        </li>
+                        <li>
+                            <a href="{{ url('/jardins') }}">Gardens</a>
                         </li>
                         <li>
                             <a href="about.html">About</a>

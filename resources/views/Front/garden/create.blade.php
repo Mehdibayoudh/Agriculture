@@ -8,13 +8,13 @@
             <div class="container">
                 <h2>Jardin</h2>
                 <ul class="thm-breadcrumb list-unstyled">
-                    <li><a href="{{ url('/') }}">Home</a></li>
+                    <li><a href="{{ url('/jardins') }}">Home</a></li>
                     <li>/</li>
-                    <li><span>Create New Event</span></li>
+                    <li><span>Create New Garden</span></li>
                 </ul><!-- /.thm-breadcrumb list-unstyled -->
             </div><!-- /.container -->
         </section><!-- /.page-header -->
 
-        @include('Front.garden.form', ['jardin' => new \App\Models\Jardin, 'route' => route('jardins.store')])
+        @include('Front.garden.form', ['jardin' => new \App\Models\Jardin,'user'=>$conectedJardinier, 'route' => route('jardins.store')])
     </div>
 @endsection

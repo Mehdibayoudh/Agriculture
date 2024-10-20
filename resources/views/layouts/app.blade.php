@@ -94,6 +94,14 @@
                         </li>
                     </ul>
                 </li>
+                <li class="dropdown">
+                    <a href="{{ url('/') }}">Gardens</a>
+                    <ul>
+                        <li><a href="{{ url('/jardins') }}">all gardens</a></li>
+                        <li><a href="{{ route('getJardinierGardens', ['etat' => 1]) }}">my gardens</a></li>
+
+                    </ul>
+                </li>
                 <li><a href="{{ url('/about') }}">About</a></li>
                 <li class="dropdown">
                     <a href="{{ url('/products') }}">Shop</a>
@@ -137,7 +145,7 @@
         <div class="row">
             <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
                 <div class="footer-widget footer-widget__about-widget">
-                    <a href="{{ url('index.html') }}" class="footer-widget__logo">
+                    <a href="{{ url('index.blade.php') }}" class="footer-widget__logo">
                         <img src="{{ asset('assets/images/logo-light.png') }}" alt="" width="105" height="43">
                     </a>
                     <p class="thm-text-dark">Atiam rhoncus sit amet adip
@@ -171,7 +179,7 @@
                     <h3 class="footer-widget__title">Links</h3><!-- /.footer-widget__title -->
                     <ul class="list-unstyled footer-widget__links">
                         <li>
-                            <a href="{{ url('index.html') }}">Top Sellers</a>
+                            <a href="{{ url('index.blade.php') }}">Top Sellers</a>
                         </li>
                         <li>
                             <a href="{{ url('products.html') }}">Shopping</a>
