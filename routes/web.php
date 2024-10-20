@@ -1,8 +1,14 @@
 <?php
 
+
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\jardins\JardinController;
 use App\Http\Controllers\jardins\backJardinController;
+
+use App\Http\Controllers\EventC\EventAdminController;
+use App\Http\Controllers\EventC\EventController;
+use App\Http\Controllers\JardinController;
+
 use App\Http\Controllers\PlanteController;
 use App\Http\Controllers\RessourceController;
 use Illuminate\Support\Facades\Route;
@@ -38,7 +44,6 @@ Route::patch('jardinBack/{id}/decline', [backJardinController::class, 'decline']
 //JARDINS
 
 Route::resource('event', EventController::class);
+Route::resource('eventadmin', EventAdminController::class);
 Route::get('plantes', [PlanteController::class, 'index']);
-Route::get('/event', [EventController::class, 'index'])->name('Front.Event.index');
-Route::post('/event', [EventController::class, 'store'])->name('Front.Event.store');
-Route::put('/event/{id}', [EventController::class, 'update'])->name('events.update');
+Route::resource('plante', PlanteController::class);

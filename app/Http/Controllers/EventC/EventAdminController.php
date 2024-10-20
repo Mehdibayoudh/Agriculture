@@ -1,19 +1,22 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\EventC;
 
+use App\Http\Controllers\Controller;
 use App\Models\Event;
 use Illuminate\Http\Request;
 
-class EventController extends Controller
+class EventAdminController extends Controller
 {
     /**
-     * Display a listing of the events.
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
         $events = Event::all();
-        return view('Front.Event.index', compact('events'));
+        return view('Back.Event.index', compact('events'));
     }
 
     /**
@@ -21,7 +24,7 @@ class EventController extends Controller
      */
     public function create()
     {
-        return view('Front.Event.create');
+        return view('Back.Event.create');
     }
 
     /**
@@ -42,7 +45,7 @@ class EventController extends Controller
         Event::create($validatedData);
 
         // Redirect back with success message
-        return redirect()->route('Front.Event.index');
+        return redirect()->route('eventadmin.index');
     }
 
 
@@ -57,15 +60,17 @@ class EventController extends Controller
     /**
      * Show the form for editing the specified event.
      */
-    public function edit(Event $event)
+    public function edit($id)
     {
-        return view('Front.Event.edit', compact('event'));
+        $event = Event::findOrFail($id);
+        return view('Back.Event.edit', compact('event'));
     }
+
 
     /**
      * Update the specified event in the database.
      */
-    public function update(Request $request, Event $event)
+    public function update(Request $request, $event)
     {
         $request->validate([
             'titre' => 'required|string|max:255',
@@ -73,17 +78,21 @@ class EventController extends Controller
             'date' => 'required|date',
             'localisation' => 'required|string|max:255',
         ]);
-        $event->update($request->all());
+        $events = Event::findOrFail($event);
 
-        return redirect()->route('Front.Event.index');
+        $events->update($request->all());
+
+        return redirect()->route('eventadmin.index');
     }
 
     /**
      * Remove the specified event from the database.
      */
-    public function destroy(Event $event)
+    public function destroy($id)
     {
+        $event = Event::findOrFail($id);
+
         $event->delete();
 
-        return redirect()->route('Front.Event.index');
+        return redirect()->route('eventadmin.index');
     }}
