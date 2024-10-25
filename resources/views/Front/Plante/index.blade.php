@@ -15,11 +15,11 @@
         <div class="page-header__bg" style="background-image: url(assets/images/backgrounds/page-header-bg-1-1.jpg);"></div>
         <!-- /.page-header__bg -->
         <div class="container">
-            <h2>Products</h2>
+            <h2>Plantes</h2>
             <ul class="thm-breadcrumb list-unstyled">
                 <li><a href="index.html">Home</a></li>
                 <li>/</li>
-                <li><span>Products</span></li>
+                <li><span>Plantes</span></li>
             </ul><!-- /.thm-breadcrumb list-unstyled -->
         </div><!-- /.container -->
     </section><!-- /.page-header -->
@@ -35,8 +35,8 @@
                                 <input type="text" placeholder="Search">
                                 <button class="organik-icon-magnifying-glass" type="submit"></button>
                             </form>
-                        </div><!-- /.product-sidebar__single -->
-                        <div class="product-sidebar__single">
+                        </div>
+                        <!-- <div class="product-sidebar__single">
                             <h3>Price</h3>
                             <div class="product-sidebar__price-range">
                                 <div class="range-slider-price" id="range-slider-price"></div>
@@ -45,21 +45,21 @@
                                         <p>$<span id="min-value-rangeslider"></span></p>
                                         <span>-</span>
                                         <p>$<span id="max-value-rangeslider"></span></p>
-                                    </div><!-- /.left -->
+                                    </div>
                                     <div class="right">
                                         <input type="submit" class="thm-btn" value="Filter">
-                                    </div><!-- /.right -->
+                                    </div>
                                 </div>
-                            </div><!-- /.product-sidebar__price-range -->
-                        </div><!-- /.product-sidebar__single -->
+                            </div>
+                        </div> -->
                         <div class="product-sidebar__single">
                             <h3>Categories</h3>
                             <ul class="list-unstyled product-sidebar__links">
-                                <li><a href="#">Vegetables <i class="fa fa-angle-right"></i></a></li>
-                                <li><a href="#">Fresh Fruits <i class="fa fa-angle-right"></i></a></li>
-                                <li><a href="#">Dairy Products <i class="fa fa-angle-right"></i></a></li>
-                                <li><a href="#">Tomatos <i class="fa fa-angle-right"></i></a></li>
-                                <li><a href="#">Oranges <i class="fa fa-angle-right"></i></a></li>
+                                <li><a href="#">Tree <i class="fa fa-angle-right"></i></a></li>
+                                <li><a href="#">Flower <i class="fa fa-angle-right"></i></a></li>
+                                <li><a href="#">Cactus <i class="fa fa-angle-right"></i></a></li>
+                                <li><a href="#">Herb <i class="fa fa-angle-right"></i></a></li>
+                                <li><a href="#">Grass <i class="fa fa-angle-right"></i></a></li>
                             </ul><!-- /.list-unstyled product-sidebar__links -->
                         </div><!-- /.product-sidebar__single -->
                     </div><!-- /.product-sidebar -->
@@ -77,9 +77,10 @@
                         </div><!-- /.product-sorter__select -->
                     </div><!-- /.product-sorter -->
                     <div class="row">
+                    @foreach($plantes as $plante)
                         <div class="col-md-6 col-lg-4">
                             <div class="product-card">
-                                @foreach($plantes as $plante)
+                                
                                 <div class="product-card__image">
                                     <img src="assets/images/products/product-1-1.jpg" alt="">
                                     <div class="product-card__image-content">
@@ -87,7 +88,7 @@
                                         <form action="{{ route('plante.destroy', $plante->id) }}" method="POST" style="display:inline;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" style="border:none; background:none;"><i class="organik-icon-shopping-cart"></i></button>
+                                            <button type="submit" style="border:none; background:none;"><i class="organik-icon-close"></i></button>
 
                                         </form>
 
@@ -97,14 +98,15 @@
                                     <div class="col-md-4">
                                         <div class="product-card__content">
                                             <div class="product-card__left">
-                                                <h3><a href="plante-details/{{ $plante->id }}">{{ $plante->nom }}</a></h3>
+                                                <h4><a href="{{ route('plante.edit', $plante->id) }}">{{ ucfirst($plante->nom)  }}</a></h4>
+                                                <h4>{{ $plante->type }}</h4>
                                             </div><!-- /.product-card__left -->
                                         </div><!-- /.product-card__content -->
                                     </div>
-                                @endforeach
+                                
                             </div><!-- /.product-card -->
                         </div><!-- /.col-md-6 col-lg-4 -->
-
+                    @endforeach
                     </div><!-- /.row -->
                     <div class="text-center">
                         <a href="{{ route('plante.create') }}" class="thm-btn products__load-more">Add Plante</a>
