@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Plante;
+use App\Models\Jardin;
 use Illuminate\Http\Request;
 
 class PlanteController extends Controller
@@ -15,7 +16,7 @@ class PlanteController extends Controller
     public function index()
     {
         $plantes = Plante::all(); // Retrieve all Plante records
-        return view('Front.jardin.index', compact('plantes')); // Return to the index view
+        return view('Front.plante.index', compact('plantes')); // Return to the index view
     }
 
     /**
@@ -25,7 +26,8 @@ class PlanteController extends Controller
      */
     public function create()
     {
-        return view('plantes.create'); // Return the form view for creating a new plante
+        $jardins = Jardin::all(); // Fetch all jardins
+        return view('Front.plante.create', compact('jardins')); // Return the form view for creating a new plante
     }
 
     /**
@@ -44,7 +46,7 @@ class PlanteController extends Controller
         ]);
 
         Plante::create($request->all()); // Create a new Plante instance
-        return redirect()->route('plantes.index')->with('success', 'Plante created successfully.'); // Redirect with a success message
+        return redirect()->route('plante.index')->with('success', 'Plante created successfully.'); // Redirect with a success message
     }
 
     /**
@@ -55,7 +57,7 @@ class PlanteController extends Controller
      */
     public function show(Plante $plante)
     {
-        return view('plantes.show', compact('plante')); // Return the show view for a specific plante
+        return view('Front.plante.show', compact('plante')); // Return the show view for a specific plante
     }
 
     /**
@@ -66,7 +68,8 @@ class PlanteController extends Controller
      */
     public function edit(Plante $plante)
     {
-        return view('plantes.edit', compact('plante')); // Return the form view for editing a specific plante
+        $jardins = Jardin::all(); // Fetch all jardins
+        return view('Front.plante.edit', compact(['plante', 'jardins'])); // Return the form view for editing a specific plante
     }
 
     /**
@@ -86,7 +89,7 @@ class PlanteController extends Controller
         ]);
 
         $plante->update($request->all()); // Update the Plante instance
-        return redirect()->route('plantes.index')->with('success', 'Plante updated successfully.'); // Redirect with a success message
+        return redirect()->route('plante.index')->with('success', 'Plante updated successfully.'); // Redirect with a success message
     }
 
     /**
@@ -98,6 +101,6 @@ class PlanteController extends Controller
     public function destroy(Plante $plante)
     {
         $plante->delete(); // Delete the Plante instance
-        return redirect()->route('plantes.index')->with('success', 'Plante deleted successfully.'); // Redirect with a success message
+        return redirect()->route('plante.index')->with('success', 'Plante deleted successfully.'); // Redirect with a success message
     }
 }

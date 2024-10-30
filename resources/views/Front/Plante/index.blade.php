@@ -66,7 +66,7 @@
                 </div><!-- /.col-sm-12 col-md-12 col-lg-3 -->
                 <div class="col-sm-12 col-md-12 col-lg-9">
                     <div class="product-sorter">
-                        <p>Showing 1–9 of 12 results</p>
+                        <p>Showing {{count($plantes)}} results</p>
                         <div class="product-sorter__select">
                             <select class="selectpicker">
                                 <option value="#">Sort by popular</option>
@@ -76,43 +76,39 @@
                             </select>
                         </div><!-- /.product-sorter__select -->
                     </div><!-- /.product-sorter -->
-
                     <div class="row">
-                        @foreach($events as $event)
-
                         <div class="col-md-6 col-lg-4">
-
                             <div class="product-card">
+                                @foreach($plantes as $plante)
                                 <div class="product-card__image">
                                     <img src="assets/images/products/product-1-1.jpg" alt="">
+                                    <div class="product-card__image-content">
+                                        <a  href="{{ route('plante.edit', $plante->id) }}"><i class="organik-icon-boiled"></i></a>
+                                        <form action="{{ route('plante.destroy', $plante->id) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" style="border:none; background:none;"><i class="organik-icon-shopping-cart"></i></button>
 
+                                        </form>
+
+                                    </div><!-- /.product-card__image-content -->
                                 </div><!-- /.product-card__image -->
 
                                     <div class="col-md-4">
                                         <div class="product-card__content">
                                             <div class="product-card__left">
-                                                <!-- Display event title -->
-                                                <h3><a href="event-details/{{ $event->id }}">{{ $event->titre }}</a></h3>
-                                                <!-- Display event date -->
-                                                 <!-- Display event location -->
-                                                <p>{{ $event->localisation }}</p>
+                                                <h3><a href="plante-details/{{ $plante->id }}">{{ $plante->nom }}</a></h3>
                                             </div><!-- /.product-card__left -->
-                                            <div class="product-card__right">
-                                                <!-- Static star rating (you can make this dynamic if you want to show actual ratings) -->
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div><!-- /.product-card__right -->
                                         </div><!-- /.product-card__content -->
                                     </div>
+                                @endforeach
                             </div><!-- /.product-card -->
                         </div><!-- /.col-md-6 col-lg-4 -->
-                        @endforeach
 
                     </div><!-- /.row -->
-
+                    <div class="text-center">
+                        <a href="{{ route('plante.create') }}" class="thm-btn products__load-more">Add Plante</a>
+                    </div>
 
                 </div><!-- /.col-sm-12 col-md-12 col-lg-9 -->
             </div><!-- /.row -->
