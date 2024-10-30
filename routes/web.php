@@ -32,9 +32,12 @@ Route::resource('ressource', RessourceController::class);
 Route::resource('jardins', JardinController::class);
 Route::get('/jardinier-gardens', [JardinController::class, 'jardinierGardens'])->name('getJardinierGardens');
 
-Route::resource('jardinBack', backJardinController::class);
+    Route::resource('jardinBack', backJardinController::class);
 Route::patch('jardinBack/{id}/accept', [backJardinController::class, 'accept'])->name('jardinBack.accept');
 Route::patch('jardinBack/{id}/decline', [backJardinController::class, 'decline'])->name('jardinBack.decline');
+Route::post('/generate-description', [JardinController::class, 'generateDescription'])->name('generate.description');
+Route::post('jardins/review', [JardinController::class, 'storeReview'])->name('reviews.store');
+
 //JARDINS
 
 Route::resource('event', EventController::class);

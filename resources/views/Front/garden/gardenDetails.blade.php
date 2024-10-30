@@ -81,80 +81,77 @@
                                 <div class="row">
                                     <div class="col-xl-12">
                                         <div class="product_reviews_box">
-                                            <h3 class="product_reviews_title">2 Product reviews</h3>
+                                            <h3 class="product_reviews_title"> {{sizeof($jardin->reviews)}} Gardens reviews</h3>
+                                            @foreach($jardin->reviews as $review)
                                             <div class="product_reviews_single">
                                                 <div class="product_reviews_image">
                                                     <img src="assets/images/products/review-1.jpg" alt="">
                                                 </div>
                                                 <div class="product_reviews_content">
-                                                    <h3>Kevin Martins<span>15 Nov, 2019</span></h3>
+                                                    <h3>{{$review->user->name}}<span>{{$review->created_at}}</span></h3>
                                                     <p>Lorem ipsum is simply free text used by copytyping refreshing.
-                                                        Neque porro est qui dolorem ipsum quia quaed inventore veritatis
-                                                        et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                                                        Neque porro est qui.</p>
                                                     <div class="product_reviews_rating product_detail_review">
-                                                        <a href="#"><i class="fa fa-star"></i></a>
-                                                        <a href="#"><i class="fa fa-star"></i></a>
-                                                        <a href="#"><i class="fa fa-star"></i></a>
-                                                        <a href="#"><i class="fa fa-star"></i></a>
-                                                        <a href="#" class="deactive"><i class="fa fa-star"></i></a>
+                                                        @for ($i = 1; $i <= 5; $i++)
+                                                            <a class=" @if($review->rating < $i) deactive @endif" href="#">
+                                                                <i class="fa fa-star"></i>
+                                                            </a>
+                                                        @endfor
                                                     </div>
+
                                                 </div>
                                             </div>
-                                            <div class="product_reviews_single">
-                                                <div class="product_reviews_image">
-                                                    <img src="assets/images/products/review-2.jpg" alt="">
-                                                </div>
-                                                <div class="product_reviews_content">
-                                                    <h3>Kevin Martins<span>15 Nov, 2019</span></h3>
-                                                    <p>Lorem ipsum is simply free text used by copytyping refreshing.
-                                                        Neque porro est qui dolorem ipsum quia quaed inventore veritatis
-                                                        et quasi architecto beatae vitae dicta sunt explicabo.</p>
-                                                    <div class="product_reviews_rating product_detail_review">
-                                                        <a href="#"><i class="fa fa-star"></i></a>
-                                                        <a href="#"><i class="fa fa-star"></i></a>
-                                                        <a href="#"><i class="fa fa-star"></i></a>
-                                                        <a href="#"><i class="fa fa-star"></i></a>
-                                                        <a href="#" class="deactive"><i class="fa fa-star"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            @endforeach
                                         </div>
                                     </div>
                                     <div class="col-xl-12">
                                         <div class="add_review_box">
                                             <h3 class="add_review_title">Add a review</h3>
-                                            <div class="add_review_rating">
-                                                <span>Rate this Product?</span>
-                                                <a href="#"><i class="fa fa-star"></i></a>
-                                                <a href="#"><i class="fa fa-star"></i></a>
-                                                <a href="#"><i class="fa fa-star"></i></a>
-                                                <a href="#"><i class="fa fa-star"></i></a>
-                                                <a href="#" class="deactive"><i class="fa fa-star"></i></a>
-                                            </div>
-                                            <form class="add_review_form" action="#">
+
+                                            <form class="add_review_form" action="{{ route('reviews.store') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="jardin_id" value="{{ $jardin->id }}">
+
+                                                <!-- Rating Input -->
+                                                <div class="add_review_rating">
+                                                    <span>Rate this Garden</span>
+                                                    <br>
+                                                    <label>
+                                                        <a href="#"><i class="fa fa-star">1</i></a>
+                                                        <input type="radio" name="rating" value="1" required>
+                                                    </label><br>
+                                                    <label>
+                                                        <a href="#"><i class="fa fa-star">2</i></a>
+
+                                                        <input type="radio" name="rating" value="2">
+                                                    </label><br>
+                                                    <label>
+                                                        <a href="#"><i class="fa fa-star">3</i></a>
+                                                        <input type="radio" name="rating" value="3">
+                                                    </label><br>
+                                                    <label>
+                                                        <a href="#"><i class="fa fa-star">4</i></a>
+
+                                                        <input type="radio" name="rating" value="4">
+                                                    </label><br>
+                                                    <label>
+                                                        <a href="#"><i class="fa fa-star">5</i></a>
+
+                                                        <input type="radio" name="rating" value="5">
+                                                    </label><br>
+                                                </div>
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="input-box">
-                                                            <textarea name="review" placeholder="Write review" required=""></textarea>
+                                                            <textarea name="comment" placeholder="Write review" required></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="input-box">
-                                                            <input type="text" name="name" placeholder="Full name" required="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="input-box">
-                                                            <input type="email" name="email" placeholder="Email address" required="">
-                                                        </div>
-                                                    </div>
-                                                </div>
+
                                                 <div class="row">
                                                     <div class="col-xl-12">
                                                         <div class="review_submit_btn">
-                                                            <a href="#" class="thm-btn">Submit Review</a>
+                                                            <button type="submit" class="thm-btn">Submit Review</button>
                                                         </div>
                                                     </div>
                                                 </div>

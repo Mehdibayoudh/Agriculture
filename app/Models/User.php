@@ -32,6 +32,13 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+    // app/Models/User.php
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
 
     /**
      * The attributes that should be cast.

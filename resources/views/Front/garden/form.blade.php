@@ -21,7 +21,7 @@
                             <div class="col-md-12">
                                 <div class="mb-3">
                                     <label for="photo" class="form-label">Image du jardin</label>
-                                    <input type="file" class="form-control" id="photo" name="photo">
+                                    <input type="file" class="form-control" id="photo" name="photo" onchange="uploadImage(event)">
                                 </div>
                             </div>
                         @else
@@ -98,5 +98,35 @@
         </div><!-- /.row -->
     </div><!-- /.container -->
 </section><!-- /.checkout-page -->
+
+
+<script>
+    async function uploadImage(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const formData = new FormData();
+            formData.append('image', file);
+
+            try {
+                const response = await fetch("{{ route('generate.description') }}", {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    },
+                    body: formData,
+                });
+
+                const data = await response.json();
+                if (data.description) {
+                    document.getElementById('description').value = data.description;
+                } else {
+                    console.error('No description returned');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+    }
+</script>
 </body>
 </html>

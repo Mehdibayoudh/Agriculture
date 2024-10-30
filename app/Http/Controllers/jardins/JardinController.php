@@ -4,6 +4,7 @@ namespace App\Http\Controllers\jardins;
 
 use App\Http\Controllers\Controller;
 use App\Models\Jardin;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -23,6 +24,73 @@ class JardinController extends Controller
         // Return a view with the jardins
         return view('Front.garden.index', compact('jardins'));
     }
+
+
+    public function storeReview(Request $request)
+    {
+
+        $request->validate([
+            'jardin_id' => 'required|exists:jardins,id',
+            'comment' => 'required|string|max:500',
+        ]);
+
+        $jardinId = $request->input('jardin_id');
+        $userId = 1;
+
+        // Check if the user has already reviewed this garden
+        $existingReview = Review::where('jardin_id', $jardinId)
+            ->where('user_id', $userId)
+            ->first();
+
+        if ($existingReview) {
+            return redirect()->back()->with('error', 'You have already reviewed this garden.');
+        }
+
+        // Create a new review
+        Review::create([
+            'jardin_id' => $jardinId,
+            'user_id' => $userId,
+            'comment' => $request->input('comment'),
+            'rating' => $request->input('rating') ?? 5, // Default rating if not selected
+        ]);
+
+        return redirect()->back()->with('success', 'Your review has been submitted.');
+    }
+
+
+    public function generateDescription(Request $request)
+    {
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $formData = [
+                'image' => fopen($image->getPathname(), 'r'), // Open file for transfer
+            ];
+
+            try {
+                $client = new \GuzzleHttp\Client();
+                $response = $client->post('http://your-django-server-url/generate-event-description/', [
+                    'headers' => [
+                        'X-CSRFToken' => csrf_token(),
+                    ],
+                    'multipart' => [
+                        [
+                            'name' => 'image',
+                            'contents' => $formData['image'],
+                            'filename' => $image->getClientOriginalName(),
+                        ],
+                    ],
+                ]);
+
+                $data = json_decode($response->getBody()->getContents(), true);
+                return response()->json(['description' => $data['description'] ?? '']);
+            } catch (\Exception $e) {
+                return response()->json(['error' => 'Failed to fetch description.'], 500);
+            }
+        }
+
+        return response()->json(['error' => 'No image uploaded.'], 400);
+    }
+
 
     public function jardinierGardens(Request $request)
     {
@@ -74,7 +142,6 @@ class JardinController extends Controller
         if ($request->hasFile('photo')) {
             $imagePath = $request->file('photo')->store('jardin', 'public');
             //log::info('Image uploaded to: ' . $imagePath);
-
         }
 
         // Create a new jardin with image path

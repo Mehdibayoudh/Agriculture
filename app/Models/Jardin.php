@@ -33,6 +33,13 @@ class Jardin extends Model
         'Mixed'
     ];
 
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
+
     // Define the relationship between Jardin and Utilisateur (one-to-many inverse)
 
     public function utilisateur()
