@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Jardin;
 use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 
@@ -57,38 +58,28 @@ class JardinController extends Controller
         return redirect()->back()->with('success', 'Your review has been submitted.');
     }
 
-
-    public function generateDescription(Request $request)
+    public function generateCaption(Request $request)
     {
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $formData = [
-                'image' => fopen($image->getPathname(), 'r'), // Open file for transfer
-            ];
+        // Validate the incoming request
+        $request->validate([
+            'image' => 'required|file|image|max:10240', // Image validation
+        ]);
 
-            try {
-                $client = new \GuzzleHttp\Client();
-                $response = $client->post('http://your-django-server-url/generate-event-description/', [
-                    'headers' => [
-                        'X-CSRFToken' => csrf_token(),
-                    ],
-                    'multipart' => [
-                        [
-                            'name' => 'image',
-                            'contents' => $formData['image'],
-                            'filename' => $image->getClientOriginalName(),
-                        ],
-                    ],
-                ]);
+        // Store the uploaded image temporarily
+        $imagePath = $request->file('image')->store('temp_images', 'public');
+        $imageUrl = asset('storage/' . $imagePath); // Generate accessible URL
 
-                $data = json_decode($response->getBody()->getContents(), true);
-                return response()->json(['description' => $data['description'] ?? '']);
-            } catch (\Exception $e) {
-                return response()->json(['error' => 'Failed to fetch description.'], 500);
-            }
+        print($imageUrl);
+        // Send the image URL to the FastAPI endpoint
+        $response = Http::post('http://127.0.0.1:8080/caption', [
+            'image_url' => $imageUrl,
+        ]);
+
+        if ($response->failed()) {
+            return response()->json(['error' => 'Could not generate caption'], 500);
         }
 
-        return response()->json(['error' => 'No image uploaded.'], 400);
+        return response()->json(['description' => "asba"]);
     }
 
 

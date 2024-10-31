@@ -49,6 +49,15 @@
                             @enderror
                         </div>
 
+                        <!-- Garden Desc -->
+                        <div class="col-md-12">
+                            <input type="text" id="description" name="description" placeholder="Garden description" value="{{ old('description', $jardin->description) }}" required>
+                            @error('description')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+
                         <!-- Garden Location -->
                         <div class="col-md-12">
                             <input type="text" name="localisation" placeholder="Garden Location" value="{{ old('localisation', $jardin->localisation) }}" required>
