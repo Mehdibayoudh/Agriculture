@@ -94,7 +94,7 @@
                         </li>
                     </ul>
                 </li>
-                <li><a href="{{ url('/about') }}">About</a></li>
+                <li><a href="{{ url('/event') }}">Events</a></li>
                 <li class="dropdown">
                     <a href="{{ url('/products') }}">Shop</a>
                     <ul>
@@ -126,9 +126,7 @@
     <!-- /.main-menu -->
 </header><!-- /.main-header -->
 
-<div class="container">
-    @yield('content') <!-- Content will be injected here -->
-</div>
+     @yield('content') <!-- Content will be injected here -->
 
 <footer class="site-footer background-black-2">
     <img src="{{ asset('assets/images/shapes/footer-bg-1-1.png') }}" alt="" class="site-footer__shape-1">

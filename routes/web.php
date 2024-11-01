@@ -5,6 +5,7 @@ use App\Http\Controllers\EventC\EventController;
 use App\Http\Controllers\JardinController;
 use App\Http\Controllers\PlanteController;
 use App\Http\Controllers\RessourceController;
+use App\Http\Controllers\SponsorAdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,9 +20,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/front', function () {
     return view('Front.index-2');
 });
  Route::get('/admin', function () {
@@ -34,3 +32,4 @@ Route::resource('jardins', JardinController::class);
 Route::resource('event', EventController::class);
 Route::resource('eventadmin', EventAdminController::class);
 Route::get('plantes', [PlanteController::class, 'index']);
+Route::resource('sponsoradmin', SponsorAdminController::class);

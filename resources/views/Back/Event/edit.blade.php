@@ -4,7 +4,6 @@
     <div class="container">
         <section class="page-header">
             <div class="page-header__bg" style="background-image: url({{ asset('assets/images/backgrounds/page-header-bg-1-1.jpg') }});"></div>
-
             <div class="container">
                 <h2>Events</h2>
                 <ul class="thm-breadcrumb list-unstyled">
@@ -14,6 +13,10 @@
                 </ul>
             </div>
         </section>
-        @include('Back.Event.form', ['event' => $event, 'route' => route('eventadmin.update', $event)])
+        @include('Back.Event.form', [
+            'event' => $event,
+            'route' => route('eventadmin.update', $event),
+            'sponsors' => $sponsors ?? []
+        ])
     </div>
 @endsection

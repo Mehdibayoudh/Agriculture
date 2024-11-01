@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
-                <h3>Billing Details</h3>
+                <h3>Event Details</h3>
                 <div class="card-body">
                     <form action="{{ $route }}" method="POST" class="contact-form-validated contact-one__form">
                         @csrf
@@ -40,6 +40,24 @@
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
+                        <!-- Existing form fields -->
+
+                        <div class="mb-3">
+                            <label for="sponsors" class="form-label">Sponsors</label>
+                            <select name="sponsors[]" id="sponsors" class="form-control" multiple>
+                                @foreach($sponsors as $sponsor)
+                                    <option value="{{ $sponsor->id }}"
+                                            @if(in_array($sponsor->id, old('sponsors', $event->sponsors->pluck('id')->toArray() ?? []))) selected @endif>
+                                        {{ $sponsor->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('sponsors')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <!-- Existing form fields -->
 
                         <div class="form-check form-check-info text-start ps-0">
                             <input class="form-check-input" type="checkbox" value="" id="terms" required>
