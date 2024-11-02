@@ -6,10 +6,8 @@ use App\Http\Controllers\jardins\JardinController;
 use App\Http\Controllers\jardins\backJardinController;
 
 use App\Http\Controllers\EventC\EventAdminController;
-use App\Http\Controllers\EventC\EventController;
-use App\Http\Controllers\JardinController;
-
 use App\Http\Controllers\PlanteController;
+use App\Http\Controllers\PlanteCategorieController;
 use App\Http\Controllers\RessourceController;
 use Illuminate\Support\Facades\Route;
 
@@ -45,5 +43,9 @@ Route::patch('jardinBack/{id}/decline', [backJardinController::class, 'decline']
 
 Route::resource('event', EventController::class);
 Route::resource('eventadmin', EventAdminController::class);
-Route::get('plantes', [PlanteController::class, 'index']);
 Route::resource('plante', PlanteController::class);
+Route::get('jardins/{Id}/plante/', [PlanteController::class, 'index'])->name('listPlante');
+Route::get('jardins/{id}/plante/create', [PlanteController::class, 'create'])->name('createPlante');
+Route::get('jardins/{Id}/plante/{planteId}', [PlanteController::class, 'show'])->name('showPlante');
+Route::get('jardins/{jardinId}/plante/{planteId}/edit', [PlanteController::class, 'edit'])->name('editPlante');
+Route::resource('planteCategorie', PlanteCategorieController::class);
