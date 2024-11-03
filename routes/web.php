@@ -35,7 +35,7 @@ Route::get('/jardinier-gardens', [JardinController::class, 'jardinierGardens'])-
 Route::resource('jardinBack', backJardinController::class);
 Route::patch('jardinBack/{id}/accept', [backJardinController::class, 'accept'])->name('jardinBack.accept');
 Route::patch('jardinBack/{id}/decline', [backJardinController::class, 'decline'])->name('jardinBack.decline');
-Route::post('/generate-caption', [JardinController::class, 'generateCaption'])->name('generate.description');
+Route::post('/caption', [JardinController::class, 'caption'])->name('caption');
 Route::post('jardins/review', [JardinController::class, 'storeReview'])->name('reviews.store');
 
 //JARDINS

@@ -8,7 +8,7 @@ use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-
+use Illuminate\Support\Facades\Storage;
 
 
 class JardinController extends Controller
@@ -58,28 +58,51 @@ class JardinController extends Controller
         return redirect()->back()->with('success', 'Your review has been submitted.');
     }
 
-    public function generateCaption(Request $request)
+    public function caption(Request $request)
     {
-        // Validate the incoming request
+        Log::info("Incoming Request Data: ", $request->all());
+
+        // Validate the image upload
         $request->validate([
-            'image' => 'required|file|image|max:10240', // Image validation
+            'photo' => 'required|image|max:2048',
         ]);
 
         // Store the uploaded image temporarily
-        $imagePath = $request->file('image')->store('temp_images', 'public');
-        $imageUrl = asset('storage/' . $imagePath); // Generate accessible URL
+        $imagePath = $request->file('photo')->store('temp_images', 'public');
+        $imageUrl = asset("storage/$imagePath"); // Make sure this URL is accessible
+        Log::info("Image URL: $imageUrl");
 
-        print($imageUrl);
-        // Send the image URL to the FastAPI endpoint
-        $response = Http::post('http://127.0.0.1:8080/caption', [
-            'image_url' => $imageUrl,
-        ]);
+        try {
+            // Increase execution time limit for PHP
+            set_time_limit(300);  // Set it to 300 seconds
 
-        if ($response->failed()) {
-            return response()->json(['error' => 'Could not generate caption'], 500);
+            // Call the FastAPI captioning endpoint with a 300-second timeout
+            $response = Http::timeout(300)->post('http://127.0.0.1:8081/caption', [
+                'image_url' => $imageUrl,
+            ]);
+
+            Log::info("FastAPI Response Body: " . $response->body());
+
+            if ($response->successful()) {
+                $caption = $response->json()['caption'] ?? null;
+                Log::info("caption : $caption");
+
+                if ($caption) {
+                    // Optionally delete the temporary image after use
+                    Storage::disk('public')->delete($imagePath);
+                    return response()->json(['description' => $caption]);
+                } else {
+                    Log::error("No caption in response");
+                    return response()->json(['error' => 'No caption returned'], 500);
+                }
+            } else {
+                Log::error("Unexpected FastAPI Response: " . $response->body());
+                return response()->json(['error' => 'Failed to generate caption'], 500);
+            }
+        } catch (\Exception $e) {
+            Log::error("Exception in generateCaption: " . $e->getMessage());
+            return response()->json(['error' => 'An error occurred while generating caption'], 500);
         }
-
-        return response()->json(['description' => "asba"]);
     }
 
 
@@ -116,18 +139,14 @@ class JardinController extends Controller
     // Store a newly created resource in storage
     public function store(Request $request)
     {
-
-        // Validate the incoming request
         $request->validate([
-            'nom' => 'required|string|max:255',
-            'localisation' => 'required|string|max:255',
-            'type' => ['required', 'in:' . implode(',', Jardin::GARDEN_TYPES)], // Enum validation from array
-            'surface' => 'required|numeric',
+            'nom' => 'required|string|min:3|max:255',
+            'localisation' => 'required|string|min:3|max:255',
+            'type' => ['required', 'in:' . implode(',', Jardin::GARDEN_TYPES)],
+            'surface' => 'required|numeric|min:10|max:10000',
             'utilisateur_id' => 'required|exists:users,id',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
-
 
         $imagePath = null;
         if ($request->hasFile('photo')) {

@@ -6,6 +6,15 @@
         <div class="row">
             <div class="col-lg-6">
                 <h3>Garden Details</h3>
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul style="margin: 0">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <form action="{{ $route }}" method="POST" class="contact-one__form" enctype="multipart/form-data">
                     @csrf
                     @if($jardin->exists)
@@ -21,7 +30,7 @@
                             <div class="col-md-12">
                                 <div class="mb-3">
                                     <label for="photo" class="form-label">Image du jardin</label>
-                                    <input type="file" class="form-control" id="photo" name="photo" onchange="uploadImage(event)">
+                                    <input type="file" class="form-control" id="photo" name="photo"> <!--onchange="uploadImage(event)" -->
                                 </div>
                             </div>
                         @else
@@ -43,57 +52,41 @@
 
                         <!-- Garden Name -->
                         <div class="col-md-12">
-                            <input type="text" name="nom" placeholder="Garden Name" value="{{ old('nom', $jardin->nom) }}" required>
-                            @error('nom')
-                            <div class="text-danger">{{ $message }}</div>
-                            @enderror
+                            <input type="text" name="nom" placeholder="Garden Name" value="{{ old('nom', $jardin->nom) }}">
+
                         </div>
 
                         <!-- Garden Desc -->
                         <div class="col-md-12">
-                            <input type="text" id="description" name="description" placeholder="Garden description" value="{{ old('description', $jardin->description) }}" required>
-                            @error('description')
-                            <div class="text-danger">{{ $message }}</div>
-                            @enderror
+                            <input type="hidden" id="description" name="description" placeholder="Garden description" value="{{ old('description', $jardin->description) }}">
                         </div>
 
 
                         <!-- Garden Location -->
                         <div class="col-md-12">
-                            <input type="text" name="localisation" placeholder="Garden Location" value="{{ old('localisation', $jardin->localisation) }}" required>
-                            @error('localisation')
-                            <div class="text-danger">{{ $message }}</div>
-                            @enderror
+                            <input type="text" name="localisation" placeholder="Garden Location" value="{{ old('localisation', $jardin->localisation) }}">
+
                         </div>
 
                         <!-- Garden Type -->
                         <div class="col-md-12">
-                            <select name="type" id="type" class="form-control" required>
+                            <select name="type" id="type" class="form-control">
                                 @foreach(\App\Models\Jardin::GARDEN_TYPES as $type)
                                     <option value="{{ $type }}" {{ old('type', $jardin->type ?? '') == $type ? 'selected' : '' }}>
                                         {{ $type }}
                                     </option>
                                 @endforeach
                             </select>
-                            @error('type')
-                            <div class="text-danger">{{ $message }}</div>
-                            @enderror
                         </div>
 
                         <!-- Garden Surface -->
                         <div class="col-md-12">
-                            <input type="number" name="surface" placeholder="Garden Surface (in square meters)" value="{{ old('surface', $jardin->surface) }}" required>
-                            @error('surface')
-                            <div class="text-danger">{{ $message }}</div>
-                            @enderror
+                            <input type="number" name="surface" placeholder="Garden Surface (in square meters)" value="{{ old('surface', $jardin->surface) }}">
                         </div>
 
                         <!-- Utilisateur ID -->
                         <div class="col-md-12">
-                            <input readonly  type="text" name="utilisateur_id" placeholder="User ID (Garden Owner)" value="{{ $conectedJardinier }}" required>
-                            @error('utilisateur_id')
-                            <div class="text-danger">{{ $message }}</div>
-                            @enderror
+                            <input readonly  type="text" name="utilisateur_id" placeholder="User ID (Garden Owner)" value="{{ $conectedJardinier }}">
                         </div>
 
 
@@ -101,6 +94,8 @@
                         <div class="col-md-12">
                             <button type="submit" class="thm-btn">Save Garden</button>
                         </div>
+
+
                     </div>
                 </form>
             </div><!-- /.col-lg-6 -->
@@ -109,21 +104,26 @@
 </section><!-- /.checkout-page -->
 
 
+
 <script>
     async function uploadImage(event) {
         const file = event.target.files[0];
         if (file) {
             const formData = new FormData();
-            formData.append('image', file);
+            formData.append('photo', file);
 
             try {
-                const response = await fetch("{{ route('generate.description') }}", {
+                const response = await fetch("{{ route('caption') }}", {
                     method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}',
                     },
                     body: formData,
                 });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch image description');
+                }
 
                 const data = await response.json();
                 if (data.description) {
