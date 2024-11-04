@@ -92,19 +92,12 @@
                                         <div class="product-card__content">
                                             <div class="product-card__left">
                                                 <!-- Display event title -->
-                                                <h3><a href="event-details/{{ $event->id }}">{{ $event->titre }}</a></h3>
+                                                <h3><a href="events/{{ $event->id }}">{{ $event->titre }}</a></h3>
                                                 <!-- Display event date -->
                                                  <!-- Display event location -->
                                                 <p>{{ $event->localisation }}</p>
                                             </div><!-- /.product-card__left -->
-                                            <div class="product-card__right">
-                                                <!-- Static star rating (you can make this dynamic if you want to show actual ratings) -->
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div><!-- /.product-card__right -->
+
                                         </div><!-- /.product-card__content -->
                                     </div>
                             </div><!-- /.product-card -->
