@@ -15,11 +15,11 @@
         <div class="page-header__bg" style="background-image: url(assets/images/backgrounds/page-header-bg-1-1.jpg);"></div>
         <!-- /.page-header__bg -->
         <div class="container">
-            <h2>Products</h2>
+            <h2>Events</h2>
             <ul class="thm-breadcrumb list-unstyled">
                 <li><a href="index.html">Home</a></li>
                 <li>/</li>
-                <li><span>Products</span></li>
+                <li><span>Events</span></li>
             </ul><!-- /.thm-breadcrumb list-unstyled -->
         </div><!-- /.container -->
     </section><!-- /.page-header -->
@@ -84,7 +84,7 @@
 
                             <div class="product-card">
                                 <div class="product-card__image">
-                                    <img src="assets/images/products/product-1-1.jpg" alt="">
+                                    <img src="assets/images/events/awssommlb7ibf0o6znwh.png" alt="">
 
                                 </div><!-- /.product-card__image -->
 
