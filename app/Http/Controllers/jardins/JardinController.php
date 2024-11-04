@@ -62,6 +62,7 @@ class JardinController extends Controller
         return redirect()->back()->with('success', 'Your review has been submitted.');
     }
 
+
     public function caption(Request $request)
     {
         Log::info("Incoming Request Data: ", $request->all());
@@ -177,10 +178,11 @@ class JardinController extends Controller
     // Display the specified resource
     public function show(Jardin $jardin)
     {
-        //$jardin->load('utilisateur'); // Eager load the utilisateur relationship
+        // Calculer la moyenne des évaluations pour ce jardin
+        $averageRating = $jardin->reviews()->avg('rating') ?? 0; // Retourne 0 si aucune évaluation
 
-        // Return a view showing the details of a specific jardin
-        return view('Front.garden.gardenDetails', compact('jardin'));
+        // Retourner la vue avec les détails du jardin et la moyenne des évaluations
+        return view('Front.garden.gardenDetails', compact('jardin', 'averageRating'));
     }
 
 

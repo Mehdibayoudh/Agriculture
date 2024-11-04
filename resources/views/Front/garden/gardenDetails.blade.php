@@ -10,20 +10,25 @@
                         <img src="{{ asset('storage/' . $jardin->photo) }}" alt="Image of {{ $jardin->nom }}" style="max-width: 400px;">
                     @endif
                 </div>
+
             </div>
             <div class="col-xl-6 col-lg-6">
                 <div class="product_detail_content">
                     <h2>{{$jardin->nom}}</h2>
                     <div class="product_detail_review_box">
                         <div class="product_detail_review">
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#" class="deactive"><i class="fa fa-star"></i></a>
-                            <span>2 Customer Reviews</span>
+                            @for ($i = 1; $i <= 5; $i++)
+                                <a href="#">
+                                    <a class=" @if($i > $averageRating) deactive @endif" href="#">
+                                        <i class="fa fa-star"></i>
+                                    </a>
+                                </a>
+                            @endfor
+                            <span>{{ $jardin->reviews->count() }} Customer Reviews</span>
                         </div>
                     </div>
+
+
                     <div class="product_detail_text">
                         <p><strong>localisation : </strong>  {{$jardin->localisation}}</p>
                     </div>
@@ -81,6 +86,7 @@
                                 <div class="row">
                                     <div class="col-xl-12">
                                         <div class="product_reviews_box">
+
                                             <h3 class="product_reviews_title"> {{sizeof($jardin->reviews)}} Gardens reviews</h3>
                                             @foreach($jardin->reviews as $review)
                                             <div class="product_reviews_single">
