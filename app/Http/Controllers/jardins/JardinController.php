@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Jardin;
 use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -37,7 +38,9 @@ class JardinController extends Controller
         ]);
 
         $jardinId = $request->input('jardin_id');
-        $userId = 1; // Assuming the user ID is 1 for now
+
+        $user = Auth::user();
+        $userId = $user->id;
 
         // Check if the user has already reviewed this garden
         $existingReview = Review::where('jardin_id', $jardinId)
@@ -109,7 +112,8 @@ class JardinController extends Controller
 
     public function jardinierGardens(Request $request)
     {
-        $conectedJardinier = 2;
+        $user = Auth::user();
+        $conectedJardinier = $user->id;
 
         // Get the filter for etat from the request, default is null (no filter)
         $etat = $request->input('etat');
@@ -133,7 +137,8 @@ class JardinController extends Controller
     public function create()
     {
         // Return a view for creating a new jardin
-        $conectedJardinier=2;
+        $user = Auth::user();
+        $conectedJardinier = $user->id;
         return view('Front.garden.create',compact('conectedJardinier'));
     }
 
@@ -182,7 +187,8 @@ class JardinController extends Controller
     // Show the form for editing the specified resource
     public function edit(Jardin $jardin)
     {
-        $conectedJardinier=2;
+        $user = Auth::user();
+        $conectedJardinier = $user->id;
         // Return a view for editing the selected jardin
         return view('Front.garden.edit', compact('jardin','conectedJardinier'));
     }

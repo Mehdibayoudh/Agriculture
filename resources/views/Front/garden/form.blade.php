@@ -86,7 +86,7 @@
 
                         <!-- Utilisateur ID -->
                         <div class="col-md-12">
-                            <input readonly  type="text" name="utilisateur_id" placeholder="User ID (Garden Owner)" value="{{ $conectedJardinier }}">
+                            <input readonly  type="hidden" name="utilisateur_id" placeholder="User ID (Garden Owner)" value="{{ $conectedJardinier }}">
                         </div>
 
 
