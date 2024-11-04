@@ -5,21 +5,21 @@
     @endif
 
     <div class="input-group input-group-outline mb-3">
-         <input type="text" name="name" class="form-control" id="name" value="{{ old('name', $sponsor->name) }}" required>
+         <input placeholder="Name" type="text" name="name" class="form-control" id="name" value="{{ old('name', $sponsor->name) }}" required>
         @error('name')
         <div class="text-danger">{{ $message }}</div>
         @enderror
     </div>
 
     <div class="input-group input-group-outline mb-3">
-         <input type="text" name="industry" class="form-control" id="industry" value="{{ old('industry', $sponsor->industry) }}" required>
+         <input placeholder="Industry" type="text" name="industry" class="form-control" id="industry" value="{{ old('industry', $sponsor->industry) }}" required>
         @error('industry')
         <div class="text-danger">{{ $message }}</div>
         @enderror
     </div>
 
     <div class="input-group input-group-outline mb-3">
-         <input type="text" name="phone" class="form-control" id="phone" value="{{ old('phone', $sponsor->phone) }}" required>
+         <input placeholder="phone" type="text" name="phone" class="form-control" id="phone" value="{{ old('phone', $sponsor->phone) }}" required>
         @error('phone')
         <div class="text-danger">{{ $message }}</div>
         @enderror

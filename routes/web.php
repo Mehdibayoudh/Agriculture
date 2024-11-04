@@ -27,7 +27,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('Front.index-2');
-    return view('Front.index');
 });
  Route::get('/admin', function () {
     return view('Back.home');
@@ -55,6 +54,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/jardinier-gardens', [JardinController::class, 'jardinierGardens'])->name('getJardinierGardens');
     Route::post('/caption', [JardinController::class, 'caption'])->name('caption');
     Route::post('jardins/review', [JardinController::class, 'storeReview'])->name('reviews.store');
+    Route::resource('event', EventController::class);
 
 });
 
@@ -65,6 +65,10 @@ Route::middleware(['role:admin'])->group(function () {
     Route::resource('jardinBack', backJardinController::class);
     Route::patch('jardinBack/{id}/accept', [backJardinController::class, 'accept'])->name('jardinBack.accept');
     Route::patch('jardinBack/{id}/decline', [backJardinController::class, 'decline'])->name('jardinBack.decline');
+    Route::resource('sponsoradmin', SponsorAdminController::class);
+    Route::resource('eventadmin', EventAdminController::class);
+    Route::resource('planteCategorie', PlanteCategorieController::class);
+
 });
 /*
 // Routes for simple users only
@@ -77,11 +81,8 @@ Route::middleware(['role:user'])->group(function () {
 //USER
 
 Route::get('plantes', [PlanteController::class, 'index']);
-Route::resource('sponsoradmin', SponsorAdminController::class);
-Route::resource('eventadmin', EventAdminController::class);
 Route::resource('plante', PlanteController::class);
 Route::get('jardins/{Id}/plante/', [PlanteController::class, 'index'])->name('listPlante');
 Route::get('jardins/{id}/plante/create', [PlanteController::class, 'create'])->name('createPlante');
 Route::get('jardins/{Id}/plante/{planteId}', [PlanteController::class, 'show'])->name('showPlante');
 Route::get('jardins/{jardinId}/plante/{planteId}/edit', [PlanteController::class, 'edit'])->name('editPlante');
-Route::resource('planteCategorie', PlanteCategorieController::class);

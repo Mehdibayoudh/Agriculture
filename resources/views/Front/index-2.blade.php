@@ -8,93 +8,7 @@
     </div>
     <!-- /.preloader -->
     <div class="page-wrapper">
-<<<<<<< HEAD:resources/views/Front/index-2.blade.php
-=======
-        <header class="main-header main-header__two">
-            <div class="topbar-two">
-                <div class="container">
-                    <div class="topbar-two__left">
-                        <div class="topbar__social">
-                            <a href="#" class="fab fa-twitter"></a>
-                            <a href="#" class="fab fa-facebook-square"></a>
-                            <a href="#" class="fab fa-instagram"></a>
-                        </div><!-- /.topbar__social -->
-                    </div><!-- /.topbar-two__left -->
-                    <div class="topbar-two__right">
-                        <div class="main-menu__login">
-                            <a href="#"><i class="organik-icon-user"></i>Login / Register</a>
-                        </div><!-- /.main-menu__login -->
-                        <div class="main-menu__language">
-                            <img src="assets/images/resources/flag-1-1.jpg" alt="">
-                            <label class="sr-only" for="language-select">select language</label>
-                            <!-- /#language-select.sr-only -->
-                            <select class="selectpicker" id="language-select-header">
-                                <option value="english">English</option>
-                                <option value="arabic">Arabic</option>
-                            </select>
-                        </div><!-- /.main-menu__language -->
-                    </div><!-- /.topbar-two__right -->
-                </div><!-- /.container -->
-            </div><!-- /.topbar -->
-            <nav class="main-menu main-menu__two">
-                <div class="container">
-                    <div class="main-logo">
-                        <a href="index.blade.php" class="logo">
-                            <img src="assets/images/logo-light.png" width="105" alt="">
-                        </a>
-                        <div class="mobile-nav__buttons">
-                            <a href="#" class="search-toggler"><i class="organik-icon-magnifying-glass"></i></a>
-                            <a href="#" class="mini-cart__toggler"><i class="organik-icon-shopping-cart"></i></a>
-                        </div><!-- /.mobile__buttons -->
-                        <span class="fa fa-bars mobile-nav__toggler"></span>
-                    </div><!-- /.main-logo -->
-                    <ul class="main-menu__list">
-                        <li class="dropdown">
-                            <a href="index.blade.php">Home</a>
-                            <ul>
-                                <li>
-                                    <a href="index.blade.php">Home One</a>
-                                </li>
-                                <li><a href="index-2.html">Home Two</a></li>
-                                <li class="dropdown">
-                                    <a href="#">Header Styles</a>
-                                    <ul>
-                                        <li><a href="index.blade.php">Header One</a></li>
-                                        <li><a href="index-2.html">Header Two</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="about.html">About</a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="products.html">Shop</a>
-                            <ul>
-                                <li><a href="products.html">Shop</a></li>
-                                <li><a href="product-details.html">Product Details</a></li>
-                                <li><a href="cart.html">Cart Page</a></li>
-                                <li><a href="checkout.html">Checkout</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown"><a href="news.html">News</a>
-                            <ul>
-                                <li><a href="news.html">News</a></li>
-                                <li><a href="news-details.html">News Details</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                    <!-- /.main-menu__list -->
-                    <div class="topbar__buttons">
-                        <a href="#" class="search-toggler"><i class="organik-icon-magnifying-glass"></i></a>
-                        <a href="#" class="mini-cart__toggler"><i class="organik-icon-shopping-cart"></i></a>
-                    </div><!-- /.topbar__buttons -->
-                </div><!-- /.container -->
-            </nav>
-            <!-- /.main-menu -->
-        </header><!-- /.main-header -->
->>>>>>> b644b2c4125fd315b98265aabbac36276f1dee45:resources/views/Front/index-2.html
+
 
         <div class="stricky-header stricked-menu main-menu main-menu__two">
             <div class="sticky-header__content"></div><!-- /.sticky-header__content -->
@@ -1084,7 +998,6 @@
                 </div><!-- /.container -->
             </div><!-- /.bottom-footer -->
         </footer><!-- /.site-footer -->
->>>>>>> b644b2c4125fd315b98265aabbac36276f1dee45:resources/views/Front/index-2.html
 
     </div><!-- /.page-wrapper -->
 
@@ -1209,9 +1122,7 @@
 
 </body>
 
-<<<<<<< HEAD:resources/views/Front/index-2.blade.php
-@endsection
-=======
-<!-- Mirrored from ninetheme.com/themes/html-templates/oganik/index-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 28 Sep 2024 12:18:33 GMT -->
+ @endsection
+ <!-- Mirrored from ninetheme.com/themes/html-templates/oganik/index-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 28 Sep 2024 12:18:33 GMT -->
 </html>
->>>>>>> b644b2c4125fd315b98265aabbac36276f1dee45:resources/views/Front/index-2.html
+

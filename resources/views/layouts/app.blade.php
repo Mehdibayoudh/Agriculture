@@ -150,13 +150,10 @@
     <!-- /.main-menu -->
 </header><!-- /.main-header -->
 
-<<<<<<< HEAD
-     @yield('content') <!-- Content will be injected here -->
-=======
+
 <div>
     @yield('content') <!-- Content will be injected here -->
 </div>
->>>>>>> b644b2c4125fd315b98265aabbac36276f1dee45
 
 <footer class="site-footer background-black-2">
     <img src="{{ asset('assets/images/shapes/footer-bg-1-1.png') }}" alt="" class="site-footer__shape-1">

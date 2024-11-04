@@ -51,28 +51,29 @@
                     <span class="nav-link-text ms-1">Events</span>
                 </a>
             </li>
+
             <li class="nav-item">
-                <a class="nav-link text-white " href="../pages/billing.html">
+                <a class="nav-link text-white " href="/jardinBack">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">receipt_long</i>
                     </div>
-                    <span class="nav-link-text ms-1">Billing</span>
+                    <span class="nav-link-text ms-1">Garden</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white " href="../pages/virtual-reality.html">
+                <a class="nav-link text-white " href="sponsoradmin">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">view_in_ar</i>
                     </div>
-                    <span class="nav-link-text ms-1">Virtual Reality</span>
+                    <span class="nav-link-text ms-1">Sponsor</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white " href="../pages/rtl.html">
+                <a class="nav-link text-white " href="planteCategorie">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">format_textdirection_r_to_l</i>
                     </div>
-                    <span class="nav-link-text ms-1">RTL</span>
+                    <span class="nav-link-text ms-1">planteCategorie</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -231,12 +232,14 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item d-flex align-items-center">
-                        <a href="../pages/sign-in.html" class="nav-link text-body font-weight-bold px-0">
-                            <i class="fa fa-user me-sm-1"></i>
-                            <span class="d-sm-inline d-none">Sign In</span>
-                        </a>
-                    </li>
+                    @auth
+                        <li>
+                            <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                                @csrf
+                                <button type="submit" class="btn btn-link" style="color: inherit; text-decoration: none;">Logout</button>
+                            </form>
+                        </li>
+                        @endauth
                 </ul>
             </div>
         </div>
