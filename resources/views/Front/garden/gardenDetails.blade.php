@@ -39,6 +39,9 @@
                         <p><strong>Jardinier : </strong> {{ $jardin->utilisateur->name }}</p> <!-- Display user name -->
 
                     </div>
+                    <div class="product_detail_text mt-3">
+                    <a href="{{ route('listPlante', [$jardin->id]) }}"><button class="btn btn-outline-success" type="submit">Voir la liste des plantes</button></a>
+                </div>
                 </div>
             </div>
         </div>
