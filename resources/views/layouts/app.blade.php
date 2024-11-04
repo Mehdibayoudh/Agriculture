@@ -77,23 +77,26 @@
     <nav class="main-menu">
         <div class="container">
             <div class="main-menu__login">
-                <a href="#"><i class="organik-icon-user"></i>Login / Register</a>
-            </div><!-- /.main-menu__login -->
+                <!-- Show login and register links if the user is not authenticated -->
+          </div><!-- /.main-menu__login -->
             <ul class="main-menu__list">
-                <li class="dropdown">
+
+                <li class="">
                     <a href="{{ url('/') }}">Home</a>
+                </li>
+                @guest
+                    <li class="dropdown">
+                    <a>Auth</a>
                     <ul>
-                        <li><a href="{{ url('/') }}">Home One</a></li>
-                        <li><a href="{{ url('/home-two') }}">Home Two</a></li>
-                        <li class="dropdown">
-                            <a href="#">Header Styles</a>
-                            <ul>
-                                <li><a href="{{ url('/') }}">Header One</a></li>
-                                <li><a href="{{ url('/home-two') }}">Header Two</a></li>
-                            </ul>
-                        </li>
+                            <li>
+                                <a href="{{ route('loginPage') }}">Login</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('registerPage') }}">Register</a>
+                            </li>
                     </ul>
                 </li>
+                @endguest
                 <li class="dropdown">
                     <a href="{{ url('/') }}">Gardens</a>
                     <ul>
@@ -120,6 +123,19 @@
                     </ul>
                 </li>
                 <li><a href="{{ url('/contact') }}">Contact</a></li>
+
+                <!-- Check if the user is authenticated -->
+                @auth
+                    <li>
+                        <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                            @csrf
+                            <button type="submit" class="btn btn-link" style="color: inherit; text-decoration: none;">Logout</button>
+                        </form>
+                    </li>
+                @endauth
+
+
+
             </ul>
             <div class="main-menu__language">
                 <img src="{{ asset('assets/images/resources/flag-1-1.jpg') }}" alt="">
@@ -134,7 +150,7 @@
     <!-- /.main-menu -->
 </header><!-- /.main-header -->
 
-<div class="container">
+<div>
     @yield('content') <!-- Content will be injected here -->
 </div>
 

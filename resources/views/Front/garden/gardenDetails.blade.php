@@ -87,17 +87,18 @@
                                                 <div class="product_reviews_image">
                                                     <img src="assets/images/products/review-1.jpg" alt="">
                                                 </div>
-                                                <div class="product_reviews_content">
-                                                    <h3>{{$review->user->name}}<span>{{$review->created_at}}</span></h3>
-                                                    <p>Lorem ipsum is simply free text used by copytyping refreshing.
-                                                        Neque porro est qui.</p>
-                                                    <div class="product_reviews_rating product_detail_review">
+
+                                                <div class="product_reviews_content product_detail_review">
+                                                    <div class="product_detail_review">
                                                         @for ($i = 1; $i <= 5; $i++)
                                                             <a class=" @if($review->rating < $i) deactive @endif" href="#">
                                                                 <i class="fa fa-star"></i>
                                                             </a>
                                                         @endfor
                                                     </div>
+
+                                                    <h3>{{$review->user->name}}<span>{{$review->created_at}}</span></h3>
+                                                    <p>{{$review->comment}}</p>
 
                                                 </div>
                                             </div>

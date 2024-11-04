@@ -17,7 +17,8 @@ class JardinController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     */    public function index()
+     */
+    public function index()
     {
         // Fetch all jardins, optionally with relationships
         $jardins = Jardin::all();
@@ -36,7 +37,7 @@ class JardinController extends Controller
         ]);
 
         $jardinId = $request->input('jardin_id');
-        $userId = 1;
+        $userId = 1; // Assuming the user ID is 1 for now
 
         // Check if the user has already reviewed this garden
         $existingReview = Review::where('jardin_id', $jardinId)
