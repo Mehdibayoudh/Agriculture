@@ -48,7 +48,6 @@ class EventAdminController extends Controller
                 'required',
                 'string',
                 'max:255',
-                'regex:/^[\pL\s\-]+$/u'
             ],
             'sponsors' => 'nullable|array',
             'sponsors.*' => 'exists:sponsors,id',

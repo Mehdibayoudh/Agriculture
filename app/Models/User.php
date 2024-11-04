@@ -38,4 +38,10 @@ class User extends Authenticatable
     {
         return $this->role === 'user';
     }
+
+    public function events()
+    {
+        return $this->belongsToMany(Event::class, 'event_user');
+    }
+
 }
