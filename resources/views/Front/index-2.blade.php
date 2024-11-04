@@ -8,6 +8,93 @@
     </div>
     <!-- /.preloader -->
     <div class="page-wrapper">
+<<<<<<< HEAD:resources/views/Front/index-2.blade.php
+=======
+        <header class="main-header main-header__two">
+            <div class="topbar-two">
+                <div class="container">
+                    <div class="topbar-two__left">
+                        <div class="topbar__social">
+                            <a href="#" class="fab fa-twitter"></a>
+                            <a href="#" class="fab fa-facebook-square"></a>
+                            <a href="#" class="fab fa-instagram"></a>
+                        </div><!-- /.topbar__social -->
+                    </div><!-- /.topbar-two__left -->
+                    <div class="topbar-two__right">
+                        <div class="main-menu__login">
+                            <a href="#"><i class="organik-icon-user"></i>Login / Register</a>
+                        </div><!-- /.main-menu__login -->
+                        <div class="main-menu__language">
+                            <img src="assets/images/resources/flag-1-1.jpg" alt="">
+                            <label class="sr-only" for="language-select">select language</label>
+                            <!-- /#language-select.sr-only -->
+                            <select class="selectpicker" id="language-select-header">
+                                <option value="english">English</option>
+                                <option value="arabic">Arabic</option>
+                            </select>
+                        </div><!-- /.main-menu__language -->
+                    </div><!-- /.topbar-two__right -->
+                </div><!-- /.container -->
+            </div><!-- /.topbar -->
+            <nav class="main-menu main-menu__two">
+                <div class="container">
+                    <div class="main-logo">
+                        <a href="index.blade.php" class="logo">
+                            <img src="assets/images/logo-light.png" width="105" alt="">
+                        </a>
+                        <div class="mobile-nav__buttons">
+                            <a href="#" class="search-toggler"><i class="organik-icon-magnifying-glass"></i></a>
+                            <a href="#" class="mini-cart__toggler"><i class="organik-icon-shopping-cart"></i></a>
+                        </div><!-- /.mobile__buttons -->
+                        <span class="fa fa-bars mobile-nav__toggler"></span>
+                    </div><!-- /.main-logo -->
+                    <ul class="main-menu__list">
+                        <li class="dropdown">
+                            <a href="index.blade.php">Home</a>
+                            <ul>
+                                <li>
+                                    <a href="index.blade.php">Home One</a>
+                                </li>
+                                <li><a href="index-2.html">Home Two</a></li>
+                                <li class="dropdown">
+                                    <a href="#">Header Styles</a>
+                                    <ul>
+                                        <li><a href="index.blade.php">Header One</a></li>
+                                        <li><a href="index-2.html">Header Two</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="about.html">About</a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="products.html">Shop</a>
+                            <ul>
+                                <li><a href="products.html">Shop</a></li>
+                                <li><a href="product-details.html">Product Details</a></li>
+                                <li><a href="cart.html">Cart Page</a></li>
+                                <li><a href="checkout.html">Checkout</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown"><a href="news.html">News</a>
+                            <ul>
+                                <li><a href="news.html">News</a></li>
+                                <li><a href="news-details.html">News Details</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                    <!-- /.main-menu__list -->
+                    <div class="topbar__buttons">
+                        <a href="#" class="search-toggler"><i class="organik-icon-magnifying-glass"></i></a>
+                        <a href="#" class="mini-cart__toggler"><i class="organik-icon-shopping-cart"></i></a>
+                    </div><!-- /.topbar__buttons -->
+                </div><!-- /.container -->
+            </nav>
+            <!-- /.main-menu -->
+        </header><!-- /.main-header -->
+>>>>>>> b644b2c4125fd315b98265aabbac36276f1dee45:resources/views/Front/index-2.html
 
         <div class="stricky-header stricked-menu main-menu main-menu__two">
             <div class="sticky-header__content"></div><!-- /.sticky-header__content -->
@@ -892,6 +979,112 @@
             </div><!-- /.container -->
         </div><!-- /.client-carousel -->
 
+<<<<<<< HEAD:resources/views/Front/index-2.blade.php
+=======
+        <footer class="site-footer background-black-2">
+            <img src="assets/images/shapes/footer-bg-1-1.png" alt="" class="site-footer__shape-1">
+            <img src="assets/images/shapes/footer-bg-1-2.png" alt="" class="site-footer__shape-2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
+                        <div class="footer-widget footer-widget__about-widget">
+                            <a href="index.blade.php" class="footer-widget__logo">
+                                <img src="assets/images/logo-light.png" alt="" width="105" height="43">
+                            </a>
+                            <p class="thm-text-dark">Atiam rhoncus sit amet adip
+                                scing sed ipsum. Lorem ipsum
+                                dolor sit amet adipiscing <br>
+                                sem neque.</p>
+                        </div><!-- /.footer-widget -->
+                    </div><!-- /.col-sm-12 col-md-6 -->
+                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-2">
+                        <div class="footer-widget footer-widget__contact-widget">
+                            <h3 class="footer-widget__title">Contact</h3><!-- /.footer-widget__title -->
+                            <ul class="list-unstyled footer-widget__contact">
+                                <li>
+                                    <i class="fa fa-phone-square"></i>
+                                    <a href="tel:666-888-0000">666 888 0000</a>
+                                </li>
+                                <li>
+                                    <i class="fa fa-envelope"></i>
+                                    <a href="mailto:info@company.com">info@company.com</a>
+                                </li>
+                                <li>
+                                    <i class="fa fa-map-marker-alt"></i>
+                                    <a href="#">66 top broklyn street.
+                                        New York</a>
+                                </li>
+                            </ul><!-- /.list-unstyled footer-widget__contact -->
+                        </div><!-- /.footer-widget -->
+                    </div><!-- /.col-sm-12 col-md-6 col-lg-2 -->
+                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-2">
+                        <div class="footer-widget footer-widget__links-widget">
+                            <h3 class="footer-widget__title">Links</h3><!-- /.footer-widget__title -->
+                            <ul class="list-unstyled footer-widget__links">
+                                <li>
+                                    <a href="index.blade.php">Top Sellers</a>
+                                </li>
+                                <li>
+                                    <a href="products.html">Shopping</a>
+                                </li>
+                                <li>
+                                    <a href="about.html">About Store</a>
+                                </li>
+                                <li>
+                                    <a href="contact.html">Contact</a>
+                                </li>
+                                <li>
+                                    <a href="contact.html">Help</a>
+                                </li>
+                            </ul><!-- /.list-unstyled footer-widget__contact -->
+                        </div><!-- /.footer-widget -->
+                    </div><!-- /.col-sm-12 col-md-6 col-lg-2 -->
+                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-2">
+                        <div class="footer-widget">
+                            <h3 class="footer-widget__title">Explore</h3><!-- /.footer-widget__title -->
+                            <ul class="list-unstyled footer-widget__links">
+                                <li>
+                                    <a href="products.html">New Products</a>
+                                </li>
+                                <li>
+                                    <a href="checkout.html">My Account</a>
+                                </li>
+                                <li>
+                                    <a href="contact.html">Support</a>
+                                </li>
+                                <li>
+                                    <a href="contact.html">FAQs</a>
+                                </li>
+                            </ul><!-- /.list-unstyled footer-widget__contact -->
+                        </div><!-- /.footer-widget -->
+                    </div><!-- /.col-sm-12 col-md-6 col-lg-2 -->
+                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
+                        <div class="footer-widget">
+                            <h3 class="footer-widget__title">Newsletter</h3><!-- /.footer-widget__title -->
+                            <form action="#" data-url="YOUR_MAILCHIMP_URL" class="mc-form">
+                                <input type="email" name="EMAIL" id="mc-email" placeholder="Email Address">
+                                <button type="submit">Subscribe</button>
+                            </form>
+                            <div class="mc-form__response"></div><!-- /.mc-form__response -->
+                        </div><!-- /.footer-widget -->
+                    </div><!-- /.col-sm-12 col-md-6 col-lg-2 -->
+                </div><!-- /.row -->
+            </div><!-- /.container -->
+            <div class="bottom-footer">
+                <div class="container">
+                    <hr>
+                    <div class="inner-container text-center">
+                        <div class="bottom-footer__social">
+                            <a href="#" class="fab fa-twitter"></a>
+                            <a href="#" class="fab fa-facebook-square"></a>
+                            <a href="#" class="fab fa-instagram"></a>
+                        </div><!-- /.bottom-footer__social -->
+                        <p class="thm-text-dark">© Copyright <span class="dynamic-year"></span> by Company.com</p>
+                    </div><!-- /.inner-container -->
+                </div><!-- /.container -->
+            </div><!-- /.bottom-footer -->
+        </footer><!-- /.site-footer -->
+>>>>>>> b644b2c4125fd315b98265aabbac36276f1dee45:resources/views/Front/index-2.html
 
     </div><!-- /.page-wrapper -->
 
@@ -903,7 +1096,7 @@
             <span class="mobile-nav__close mobile-nav__toggler"><i class="organik-icon-close"></i></span>
 
             <div class="logo-box">
-                <a href="index.html" aria-label="logo image"><img src="assets/images/logo-light.png" width="155" alt="" /></a>
+                <a href="index.blade.php" aria-label="logo image"><img src="assets/images/logo-light.png" width="155" alt="" /></a>
             </div>
             <!-- /.logo-box -->
             <div class="mobile-nav__container"></div>
@@ -1016,4 +1209,9 @@
 
 </body>
 
+<<<<<<< HEAD:resources/views/Front/index-2.blade.php
 @endsection
+=======
+<!-- Mirrored from ninetheme.com/themes/html-templates/oganik/index-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 28 Sep 2024 12:18:33 GMT -->
+</html>
+>>>>>>> b644b2c4125fd315b98265aabbac36276f1dee45:resources/views/Front/index-2.html

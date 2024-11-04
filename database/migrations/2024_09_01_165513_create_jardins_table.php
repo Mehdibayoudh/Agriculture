@@ -17,12 +17,19 @@ return new class extends Migration
             $table->id();
             $table->string('nom');
             $table->string('localisation');
-            $table->string('type');
+            $table->enum('type', ['Vegetable', 'Fruit', 'Flower', 'Herb', 'Mixed'])->default('Mixed');
             $table->float('surface');
+<<<<<<< HEAD
             $table->boolean('etat');
             $table->foreignId('utilisateur_id')->constrained('users'); // This links the jardin to the user
+=======
+            $table->integer('etat')->default(0);
+            $table->string('photo',300);
+            $table->foreignId('utilisateur_id')->constrained('users');
+>>>>>>> b644b2c4125fd315b98265aabbac36276f1dee45
             $table->timestamps();
         });
+
     }
 
 

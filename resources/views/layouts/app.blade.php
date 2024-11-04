@@ -77,21 +77,32 @@
     <nav class="main-menu">
         <div class="container">
             <div class="main-menu__login">
-                <a href="#"><i class="organik-icon-user"></i>Login / Register</a>
-            </div><!-- /.main-menu__login -->
+                <!-- Show login and register links if the user is not authenticated -->
+          </div><!-- /.main-menu__login -->
             <ul class="main-menu__list">
-                <li class="dropdown">
+
+                <li class="">
                     <a href="{{ url('/') }}">Home</a>
+                </li>
+                @guest
+                    <li class="dropdown">
+                    <a>Auth</a>
                     <ul>
-                        <li><a href="{{ url('/') }}">Home One</a></li>
-                        <li><a href="{{ url('/home-two') }}">Home Two</a></li>
-                        <li class="dropdown">
-                            <a href="#">Header Styles</a>
-                            <ul>
-                                <li><a href="{{ url('/') }}">Header One</a></li>
-                                <li><a href="{{ url('/home-two') }}">Header Two</a></li>
-                            </ul>
-                        </li>
+                            <li>
+                                <a href="{{ route('loginPage') }}">Login</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('registerPage') }}">Register</a>
+                            </li>
+                    </ul>
+                </li>
+                @endguest
+                <li class="dropdown">
+                    <a href="{{ url('/') }}">Gardens</a>
+                    <ul>
+                        <li><a href="{{ url('/jardins') }}">all gardens</a></li>
+                        <li><a href="{{ route('getJardinierGardens', ['etat' => 1]) }}">my gardens</a></li>
+
                     </ul>
                 </li>
                 <li><a href="{{ url('/event') }}">Events</a></li>
@@ -112,6 +123,19 @@
                     </ul>
                 </li>
                 <li><a href="{{ url('/contact') }}">Contact</a></li>
+
+                <!-- Check if the user is authenticated -->
+                @auth
+                    <li>
+                        <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                            @csrf
+                            <button type="submit" class="btn btn-link" style="color: inherit; text-decoration: none;">Logout</button>
+                        </form>
+                    </li>
+                @endauth
+
+
+
             </ul>
             <div class="main-menu__language">
                 <img src="{{ asset('assets/images/resources/flag-1-1.jpg') }}" alt="">
@@ -126,7 +150,13 @@
     <!-- /.main-menu -->
 </header><!-- /.main-header -->
 
+<<<<<<< HEAD
      @yield('content') <!-- Content will be injected here -->
+=======
+<div>
+    @yield('content') <!-- Content will be injected here -->
+</div>
+>>>>>>> b644b2c4125fd315b98265aabbac36276f1dee45
 
 <footer class="site-footer background-black-2">
     <img src="{{ asset('assets/images/shapes/footer-bg-1-1.png') }}" alt="" class="site-footer__shape-1">
@@ -135,7 +165,7 @@
         <div class="row">
             <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
                 <div class="footer-widget footer-widget__about-widget">
-                    <a href="{{ url('index.html') }}" class="footer-widget__logo">
+                    <a href="{{ url('index.blade.php') }}" class="footer-widget__logo">
                         <img src="{{ asset('assets/images/logo-light.png') }}" alt="" width="105" height="43">
                     </a>
                     <p class="thm-text-dark">Atiam rhoncus sit amet adip
@@ -169,7 +199,7 @@
                     <h3 class="footer-widget__title">Links</h3><!-- /.footer-widget__title -->
                     <ul class="list-unstyled footer-widget__links">
                         <li>
-                            <a href="{{ url('index.html') }}">Top Sellers</a>
+                            <a href="{{ url('index.blade.php') }}">Top Sellers</a>
                         </li>
                         <li>
                             <a href="{{ url('products.html') }}">Shopping</a>
