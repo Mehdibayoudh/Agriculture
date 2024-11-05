@@ -7,10 +7,12 @@ use App\Http\Controllers\jardins\backJardinController;
 use App\Http\Controllers\EventC\EventAdminController;
 
 use App\Http\Controllers\PlanteController;
+use App\Http\Controllers\RessourceC\RessourceController;
+use App\Http\Controllers\RessourceC\RessourceAdminController;
 use App\Http\Controllers\PlanteCategorieController;
-use App\Http\Controllers\RessourceController;
 use App\Http\Controllers\SponsorAdminController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WishlistC\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,11 +30,20 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('Front.index-2');
 });
- Route::get('/admin', function () {
+Route::get('/admin', function () {
     return view('Back.home');
 });
 
+
+// Ressource & Wishlist
 Route::resource('ressource', RessourceController::class);
+Route::resource('ressourceadmin', RessourceAdminController::class);
+
+Route::resource('wishlists', WishlistController::class);
+Route::post('wishlists/add-ressource/{ressource}', [WishlistController::class, 'addRessource'])->name('wishlists.add-ressource');
+Route::post('wishlists/{wishlist}/detach-ressource/{ressource}', [WishlistController::class, 'detachRessource'])->name('wishlists.detach-ressource');
+Route::get('wishlists/{wishlist}', [WishlistController::class, 'show'])->name('wishlists.show');
+
 
 //JARDINS
 
@@ -40,8 +51,12 @@ Route::resource('ressource', RessourceController::class);
 
 //USER
 Route::middleware('guest')->group(function () {
-    Route::get('/register', function () {return view('Front.user.register');})->name('registerPage');
-    Route::get('/login', function () {return view('Front.user.login');})->name('loginPage');
+    Route::get('/register', function () {
+        return view('Front.user.register');
+    })->name('registerPage');
+    Route::get('/login', function () {
+        return view('Front.user.login');
+    })->name('loginPage');
     Route::post('/register', [UserController::class, 'register'])->name('register');
     Route::post('/login', [UserController::class, 'login'])->name('login');
 });
@@ -56,7 +71,6 @@ Route::middleware('auth')->group(function () {
     Route::post('jardins/review', [JardinController::class, 'storeReview'])->name('reviews.store');
     Route::resource('event', EventController::class);
     Route::get('events/{id}', [EventController::class, 'show'])->name('event.show');
-
 });
 
 
@@ -69,7 +83,6 @@ Route::middleware(['role:admin'])->group(function () {
     Route::resource('sponsoradmin', SponsorAdminController::class);
     Route::resource('eventadmin', EventAdminController::class);
     Route::resource('planteCategorie', PlanteCategorieController::class);
-
 });
 /*
 // Routes for simple users only

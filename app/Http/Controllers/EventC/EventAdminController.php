@@ -129,4 +129,5 @@ class EventAdminController extends Controller
         $event->delete();
 
         return redirect()->route('eventadmin.index');
-    }}
+    }
+}
