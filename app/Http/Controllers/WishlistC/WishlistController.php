@@ -16,13 +16,12 @@ class WishlistController extends Controller
         return view('Front.Wishlist.index', compact('Wishlists'));
     }
 
-    // Show a specific wishlist
-    // public function show($id)
-    // {
-    //     $wishlist = Wishlist::with('ressources')->findOrFail($id);
-    //     return response()->json($wishlist);
-    // }
+    public function show(Wishlist $wishlist)
+    {
+        $wishlist->load('ressources');
 
+        return view('Front.Wishlist.show', compact('wishlist'));
+    }
     public function create()
     {
         return view('Front.Wishlist.create');
@@ -88,11 +87,12 @@ class WishlistController extends Controller
     }
 
 
-    // Remove a resource from the wishlist
-    public function removeRessource($wishlistId, $ressourceId)
+    public function detachRessource(Wishlist $wishlist, Ressource $ressource)
     {
-        $wishlist = Wishlist::findOrFail($wishlistId);
-        $wishlist->ressources()->detach($ressourceId);
-        return redirect()->route('wishlist.index')->with('success', 'Ressource deleted successfully.');
+        // Detach the ressource from the wishlist
+        $wishlist->ressources()->detach($ressource->id);
+
+        // Optionally, you can add a success message
+        return redirect()->route('wishlists.show', $wishlist->id)->with('success', 'Resource removed from wishlist');
     }
 }

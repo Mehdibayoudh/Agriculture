@@ -29,39 +29,44 @@
                         margin-left: -15px;
                         gap: 30px;
                         justify-content: center;" class="row">
-                @foreach($Wishlists as $wishlist)
+                <h1>Resources in Wishlist: {{ $wishlist->name }}</h1>
+
+                <ul>
+                    @if($wishlist->ressources->isEmpty())
+                    <li>No resources in this wishlist.</li>
+                    @else
+                </ul>
+
+                <a href="{{ route('wishlists.index') }}">Back to Wishlists</a>
+                @foreach($wishlist->ressources as $ressource)
                 <div style="border: solid thin #00000038;
                     padding: 20px;
                     border-radius: 15px;"
                     class="col-md-6 col-lg-3 mb-4"> <!-- Adjusted to show 4 in a row on large screens -->
                     <div class="product-card">
                         <div style="text-align: center;" class="product-card__image">
-                            <img style="width: 65%;" src="assets/images/products/wishlist.png" alt="">
+                            <img style="width: 65%;" src="../assets/images/products/product-1-1.jpg" alt="">
 
                             <div class="product-card__image-content">
-                                <a href="{{ route('wishlists.edit', $wishlist->id) }}"><i class="fa fa-edit"></i></a>
-                                <form action="{{ route('wishlists.destroy', $wishlist->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this wishlist?');">
+                                <form action="{{ route('wishlists.detach-ressource', ['wishlist' => $wishlist->id, 'ressource' => $ressource->id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to detach this resource from the wishlist?');">
                                     @csrf
-                                    @method('DELETE')
                                     <button type="submit" style="border:none; background:#ff003e; padding: 10px; border-radius: 100%; margin-left: 5px;">
-                                        <i class="fa fa-trash" style="color: white; margin-left: 10px; margin-right: 10px;"></i>
+                                        <i class="fa fa-minus" style="color: white;"></i> <!-- Minus icon for detaching -->
                                     </button>
                                 </form>
-                                <a href="{{ route('wishlists.show', $wishlist->id) }}" style="margin-right: 10px;">
-                                    <i class="fa fa-eye" aria-hidden="true"></i> <!-- Eye icon for showing wishlist -->
-                                </a>
                             </div>
 
                         </div>
 
                         <div style="justify-content: center;" class="product-card__content">
                             <div class="product-card__left">
-                                <h1 style="font-size: 24px;">{{ $wishlist->name }}</h1>
+                                <h1 style="font-size: 24px;">{{ $ressource->titre }} - {{ $ressource->type }}</h1>
                             </div>
                         </div>
                     </div>
                 </div>
                 @endforeach
+                @endif
             </div><!-- /.row -->
         </div><!-- /.container -->
     </section>

@@ -41,7 +41,9 @@ Route::resource('ressourceadmin', RessourceAdminController::class);
 
 Route::resource('wishlists', WishlistController::class);
 Route::post('wishlists/add-ressource/{ressource}', [WishlistController::class, 'addRessource'])->name('wishlists.add-ressource');
-Route::delete('wishlists/{wishlist}/remove-ressource/{ressource}', [WishlistController::class, 'removeRessource']);
+Route::post('wishlists/{wishlist}/detach-ressource/{ressource}', [WishlistController::class, 'detachRessource'])->name('wishlists.detach-ressource');
+Route::get('wishlists/{wishlist}', [WishlistController::class, 'show'])->name('wishlists.show');
+
 
 //JARDINS
 
