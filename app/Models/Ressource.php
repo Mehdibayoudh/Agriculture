@@ -25,4 +25,10 @@ class Ressource extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    //many to many relation
+    public function wishlists()
+    {
+        return $this->belongsToMany(Wishlist::class, 'wishlist_ressource');
+    }
 }

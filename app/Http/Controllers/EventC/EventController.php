@@ -37,9 +37,12 @@ class EventController extends Controller
     /**
      * Display the specified event.
      */
-    public function show(Event $event)
+    public function show($id)
     {
-     }
+        $event = Event::with('sponsors', 'user')->findOrFail($id);
+        return view('Front.Event.show', compact('event'));
+    }
+
 
     /**
      * Show the form for editing the specified event.

@@ -79,24 +79,51 @@
         <nav class="main-menu">
             <div class="container">
                 <div class="main-menu__login">
-                    <a href="#"><i class="organik-icon-user"></i>Login / Register</a>
+                    <!-- Show login and register links if the user is not authenticated -->
                 </div><!-- /.main-menu__login -->
                 <ul class="main-menu__list">
-                    <li class="dropdown">
+
+                    <li class="">
                         <a href="{{ url('/') }}">Home</a>
+                    </li>
+                    @guest
+                    <li class="dropdown">
+                        <a>Auth</a>
                         <ul>
-                            <li><a href="{{ url('/') }}">Home One</a></li>
-                            <li><a href="{{ url('/home-two') }}">Home Two</a></li>
-                            <li class="dropdown">
-                                <a href="#">Header Styles</a>
-                                <ul>
-                                    <li><a href="{{ url('/') }}">Header One</a></li>
-                                    <li><a href="{{ url('/home-two') }}">Header Two</a></li>
-                                </ul>
+                            <li>
+                                <a href="{{ route('loginPage') }}">Login</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('registerPage') }}">Register</a>
                             </li>
                         </ul>
                     </li>
-                    <li><a href="{{ url('/about') }}">About</a></li>
+                    @endguest
+                    <li class="dropdown">
+                        <a href="{{ url('/') }}">Gardens</a>
+                        <ul>
+                            <li><a href="{{ url('/jardins') }}">all gardens</a></li>
+                            <li><a href="{{ route('getJardinierGardens', ['etat' => 1]) }}">my gardens</a></li>
+
+                        </ul>
+                    </li>
+                    <li><a href="{{ url('/event') }}">Events</a></li>
+                    <!-- ressources -->
+                    <li class="dropdown">
+                        <a href="{{ url('/ressource') }}">Ressource</a>
+                        <ul>
+                            <li><a href="{{ url('/ressource') }}">ressources</a></li>
+                            <li><a href="{{ url('/ressource/create') }}">create ressource</a></li>
+                        </ul>
+                    </li>
+                    <!-- wishlist -->
+                    <li class="dropdown">
+                        <a href="{{ url('/wishlists') }}">Wishlist</a>
+                        <ul>
+                            <li><a href="{{ url('/wishlists') }}">My Wishlists</a></li>
+                            <li><a href="{{ url('/wishlists/create') }}">create Wishlist</a></li>
+                        </ul>
+                    </li>
                     <li class="dropdown">
                         <a href="{{ url('/products') }}">Shop</a>
                         <ul>
@@ -114,6 +141,19 @@
                         </ul>
                     </li>
                     <li><a href="{{ url('/contact') }}">Contact</a></li>
+
+                    <!-- Check if the user is authenticated -->
+                    @auth
+                    <li>
+                        <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                            @csrf
+                            <button type="submit" class="btn btn-link" style="color: inherit; text-decoration: none;">Logout</button>
+                        </form>
+                    </li>
+                    @endauth
+
+
+
                 </ul>
                 <div class="main-menu__language">
                     <img src="{{ asset('assets/images/resources/flag-1-1.jpg') }}" alt="">
@@ -128,7 +168,8 @@
         <!-- /.main-menu -->
     </header><!-- /.main-header -->
 
-    <div class="container">
+
+    <div>
         @yield('content') <!-- Content will be injected here -->
     </div>
 
@@ -139,7 +180,7 @@
             <div class="row">
                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
                     <div class="footer-widget footer-widget__about-widget">
-                        <a href="{{ url('index.html') }}" class="footer-widget__logo">
+                        <a href="{{ url('index.blade.php') }}" class="footer-widget__logo">
                             <img src="{{ asset('assets/images/logo-light.png') }}" alt="" width="105" height="43">
                         </a>
                         <p class="thm-text-dark">Atiam rhoncus sit amet adip
@@ -173,7 +214,7 @@
                         <h3 class="footer-widget__title">Links</h3><!-- /.footer-widget__title -->
                         <ul class="list-unstyled footer-widget__links">
                             <li>
-                                <a href="{{ url('index.html') }}">Top Sellers</a>
+                                <a href="{{ url('index.blade.php') }}">Top Sellers</a>
                             </li>
                             <li>
                                 <a href="{{ url('products.html') }}">Shopping</a>
@@ -223,17 +264,104 @@
         </div><!-- /.container -->
         <div class="bottom-footer">
             <div class="container">
-                <hr>
-                <div class="inner-container text-center">
-                    <div class="bottom-footer__social">
-                        <a href="#" class="fab fa-twitter"></a>
-                        <a href="#" class="fab fa-facebook-square"></a>
-                        <a href="#" class="fab fa-instagram"></a>
-                    </div><!-- /.bottom-footer__social -->
-                    <p class="thm-text-dark">© Copyright <span class="dynamic-year"></span> by Company.com</p>
-                </div><!-- /.inner-container -->
+                <div class="row">
+                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
+                        <div class="footer-widget footer-widget__about-widget">
+                            <a href="{{ url('index.html') }}" class="footer-widget__logo">
+                                <img src="{{ asset('assets/images/logo-light.png') }}" alt="" width="105" height="43">
+                            </a>
+                            <p class="thm-text-dark">Atiam rhoncus sit amet adip
+                                scing sed ipsum. Lorem ipsum
+                                dolor sit amet adipiscing <br>
+                                sem neque.</p>
+                        </div><!-- /.footer-widget -->
+                    </div><!-- /.col-sm-12 col-md-6 -->
+                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-2">
+                        <div class="footer-widget footer-widget__contact-widget">
+                            <h3 class="footer-widget__title">Contact</h3><!-- /.footer-widget__title -->
+                            <ul class="list-unstyled footer-widget__contact">
+                                <li>
+                                    <i class="fa fa-phone-square"></i>
+                                    <a href="tel:666-888-0000">666 888 0000</a>
+                                </li>
+                                <li>
+                                    <i class="fa fa-envelope"></i>
+                                    <a href="mailto:info@company.com">info@company.com</a>
+                                </li>
+                                <li>
+                                    <i class="fa fa-map-marker-alt"></i>
+                                    <a href="#">66 top broklyn street.
+                                        New York</a>
+                                </li>
+                            </ul><!-- /.list-unstyled footer-widget__contact -->
+                        </div><!-- /.footer-widget -->
+                    </div><!-- /.col-sm-12 col-md-6 col-lg-2 -->
+                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-2">
+                        <div class="footer-widget footer-widget__links-widget">
+                            <h3 class="footer-widget__title">Links</h3><!-- /.footer-widget__title -->
+                            <ul class="list-unstyled footer-widget__links">
+                                <li>
+                                    <a href="{{ url('index.html') }}">Top Sellers</a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('products.html') }}">Shopping</a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('about.html') }}">About Store</a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('contact.html') }}">Contact</a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('contact.html') }}">Help</a>
+                                </li>
+                            </ul><!-- /.list-unstyled footer-widget__contact -->
+                        </div><!-- /.footer-widget -->
+                    </div><!-- /.col-sm-12 col-md-6 col-lg-2 -->
+                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-2">
+                        <div class="footer-widget">
+                            <h3 class="footer-widget__title">Explore</h3><!-- /.footer-widget__title -->
+                            <ul class="list-unstyled footer-widget__links">
+                                <li>
+                                    <a href="{{ url('products.html') }}">New Products</a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('checkout.html') }}">My Account</a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('contact.html') }}">Support</a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('contact.html') }}">FAQs</a>
+                                </li>
+                            </ul><!-- /.list-unstyled footer-widget__contact -->
+                        </div><!-- /.footer-widget -->
+                    </div><!-- /.col-sm-12 col-md-6 col-lg-2 -->
+                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
+                        <div class="footer-widget">
+                            <h3 class="footer-widget__title">Newsletter</h3><!-- /.footer-widget__title -->
+                            <form action="#" data-url="YOUR_MAILCHIMP_URL" class="mc-form">
+                                <input type="email" name="EMAIL" id="mc-email" placeholder="Email Address">
+                                <button type="submit">Subscribe</button>
+                            </form>
+                            <div class="mc-form__response"></div><!-- /.mc-form__response -->
+                        </div><!-- /.footer-widget -->
+                    </div><!-- /.col-sm-12 col-md-6 col-lg-2 -->
+                </div><!-- /.row -->
             </div><!-- /.container -->
-        </div><!-- /.bottom-footer -->
+            <div class="bottom-footer">
+                <div class="container">
+                    <hr>
+                    <div class="inner-container text-center">
+                        <div class="bottom-footer__social">
+                            <a href="#" class="fab fa-twitter"></a>
+                            <a href="#" class="fab fa-facebook-square"></a>
+                            <a href="#" class="fab fa-instagram"></a>
+                        </div><!-- /.bottom-footer__social -->
+                        <p class="thm-text-dark">© Copyright <span class="dynamic-year"></span> by Company.com</p>
+                    </div><!-- /.inner-container -->
+                </div><!-- /.container -->
+            </div><!-- /.bottom-footer -->
     </footer><!-- /.site-footer -->
 
     <script src="{{ asset('assets/vendors/jquery/jquery-3.5.1.min.js') }}"></script>

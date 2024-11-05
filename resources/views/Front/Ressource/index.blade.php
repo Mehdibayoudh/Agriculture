@@ -97,21 +97,47 @@
                                                 <i class="fa fa-trash" style="color: white; margin-left: 10px; margin-right: 10px;"></i>
                                             </button>
                                         </form>
+
+
                                     </div>
 
                                 </div><!-- /.product-card__image -->
 
                                 <div class="product-card__content">
-                                    <div class="product-card__left">
-                                        <h3><a href="event-details/{{ $ressource->id }}">{{ $ressource->titre }}</a></h3>
-                                        <p>{{ $ressource->type }}</p>
-                                    </div>
-                                    <div class="product-card__right">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
+                                    <div style="display: flex; flex-direction: column;">
+                                        <div>
+                                            <div class="product-card__left">
+                                                <h3><a href="event-details/{{ $ressource->id }}">{{ $ressource->titre }}</a></h3>
+                                                <p>{{ $ressource->type }}</p>
+                                            </div>
+                                            <div class="product-card__right">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                            </div>
+                                        </div>
+                                        <!-- Add to Wishlist Form -->
+                                        <div style="padding-top: 10px;">
+                                            <form action="{{ route('wishlists.add-ressource', $ressource->id) }}" method="POST" style="display:inline;">
+                                                @csrf
+                                                <select style="    padding-left: 0;
+                                                                    padding-right: 0;
+                                                                    height: 40px;
+                                                                    font-size: small;" name="wishlist_id" id="wishlist-select" required>
+                                                    <option value="">Select a Wishlist</option>
+                                                    @foreach($wishlists as $wishlist)
+                                                    <option value="{{ $wishlist->id }}">{{ $wishlist->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                                <button type="submit" style="    background-color: #60be74;
+                                                    color: white;
+                                                    border: solid thin #000000;
+                                                    font-size: small;
+                                                    height: 40px;">Add + </button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div><!-- /.product-card__content -->
 

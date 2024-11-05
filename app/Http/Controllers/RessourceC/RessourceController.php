@@ -4,6 +4,7 @@ namespace App\Http\Controllers\RessourceC;
 
 use App\Http\Controllers\Controller;
 use App\Models\Ressource;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
 
 class RessourceController extends Controller
@@ -15,7 +16,11 @@ class RessourceController extends Controller
     public function index()
     {
         $Ressources = Ressource::all();
-        return view('Front.Ressource.index', compact('Ressources'));
+
+        // Fetch the authenticated user's wishlists
+        // $wishlists = Wishlist::where('user_id', auth()->id())->get();
+        $wishlists = Wishlist::where('user_id', 1)->get();
+        return view('Front.Ressource.index', compact('Ressources', 'wishlists'));
     }
 
     /**
