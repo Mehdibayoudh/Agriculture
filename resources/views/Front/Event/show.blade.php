@@ -6,7 +6,9 @@
             <div class="row">
                 <div class="col-xl-6 col-lg-6">
                     <div class="event_detail_image">
-                            <img src="https://cdn.onecklace.com/blog/198/198-1.webp" alt="Image of " style="max-width: 400px;">
+                        @if($event->image_url)
+                            <img src="{{ asset($event->image_url) }}" alt="Event Image" class="img-fluid event-image" style="width: 450px">
+                        @endif
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6">

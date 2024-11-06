@@ -70,6 +70,7 @@ Route::middleware(['role:admin'])->group(function () {
     Route::resource('sponsoradmin', SponsorAdminController::class);
     Route::resource('eventadmin', EventAdminController::class);
     Route::resource('planteCategorie', PlanteCategorieController::class);
+    Route::post('/generate-image', [EventAdminController::class, 'generateImage'])->name('generate.image');
 
 });
 /*

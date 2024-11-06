@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}"> <!-- Add CSRF token here -->
+
     <style>
+
         .suggestion-box {
             border: 1px solid #ddd;
             max-height: 200px;
@@ -44,11 +47,19 @@
                         @endif
 
                         <div class="input-group input-group-outline mb-3">
-                            <input type="text" name="titre" placeholder="Event Title" class="form-control" value="{{ old('titre', $event->titre) }}" required>
+                            <input type="text" id="title" name="titre" placeholder="Event Title" class="form-control" required>
+                            <button type="button" onclick="generateImage()" class="btn btn-secondary">Generate Image</button>
                             @error('titre')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div id="loading-message" style="display: none; color: blue; font-weight: bold; margin-top: 10px;">
+                            Generating Image, please wait...
+                        </div>
+
+                        <div id="image-preview"></div>
+
+                        <input type="hidden" name="generated_image" id="generated_image">
 
                         <div class="input-group input-group-outline mb-3">
                             <textarea name="description" class="form-control"  placeholder="Event Description" required>{{ old('description', $event->description) }}</textarea>
@@ -72,7 +83,20 @@
                             @enderror
                             <div id="suggestion-box" class="suggestion-box"></div> <!-- Moved inside relative container -->
                         </div>
-
+                        <div class="mb-3">
+                            <label for="sponsors" class="form-label">Sponsors</label>
+                            <select name="sponsors[]" id="sponsors" class="form-control" multiple>
+                                @foreach($sponsors as $sponsor)
+                                    <option value="{{ $sponsor->id }}"
+                                            @if(in_array($sponsor->id, old('sponsors', $event->sponsors->pluck('id')->toArray() ?? []))) selected @endif>
+                                        {{ $sponsor->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('sponsors')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
                         <!-- Other form fields like sponsors -->
 
                         <div class="form-check form-check-info text-start ps-0">
@@ -138,6 +162,48 @@
             suggestionBox.appendChild(suggestionItem);
         });
     }
+</script>
+<script>
+    async function generateImage() {
+        const title = document.getElementById('title').value;
+        const imagePreview = document.getElementById('image-preview');
+        const loadingMessage = document.getElementById('loading-message');
+        const generatedImageInput = document.getElementById('generated_image'); // Get the hidden input
+
+        imagePreview.innerHTML = ''; // Clear any previous image
+        loadingMessage.style.display = 'block'; // Show loading message
+
+        try {
+            const response = await fetch('/generate-image', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ title: title })
+            });
+
+            const data = await response.json();
+            loadingMessage.style.display = 'none'; // Hide loading message
+
+            if (data.url) {
+                // Display the generated image and set it to the hidden input field
+                imagePreview.innerHTML = `
+                <img src="${data.url}" alt="Generated Image" style="width: 100px; height: 100px; object-fit: cover;" />
+                <button type="button" onclick="generateImage()">Generate New Image</button>
+            `;
+                generatedImageInput.value = data.url; // Set the image URL to the hidden input
+            } else if (data.error) {
+                alert(data.error);
+            }
+        } catch (error) {
+            loadingMessage.style.display = 'none'; // Hide loading message
+            console.error('Error:', error);
+            alert('Failed to generate image.');
+        }
+    }
+
+
 </script>
 </body>
 </html>

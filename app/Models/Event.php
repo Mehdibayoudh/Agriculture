@@ -17,6 +17,7 @@ class Event extends Model
         'description',
         'date',
         'localisation',
+        'image_url',
         'utilisateur_id',
     ];
     protected $casts = [
