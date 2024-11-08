@@ -19,9 +19,6 @@ class Ressource extends Model
         'user_id'
     ];
 
-    // Simulate enum by using constant arrays
-    const TYPES = ['naturelle', 'materielle'];
-    const DISPONIBILITE = ['disponible', 'reservé', 'indisponible'];
 
     // user relation
     public function user()
@@ -29,15 +26,9 @@ class Ressource extends Model
         return $this->belongsTo(User::class);
     }
 
-    // function to check if a type is valid
-    public static function isValidType($type)
+    //many to many relation
+    public function wishlists()
     {
-        return in_array($type, self::TYPES);
-    }
-
-    // function to check if disponibilité is valid
-    public static function isValidDisponibilite($disponibilité)
-    {
-        return in_array($disponibilité, self::DISPONIBILITE);
+        return $this->belongsToMany(Wishlist::class, 'wishlist_ressource');
     }
 }
