@@ -17,18 +17,14 @@ class Event extends Model
         'description',
         'date',
         'localisation',
-        'image_url',
-        'utilisateur_id',
+        'image_url'
     ];
     protected $casts = [
         'date' => 'datetime',
     ];
     // Si vous avez des relations, vous pouvez les ajouter ici
     // Par exemple, si un événement est lié à un utilisateur :
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+
     public function sponsors()
     {
         return $this->belongsToMany(Sponsor::class, 'event_sponsor');

@@ -19,8 +19,7 @@ return new class extends Migration
             $table->text('description');
             $table->dateTime('date');
             $table->string('localisation');
-            $table->foreignId('utilisateur_id')->constrained('users');
-            $table->text('image_url'); // Allows for longer URLs
+            $table->text('image_url')->nullable(); // Allows for longer URLs
             $table->timestamps();
         });
         Schema::create('event_user', function (Blueprint $table) {

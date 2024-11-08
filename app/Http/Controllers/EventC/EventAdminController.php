@@ -62,7 +62,6 @@ class EventAdminController extends Controller
             'localisation.regex' => 'La localisation ne doit contenir que des lettres, espaces, ou tirets.',
         ]);
 
-        $validatedData['utilisateur_id'] = 1;
         if ($request->has('generated_image')) { // Assuming 'generated_image' contains the file path
             $validatedData['image_url'] = $request->input('generated_image');
         }

@@ -47,7 +47,7 @@
                         @endif
 
                         <div class="input-group input-group-outline mb-3">
-                            <input type="text" id="title" name="titre" placeholder="Event Title" class="form-control" required>
+                            <input type="text" id="title" name="titre" placeholder="Event Title" class="form-control" value="{{ old('titre', $event->titre) }}" >
                             <button type="button" onclick="generateImage()" class="btn btn-secondary">Generate Image</button>
                             @error('titre')
                             <div class="text-danger">{{ $message }}</div>
@@ -62,14 +62,14 @@
                         <input type="hidden" name="generated_image" id="generated_image">
 
                         <div class="input-group input-group-outline mb-3">
-                            <textarea name="description" class="form-control"  placeholder="Event Description" required>{{ old('description', $event->description) }}</textarea>
+                            <textarea name="description" class="form-control"  placeholder="Event Description" >{{ old('description', $event->description) }}</textarea>
                             @error('description')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
 
                         <div class="input-group input-group-outline mb-3">
-                            <input type="datetime-local" name="date" class="form-control" placeholder="Event Date" value="{{ old('date', $event->date ? $event->date->format('Y-m-d\TH:i') : '') }}" required>
+                            <input type="datetime-local" name="date" class="form-control" placeholder="Event Date" value="{{ old('date', $event->date ? $event->date->format('Y-m-d\TH:i') : '') }}" >
                             @error('date')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
@@ -77,7 +77,7 @@
 
                         <!-- Location input with suggestion box -->
                         <div class="autocomplete-container input-group input-group-outline mb-3">
-                            <input type="text" id="autocomplete" name="localisation" placeholder="Event Location" class="form-control" value="{{ old('localisation', $event->localisation) }}" required>
+                            <input type="text" id="autocomplete" name="localisation" placeholder="Event Location" class="form-control" value="{{ old('localisation', $event->localisation) }}" >
                             @error('localisation')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
@@ -100,7 +100,7 @@
                         <!-- Other form fields like sponsors -->
 
                         <div class="form-check form-check-info text-start ps-0">
-                            <input class="form-check-input" type="checkbox" value="" id="terms" required>
+                            <input class="form-check-input" type="checkbox" value="" id="terms" >
                             <label class="form-check-label" for="terms">
                                 I agree to the <a href="javascript:;" class="text-dark font-weight-bolder">Terms and Conditions</a>
                             </label>
