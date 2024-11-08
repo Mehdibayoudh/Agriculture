@@ -71,9 +71,14 @@ Route::middleware('auth')->group(function () {
     Route::post('jardins/review', [JardinController::class, 'storeReview'])->name('reviews.store');
     Route::resource('event', EventController::class);
     Route::get('events/{id}', [EventController::class, 'show'])->name('event.show');
-
-    Route::post('/events/{event}/participate', [EventController::class, 'participate'])->name('events.participate');
-
+    Route::get('plantes', [PlanteController::class, 'index']);
+Route::resource('plante', PlanteController::class);
+Route::get('jardins/{Id}/plante/', [PlanteController::class, 'index'])->name('listPlante');
+Route::get('jardins/{id}/plante/create', [PlanteController::class, 'create'])->name('createPlante');
+Route::get('jardins/{Id}/plante/{planteId}', [PlanteController::class, 'show'])->name('showPlante');
+Route::get('jardins/{jardinId}/plante/{planteId}/edit', [PlanteController::class, 'edit'])->name('editPlante');
+Route::get('jardins/{jardinId}/plante/{planteId}/showOtherPlants', [PlanteController::class, 'showOtherPlants'])->name('showOtherPlants');
+Route::post('/events/{event}/participate', [EventController::class, 'participate'])->name('events.participate');
 
 });
 
@@ -101,9 +106,3 @@ Route::middleware(['role:user'])->group(function () {
 
 //USER
 
-Route::get('plantes', [PlanteController::class, 'index']);
-Route::resource('plante', PlanteController::class);
-Route::get('jardins/{Id}/plante/', [PlanteController::class, 'index'])->name('listPlante');
-Route::get('jardins/{id}/plante/create', [PlanteController::class, 'create'])->name('createPlante');
-Route::get('jardins/{Id}/plante/{planteId}', [PlanteController::class, 'show'])->name('showPlante');
-Route::get('jardins/{jardinId}/plante/{planteId}/edit', [PlanteController::class, 'edit'])->name('editPlante');

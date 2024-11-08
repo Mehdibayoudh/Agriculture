@@ -6,6 +6,8 @@ use App\Models\Plante;
 use App\Models\Jardin;
 use App\Models\PlanteCategorie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+
 
 class PlanteController extends Controller
 {
@@ -25,7 +27,8 @@ class PlanteController extends Controller
     {
         $categories = PlanteCategorie::all();
         $plantes = Plante::where('jardin_id', $jardinId)->get();
-        return view('Front.plante.index', compact(['plantes', 'categories']));
+        $jardin = Jardin::find($jardinId); 
+        return view('Front.plante.index', compact(['plantes', 'categories', 'jardin']));
     }
 
     /**
@@ -151,5 +154,35 @@ class PlanteController extends Controller
     {
         $plante->delete(); // Delete the Plante instance
         return redirect()->route('listPlante', [$plante->jardin_id, $plante->_id])->with('success', 'Plante deleted successfully.'); // Redirect with a success message
+    }
+
+    public function showOtherPlants($jardinId, $planteId)
+    {
+        $pricipalPlante = Plante::find(intval($planteId)); 
+        $besoins_eau = $pricipalPlante->besoins_eau;
+        $watering = match(true) {
+            $besoins_eau == 0 => 'none',
+            $besoins_eau <= 2 => 'minimum',
+            $besoins_eau <= 5 => 'average',
+            $besoins_eau <= 10 => 'frequent',
+            default => 'none',
+        };
+
+        $response = Http::get('https://perenual.com/api/species-list', [
+            'key' => 'sk-gi3i672e23f119bdb7568',
+            'watering' => $watering,
+        ]);
+ 
+
+        // Check if the response is successful
+        if ($response->successful()) {
+            $responseJson = $response->json(); 
+            $plantes = $responseJson['data'];
+            return view('Front.plante.showOtherPlants', compact(['plantes', 'pricipalPlante']));
+
+        } else {
+            // Handle errors if the request fails
+            return response()->json(['error' => 'Unable to fetch data'], 500);
+        }
     }
 }

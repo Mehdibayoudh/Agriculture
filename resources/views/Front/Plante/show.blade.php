@@ -40,6 +40,11 @@
                     <p style=" width: 150px; font-size: 24px; margin-right: 7px">{{ $plante->jardin->nom }}</p>
                     <a href="{{ route('jardins.show', [$plante->jardin_id]) }}"><button class="btn btn-outline-primary btn-sm" style="margin-left: 10px; font-size: 16px;" type="submit">Voir plus</button></a>
                 </div>
+
+                <div class="d-flex" style="align-items: baseline; gap:10px;">
+                    <h4 style="width: 316px">Plantes similaires :</h4>
+                    <a href="{{ route('showOtherPlants', [$plante->jardin_id, $plante->id]) }}"><button class="btn btn-outline-primary btn-sm" style="margin-left: 10px; font-size: 16px;" type="submit">Voir plus</button></a>
+                </div>
             </div>
         </div>
 
