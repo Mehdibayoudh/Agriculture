@@ -6,7 +6,9 @@
             <div class="row">
                 <div class="col-xl-6 col-lg-6">
                     <div class="event_detail_image">
-                            <img src="https://cdn.onecklace.com/blog/198/198-1.webp" alt="Image of " style="max-width: 400px;">
+                        @if($event->image_url)
+                            <img src="{{ asset($event->image_url) }}" alt="Event Image" class="img-fluid event-image" style="width: 450px">
+                        @endif
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6">
@@ -36,11 +38,29 @@
                                     @endforeach
                                 </ul>
                             @endif
-                                 <div class="footer-widget">
-                                    <h3 class="footer-widget__title">Newsletter</h3><!-- /.footer-widget__title -->
-                                    <form action="#" data-url="YOUR_MAILCHIMP_URL" class="mc-form">
-                                        <button type="submit">Participer</button>
-                                    </form>
+                            <h3 class="mt-4">Participants</h3>
+                            <ul>
+                                @foreach($event->participants as $participant)
+                                    <li>{{ $participant->name }}</li>
+                                @endforeach
+                            </ul>
+
+                            <div class="footer-widget">
+                                <!-- Participate Button -->
+                                @if(auth()->check())
+                                    <!-- Check if the user is already participating -->
+                                    @if($event->participants->contains(auth()->user()))
+                                        <p class="text-success">You have already joined this event.</p>
+                                    @else
+                                        <!-- Participate Button -->
+                                        <form action="{{ route('events.participate', $event->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="btn btn-primary">Participate in Event</button>
+                                        </form>
+                                    @endif
+                                @else
+                                    <p>Please <a href="{{ route('login') }}">log in</a> to participate.</p>
+                                @endif
                                     <div class="mc-form__response"></div><!-- /.mc-form__response -->
                              </div>
                         </div>

@@ -1,6 +1,41 @@
 @extends('layouts.app')
 
 @section('content')
+    <style>
+        .product-card {
+            border: 1px solid #e0e0e0;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+        }
+
+        .product-card__image img.event-image {
+            width: 100%;
+            height: auto;
+            max-height: 200px; /* Adjust based on your preference */
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .event-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin: 10px 0 5px;
+        }
+
+        .event-location {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+    </style>
 <body>
 <div class="preloader">
     <img class="preloader__image" width="55" src="assets/images/loader.png" alt="" />
@@ -79,32 +114,22 @@
 
                     <div class="row">
                         @foreach($events as $event)
-
-                        <div class="col-md-6 col-lg-4">
-
-                            <div class="product-card">
-                                <div class="product-card__image">
-                                    <img src="assets/images/events/awssommlb7ibf0o6znwh.png" alt="">
-
-                                </div><!-- /.product-card__image -->
-
-                                    <div class="col-md-4">
-                                        <div class="product-card__content">
-                                            <div class="product-card__left">
-                                                <!-- Display event title -->
-                                                <h3><a href="events/{{ $event->id }}">{{ $event->titre }}</a></h3>
-                                                <!-- Display event date -->
-                                                 <!-- Display event location -->
-                                                <p>{{ $event->localisation }}</p>
-                                            </div><!-- /.product-card__left -->
-
-                                        </div><!-- /.product-card__content -->
+                            <div class="col-md-6 col-lg-4">
+                                <div class="product-card">
+                                    <div class="product-card__image">
+                                        @if($event->image_url)
+                                            <img src="{{ asset($event->image_url) }}" alt="Event Image" class="img-fluid event-image">
+                                        @endif
                                     </div>
-                            </div><!-- /.product-card -->
-                        </div><!-- /.col-md-6 col-lg-4 -->
+                                    <div class="product-card__content">
+                                        <h3 class="event-title"><a href="events/{{ $event->id }}">{{ $event->titre }}</a></h3>
+                                        <p class="event-location">{{ $event->localisation }}</p>
+                                        <!-- You can add other details here if necessary -->
+                                    </div>
+                                </div>
+                            </div>
                         @endforeach
-
-                    </div><!-- /.row -->
+                    </div>
 
 
                 </div><!-- /.col-sm-12 col-md-12 col-lg-9 -->

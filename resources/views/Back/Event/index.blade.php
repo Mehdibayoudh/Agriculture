@@ -6,12 +6,12 @@
             <div class="card my-4">
                 <!-- Add Event Button -->
                 <div class="d-flex justify-content-end">
-                    <a href="{{ route('eventadmin.create') }}" class="btn btn-primary mx-3 my-3">Add Event</a>
+                    <a href="{{ route('eventadmin.create') }}" class="btn btn-primary mx-3 my-3" style="background: #60be74">Add Event</a>
                 </div>
                 <br>
-                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                    <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                        <h6 class="text-white text-capitalize ps-3">Events Table</h6>
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2" >
+                    <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3" style="background: #60be74">
+                        <h6 class="text-white text-capitalize ps-3" >Events Table</h6>
                     </div>
                 </div>
 

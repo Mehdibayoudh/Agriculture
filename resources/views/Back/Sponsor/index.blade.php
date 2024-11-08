@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <h2>Sponsors</h2>
-        <a href="{{ route('sponsoradmin.create') }}" class="btn btn-primary mb-3">Add Sponsor</a>
+        <a href="{{ route('sponsoradmin.create') }}" class="btn btn-primary mb-3" style="background: #60be74">Add Sponsor</a>
 
         @if(session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>

@@ -78,6 +78,7 @@ Route::get('jardins/{id}/plante/create', [PlanteController::class, 'create'])->n
 Route::get('jardins/{Id}/plante/{planteId}', [PlanteController::class, 'show'])->name('showPlante');
 Route::get('jardins/{jardinId}/plante/{planteId}/edit', [PlanteController::class, 'edit'])->name('editPlante');
 Route::get('jardins/{jardinId}/plante/{planteId}/showOtherPlants', [PlanteController::class, 'showOtherPlants'])->name('showOtherPlants');
+Route::post('/events/{event}/participate', [EventController::class, 'participate'])->name('events.participate');
 
 });
 
@@ -91,6 +92,9 @@ Route::middleware(['role:admin'])->group(function () {
     Route::resource('sponsoradmin', SponsorAdminController::class);
     Route::resource('eventadmin', EventAdminController::class);
     Route::resource('planteCategorie', PlanteCategorieController::class);
+    Route::post('/generate-image', [EventAdminController::class, 'generateImage'])->name('generate.image');
+
+
 });
 /*
 // Routes for simple users only

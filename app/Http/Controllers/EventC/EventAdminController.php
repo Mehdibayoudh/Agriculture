@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\Sponsor;
 use Illuminate\Http\Request;
+use GuzzleHttp\Client;
 
 class EventAdminController extends Controller
 {
@@ -48,7 +49,6 @@ class EventAdminController extends Controller
                 'required',
                 'string',
                 'max:255',
-                'regex:/^[\pL\s\-]+$/u'
             ],
             'sponsors' => 'nullable|array',
             'sponsors.*' => 'exists:sponsors,id',
@@ -62,8 +62,9 @@ class EventAdminController extends Controller
             'localisation.regex' => 'La localisation ne doit contenir que des lettres, espaces, ou tirets.',
         ]);
 
-        $validatedData['utilisateur_id'] = 1;
-
+        if ($request->has('generated_image')) { // Assuming 'generated_image' contains the file path
+            $validatedData['image_url'] = $request->input('generated_image');
+        }
         $event = Event::create($validatedData);
 
         if(isset($validatedData['sponsors'])) {
@@ -108,9 +109,17 @@ class EventAdminController extends Controller
         ]);
 
         $event = Event::findOrFail($event);
+
+        // Only update image_url if a new image URL is provided
+        if ($request->filled('generated_image')) {
+            $event->image_url = $request->input('generated_image');
+        }
+
+        // Update other event details with validated data
         $event->update($validatedData);
 
-        if(isset($validatedData['sponsors'])) {
+        // Sync sponsors if provided, or detach if not
+        if (isset($validatedData['sponsors'])) {
             $event->sponsors()->sync($validatedData['sponsors']);
         } else {
             $event->sponsors()->detach();
@@ -130,4 +139,41 @@ class EventAdminController extends Controller
 
         return redirect()->route('eventadmin.index');
     }
+// In EventController.php
+    public function generateImage(Request $request)
+    {
+        $title = $request->input('title');
+        $client = new \GuzzleHttp\Client();
+
+        try {
+            $response = $client->post('https://ai-text-to-image-generator-api.p.rapidapi.com/3D', [
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                    'x-rapidapi-key' => '5bfbaf133bmsh7271ae99c13a532p184f15jsn11fba1755b50',
+                    'x-rapidapi-host' => 'ai-text-to-image-generator-api.p.rapidapi.com'
+                ],
+                'json' => [
+                    'inputs' => $title,  // Use the title from the request as the input text
+                ],
+            ]);
+
+            // Decode the JSON response
+            $data = json_decode($response->getBody(), true);
+
+            // Check if 'url' key exists in the response data
+            if (isset($data['url'])) {
+                return response()->json(['url' => $data['url']]); // Return the URL in JSON format
+            } else {
+                return response()->json(['error' => 'Image URL not found in the response.'], 500);
+            }
+
+        } catch (\Exception $e) {
+            \Log::error('API Request Failed:', ['error' => $e->getMessage()]);
+            return response()->json(['error' => 'Error generating image.'], 500);
+        }
+    }
+
+
+
 }
