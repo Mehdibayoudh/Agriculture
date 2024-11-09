@@ -6,7 +6,15 @@
 <meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 
 <body>
-
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
 
     <form action="{{ $route }}" method="POST" class=" contact-one__form" enctype="multipart/form-data">
         @csrf
@@ -19,38 +27,38 @@
             <div class="col-md-6">
                 <label for="titre">Titre</label>
                 <input type="text" name="titre" id="titre" class="form-control" style="padding-left: 0; padding-right: 0; border: 1px solid #ced4da; background-color: white;"
-                    value="{{ old('titre', $ressource->titre) }}" required>
-                @error('titre')
+                    value="{{ old('titre', $ressource->titre) }}">
+                <!-- @error('titre')
                 <span class="text-danger">{{ $message }}</span>
-                @enderror
+                @enderror -->
             </div>
 
             <!-- Type -->
             <!-- Type Dropdown -->
             <div class="col-md-6">
                 <label for="type">Type</label>
-                <select name="type" id="type" class="form-control" style="padding-left: 0; padding-right: 0; height: 60px;" required>
+                <select name="type" id="type" class="form-control" style="padding-left: 0; padding-right: 0; height: 60px;">
                     <option value="" disabled>Select Type</option>
                     <option value="naturelle" {{ old('type', $ressource->type) == 'naturelle' ? 'selected' : '' }}>naturelle</option>
                     <option value="materielle" {{ old('type', $ressource->type) == 'materielle' ? 'selected' : '' }}>materielle</option>
                 </select>
-                @error('type')
+                <!-- @error('type')
                 <span class="text-danger">{{ $message }}</span>
-                @enderror
+                @enderror -->
             </div>
 
             <!-- Disponibilité Dropdown -->
             <div class="col-md-6">
                 <label for="disponibilité">Disponibilité</label>
-                <select name="disponibilité" id="disponibilité" class="form-control" style="padding-left: 0; padding-right: 0; height: 60px;" required>
+                <select name="disponibilité" id="disponibilité" class="form-control" style="padding-left: 0; padding-right: 0; height: 60px;">
                     <option value="" disabled>Select Availability</option>
                     <option value="disponible" {{ old('disponibilité', $ressource->disponibilité) == 'disponible' ? 'selected' : '' }}>disponible</option>
                     <option value="indisponible" {{ old('disponibilité', $ressource->disponibilité) == 'indisponible' ? 'selected' : '' }}>indisponible</option>
                     <option value="reservé" {{ old('disponibilité', $ressource->disponibilité) == 'reservé' ? 'selected' : '' }}>reservé</option>
                 </select>
-                @error('disponibilité')
+                <!-- @error('disponibilité')
                 <span class="text-danger">{{ $message }}</span>
-                @enderror
+                @enderror -->
             </div>
 
 
@@ -58,18 +66,18 @@
             <div class="col-md-6">
                 <label for="description">Description</label>
                 <textarea name="description" id="description" class="form-control" style="padding-left: 0; padding-right: 0; height: auto;  border: 1px solid #ced4da; background-color: white;">{{ old('description', $ressource->description) }}</textarea>
-                @error('description')
+                <!-- @error('description')
                 <span class="text-danger">{{ $message }}</span>
-                @enderror
+                @enderror -->
             </div>
 
             <!-- Image -->
             <div class="col-md-6">
-                <label for="image">Image (optional)</label>
+                <label for="image">Image </label>
                 <input type="file" name="image" id="image" class="form-control-file" style=" padding-left: 0; padding-right: 0; padding-bottom: 30px;" onchange="uploadImage(event)">
-                @error('image')
+                <!-- @error('image')
                 <span class="text-danger">{{ $message }}</span>
-                @enderror
+                @enderror -->
             </div>
         </div>
 

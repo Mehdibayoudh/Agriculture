@@ -45,7 +45,7 @@
                     class="col-md-6 col-lg-3 mb-4"> <!-- Adjusted to show 4 in a row on large screens -->
                     <div class="product-card">
                         <div style="text-align: center;" class="product-card__image">
-                            <img style="width: 65%;" src="../assets/images/products/product-1-1.jpg" alt="">
+                            <img style="width: 65%;" src="{{ asset('storage/' . $ressource->image) }}"> <!-- Set the image source and alternative text -->
 
                             <div class="product-card__image-content">
                                 <form action="{{ route('wishlists.detach-ressource', ['wishlist' => $wishlist->id, 'ressource' => $ressource->id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to detach this resource from the wishlist?');">

@@ -43,8 +43,8 @@ class RessourceController extends Controller
             'titre' => 'required|string',
             'type' => 'required|string',
             'disponibilité' => 'required|string',
-            'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,gif,svg|max:2048',
+            'description' => 'required|string',
+            'image' => 'required|image|mimes:jpg,jpeg,png,gif,svg|max:2048',
             // 'user_id' => 'required|exists:users,id',
 
         ]);
@@ -62,7 +62,7 @@ class RessourceController extends Controller
 
         Ressource::create($data);
 
-        return redirect()->route('ressource.index')->with('success', 'Ressource created successfully.');
+        return redirect()->back()->with('success', 'Your review has been submitted.');
     }
 
     /**
