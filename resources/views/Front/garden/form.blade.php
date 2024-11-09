@@ -30,7 +30,7 @@
                             <div class="col-md-12">
                                 <div class="mb-3">
                                     <label for="photo" class="form-label">Image du jardin</label>
-                                    <input type="file" class="form-control" id="photo" name="photo"> <!--onchange="uploadImage(event)" -->
+                                    <input type="file" class="form-control" id="photo" name="photo" onchange="uploadImage(event)">
                                 </div>
                             </div>
                         @else
@@ -53,12 +53,11 @@
                         <!-- Garden Name -->
                         <div class="col-md-12">
                             <input type="text" name="nom" placeholder="Garden Name" value="{{ old('nom', $jardin->nom) }}">
-
                         </div>
 
                         <!-- Garden Desc -->
                         <div class="col-md-12">
-                            <input type="hidden" id="description" name="description" placeholder="Garden description" value="{{ old('description', $jardin->description) }}">
+                            <input type="text" id="description" name="description" placeholder="Garden description" value="{{ old('description', $jardin->description) }}">
                         </div>
 
 
@@ -103,14 +102,12 @@
     </div><!-- /.container -->
 </section><!-- /.checkout-page -->
 
-
-
 <script>
     async function uploadImage(event) {
         const file = event.target.files[0];
         if (file) {
             const formData = new FormData();
-            formData.append('photo', file);
+            formData.append('photo', file);  // Make sure this matches the form input name
 
             try {
                 const response = await fetch("{{ route('caption') }}", {
@@ -126,16 +123,20 @@
                 }
 
                 const data = await response.json();
-                if (data.description) {
-                    document.getElementById('description').value = data.description;
+                console.log('Response data from Laravel:', data); // Log the entire response
+
+                if (data.caption) {
+                    document.getElementById('description').value = data.caption;
                 } else {
-                    console.error('No description returned');
+                    console.error('No caption returned');
                 }
+
             } catch (error) {
                 console.error('Error:', error);
             }
         }
     }
 </script>
+
 </body>
 </html>

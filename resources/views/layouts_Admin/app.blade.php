@@ -77,8 +77,19 @@
                     <span class="nav-link-text ms-1">planteCategorie</span>
                 </a>
             </li>
-
-
+            <br>
+            <br>
+            <br>
+                <!-- Check if the user is authenticated -->
+            @auth
+                <li style="margin-left: 55px">
+                    <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                        @csrf
+                        <button class="btn btn-outline-light" style="margin-left: 10px; font-size: 16px;"
+                                type="submit">Logout</button>
+                    </form>
+                </li>
+                @endauth
         </ul>
     </div>
 

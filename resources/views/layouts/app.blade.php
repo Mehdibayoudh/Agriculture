@@ -61,24 +61,16 @@
                     <li class="">
                         <a href="{{ url('/') }}">Home</a>
                     </li>
-                    @guest
-                        <li class="dropdown">
-                            <a>Auth</a>
-                            <ul>
-                                <li>
-                                    <a href="{{ route('loginPage') }}">Login</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('registerPage') }}">Register</a>
-                                </li>
-                            </ul>
-                        </li>
-                    @endguest
+
                     <li class="dropdown">
                         <a href="{{ url('/') }}">Gardens</a>
                         <ul>
                             <li><a href="{{ url('/jardins') }}">all gardens</a></li>
-                            <li><a href="{{ route('getJardinierGardens', ['etat' => 1]) }}">my gardens</a></li>
+                            @auth
+                                @if (auth()->user()->role === 'jardinier')
+                                    <li><a href="{{ route('getJardinierGardens', ['etat' => 1]) }}">My Gardens</a></li>
+                                @endif
+                            @endauth
 
                         </ul>
                     </li>
@@ -122,6 +114,17 @@
                             </form>
                         </li>
                     @endauth
+                    @guest
+                        <li>
+                            <a class="btn btn-success" style="color: white" href="{{ route('loginPage') }}">Login</a>
+
+                        </li>
+
+                        <li>
+                            <a class="btn btn-success" style="color: white" href="{{ route('registerPage') }}">Register</a>
+
+                        </li>
+                    @endguest
                 </ul>
             </div><!-- /.container -->
         </nav>
@@ -237,6 +240,7 @@
                     </div><!-- /.inner-container -->
                 </div><!-- /.container -->
             </div><!-- /.bottom-footer -->
+        </div>
     </footer><!-- /.site-footer -->
 
     <script src="{{ asset('assets/vendors/jquery/jquery-3.5.1.min.js') }}"></script>

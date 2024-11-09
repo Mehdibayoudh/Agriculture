@@ -31,36 +31,16 @@
                 <div class="col-sm-12 col-md-12 col-lg-3">
                     <div class="product-sidebar">
                         <div class="product-sidebar__single product-sidebar__search-widget">
-                            <form action="#">
-                                <input type="text" placeholder="Search">
+                            <form action="{{ route('searchGardens') }}" method="GET">
+                                <input type="text" name="search" placeholder="Search for gardens" value="{{ request('search') }}">
                                 <button class="organik-icon-magnifying-glass" type="submit"></button>
                             </form>
                         </div><!-- /.product-sidebar__single -->
 
-                        <div class="product-sidebar__single">
-                            <h3>Categories</h3>
-                            <ul class="list-unstyled product-sidebar__links">
-                                <li><a href="#">Vegetables <i class="fa fa-angle-right"></i></a></li>
-                                <li><a href="#">Fresh Fruits <i class="fa fa-angle-right"></i></a></li>
-                                <li><a href="#">Dairy Products <i class="fa fa-angle-right"></i></a></li>
-                                <li><a href="#">Tomatos <i class="fa fa-angle-right"></i></a></li>
-                                <li><a href="#">Oranges <i class="fa fa-angle-right"></i></a></li>
-                            </ul><!-- /.list-unstyled product-sidebar__links -->
-                        </div><!-- /.product-sidebar__single -->
+
                     </div><!-- /.product-sidebar -->
                 </div><!-- /.col-sm-12 col-md-12 col-lg-3 -->
                 <div class="col-sm-12 col-md-12 col-lg-9">
-                    <div class="product-sorter">
-                        <p>Showing 1–9 of 12 results</p>
-                        <div class="product-sorter__select">
-                            <select class="selectpicker">
-                                <option value="#">Sort by popular</option>
-                                <option value="#">Sort by popular</option>
-                                <option value="#">Sort by popular</option>
-                                <option value="#">Sort by popular</option>
-                            </select>
-                        </div><!-- /.product-sorter__select -->
-                    </div><!-- /.product-sorter -->
                     <div class="row">
                         @foreach($jardins as $jardin)
                             @if($jardin->etat == 1)
@@ -82,14 +62,19 @@
                                             <!-- Display Jardin Localisation -->
                                             <p>{{ $jardin->localisation }}</p>
                                         </div><!-- /.product-card__left -->
-                                        <div class="product-card__right">
-                                            <!-- Example star rating or any other detail -->
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div><!-- /.product-card__right -->
+                                        <div class="product_detail_review">
+                                            @if ($jardin->reviews_avg_rating!==null)
+                                            @for ($i = 1; $i <= 5; $i++)
+                                                <a href="#">
+                                                    <a class="@if($i > $jardin->reviews_avg_rating) deactive @endif" href="#">
+                                                        <i style="width: 10px" class="fa fa-star"></i>
+                                                    </a>
+                                                </a>
+                                            @endfor
+                                            @else
+                                                <p style="color: green">No reviews yet</p>
+                                            @endif
+                                        </div>
                                     </div><!-- /.product-card__content -->
                                 </div><!-- /.product-card -->
                             </div><!-- /.col-md-6 col-lg-4 -->

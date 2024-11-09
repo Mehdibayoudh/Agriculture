@@ -26,7 +26,7 @@ class UserController extends Controller
             'role' => $request->role ?? 'user', // Default to 'user' role
         ]);
 
-        return redirect()->route('loginPage')->with('success', 'Jardin created successfully.');
+        return redirect()->route('loginPage')->with('success', 'user created successfully.');
     }
 
     public function login(Request $request)
@@ -42,7 +42,7 @@ class UserController extends Controller
             if($user->role === 'admin') {
                 return redirect()->intended('/jardinBack');
             }
-            return redirect()->intended('/jardins');
+            return redirect()->intended('/');
         }
 
         return back()->withErrors([

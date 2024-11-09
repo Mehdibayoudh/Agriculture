@@ -6,9 +6,9 @@
             <div class="card my-4">
 
 
-                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                    <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                        <h6 class="text-white text-capitalize ps-3">Pending Gardens Table</h6>
+                <div  class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div style="background-color: #60be74" class="shadow-primary border-radius-lg pt-4 pb-3">
+                        <h6  class="text-white text-capitalize ps-3">Pending Gardens Table</h6>
                     </div>
                 </div>
 
@@ -79,7 +79,7 @@
 
 
                 <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                    <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                    <div style="background-color: #60be74" class="shadow-primary border-radius-lg pt-4 pb-3">
                         <h6 class="text-white text-capitalize ps-3">Accepted Gardens Table</h6>
                     </div>
                 </div>
@@ -89,6 +89,7 @@
                         <table class="table align-items-center mb-0">
                             <thead>
                             <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">image</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">nom</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">localisation</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">type</th>
@@ -100,6 +101,11 @@
                                 @if($jardin->etat == 1)
 
                                     <tr>
+                                        <td>
+                                            @if($jardin->photo)
+                                                <img src="{{ asset('storage/' . $jardin->photo) }}" alt="Image of {{ $jardin->nom }}" style="max-width: 80px;max-height: 80px;border-radius: 100%">
+                                            @endif
+                                        </td>
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
@@ -134,7 +140,7 @@
 
 
                 <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                    <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                    <div style="background-color: #60be74" class="shadow-primary border-radius-lg pt-4 pb-3">
                         <h6 class="text-white text-capitalize ps-3">Declined Gardens Table</h6>
                     </div>
                 </div>
@@ -156,6 +162,11 @@
                                 @if($jardin->etat == -1)
 
                                     <tr>
+                                        <td>
+                                            @if($jardin->photo)
+                                                <img src="{{ asset('storage/' . $jardin->photo) }}" alt="Image of {{ $jardin->nom }}" style="max-width: 80px;max-height: 80px;border-radius: 100%">
+                                            @endif
+                                        </td>
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">

@@ -21,10 +21,26 @@ class JardinController extends Controller
      */
     public function index()
     {
-        // Fetch all jardins, optionally with relationships
-        $jardins = Jardin::all();
+        // Fetch all jardins with the average rating of reviews
+        $jardins = Jardin::withAvg('reviews', 'rating')->get();
 
-        // Return a view with the jardins
+        // Return a view with the jardins and their average ratings
+        return view('Front.garden.index', compact('jardins'));
+    }
+
+
+
+    public function search(Request $request)
+    {
+        // Get the search query from the request
+        $searchQuery = $request->input('search');
+
+        // Perform the search on the gardens' name and description (or any other relevant columns)
+        $jardins = Jardin::where('nom', 'LIKE', '%' . $searchQuery . '%')
+            ->orWhere('description', 'LIKE', '%' . $searchQuery . '%')
+            ->get();
+
+        // Return the view with the search results
         return view('Front.garden.index', compact('jardins'));
     }
 
@@ -65,51 +81,43 @@ class JardinController extends Controller
 
     public function caption(Request $request)
     {
-        Log::info("Incoming Request Data: ", $request->all());
-
-        // Validate the image upload
+        // Validate the uploaded file
         $request->validate([
-            'photo' => 'required|image|max:2048',
+            'photo' => 'required|file|image'
         ]);
 
-        // Store the uploaded image temporarily
-        $imagePath = $request->file('photo')->store('temp_images', 'public');
-        $imageUrl = asset("storage/$imagePath"); // Make sure this URL is accessible
-        Log::info("Image URL: $imageUrl");
-
         try {
-            // Increase execution time limit for PHP
-            set_time_limit(300);  // Set it to 300 seconds
+            // Get the uploaded file from the request
+            $file = $request->file('photo');  // Use 'photo' here as it matches the form input name
 
-            // Call the FastAPI captioning endpoint with a 300-second timeout
-            $response = Http::timeout(300)->post('http://127.0.0.1:8081/caption', [
-                'image_url' => $imageUrl,
-            ]);
-
-            Log::info("FastAPI Response Body: " . $response->body());
-
+            // Send a POST request with the file to the FastAPI endpoint
+            $response = Http::attach(
+                'file',                        // The field name expected by FastAPI
+                file_get_contents($file),      // The file content
+                $file->getClientOriginalName() // Original file name
+            )->post('http://127.0.0.1:8081/caption');
+            // Check if the request was successful
             if ($response->successful()) {
-                $caption = $response->json()['caption'] ?? null;
-                Log::info("caption : $caption");
+                $caption = $response->json('caption');
+                log::info('Returning caption:', ['caption' => $caption]);
 
-                if ($caption) {
-                    // Optionally delete the temporary image after use
-                    Storage::disk('public')->delete($imagePath);
-                    return response()->json(['description' => $caption]);
-                } else {
-                    Log::error("No caption in response");
-                    return response()->json(['error' => 'No caption returned'], 500);
-                }
-            } else {
-                Log::error("Unexpected FastAPI Response: " . $response->body());
-                return response()->json(['error' => 'Failed to generate caption'], 500);
+                return response()->json([
+                    'caption' => $caption
+                ]);
+            }
+            else {
+                // Handle error response from FastAPI
+                return response()->json([
+                    'error' => 'Failed to get caption from the FastAPI server.'
+                ], $response->status());
             }
         } catch (\Exception $e) {
-            Log::error("Exception in generateCaption: " . $e->getMessage());
-            return response()->json(['error' => 'An error occurred while generating caption'], 500);
+            // Handle any exceptions
+            return response()->json([
+                'error' => 'An error occurred: ' . $e->getMessage()
+            ], 500);
         }
     }
-
 
     public function jardinierGardens(Request $request)
     {
@@ -126,7 +134,8 @@ class JardinController extends Controller
             $query->where('etat', $etat); // Filter by etat if set
         }
 
-        $jardins = $query->get();
+        // Fetch jardins with the average review rating for each
+        $jardins = $query->withAvg('reviews', 'rating')->get(); // Add the average review rating for each garden
 
         // Return a view with the filtered gardens
         return view('Front.garden.jardinierGardens', compact('jardins', 'conectedJardinier', 'etat'));
@@ -148,6 +157,7 @@ class JardinController extends Controller
     {
         $request->validate([
             'nom' => 'required|string|min:3|max:255',
+            'description' => 'required|string|min:10|max:500',
             'localisation' => 'required|string|min:3|max:255',
             'type' => ['required', 'in:' . implode(',', Jardin::GARDEN_TYPES)],
             'surface' => 'required|numeric|min:10|max:10000',
@@ -166,6 +176,7 @@ class JardinController extends Controller
             'nom' => $request->nom,
             'localisation' => $request->localisation,
             'type' => $request->type,
+            'description' => $request->description,
             'surface' => $request->surface,
             'utilisateur_id' => $request->utilisateur_id,
             'photo' => $imagePath, // Save the image path

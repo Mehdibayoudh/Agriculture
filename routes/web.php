@@ -66,7 +66,9 @@ Route::middleware('auth')->group(function () {
     //Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::post('/logout', [UserController::class, 'logout'])->name('logout');
     Route::resource('jardins', JardinController::class);
-    Route::get('/jardinier-gardens', [JardinController::class, 'jardinierGardens'])->name('getJardinierGardens');
+    // Route for searching gardens
+    Route::get('/gardens/search', [JardinController::class, 'search'])->name('searchGardens');
+
     Route::post('/caption', [JardinController::class, 'caption'])->name('caption');
     Route::post('jardins/review', [JardinController::class, 'storeReview'])->name('reviews.store');
     Route::resource('event', EventController::class);
@@ -95,6 +97,10 @@ Route::middleware(['role:admin'])->group(function () {
     Route::post('/generate-image', [EventAdminController::class, 'generateImage'])->name('generate.image');
 
 
+});
+// Routes for admin users only
+Route::middleware(['role:jardinier'])->group(function () {
+    Route::get('/jardinier-gardens', [JardinController::class, 'jardinierGardens'])->name('getJardinierGardens');
 });
 /*
 // Routes for simple users only
