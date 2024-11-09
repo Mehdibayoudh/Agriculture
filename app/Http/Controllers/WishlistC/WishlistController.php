@@ -6,13 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Models\Wishlist;
 use App\Models\Ressource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class WishlistController extends Controller
 {
     // Display a list of wishlists
     public function index()
     {
-        $Wishlists = Wishlist::with('ressources')->get(); // Get all wishlists with resources
+        $user = Auth::user();
+        $conecteduser = $user->id;
+        $Wishlists = Wishlist::where('user_id', $conecteduser)->get();
         return view('Front.Wishlist.index', compact('Wishlists'));
     }
 
@@ -34,9 +38,10 @@ class WishlistController extends Controller
             'name' => 'required|string|max:255',
             // 'user_id' => 'required|exists:users,id'
         ]);
-        //hard coding user for now
+        $user = Auth::user();
+        $conecteduser = $user->id;
         $data = $request->all();
-        $data['user_id'] = 1;
+        $data['user_id'] = $conecteduser;
 
         Wishlist::create($data);
         return redirect()->route('wishlists.index')->with('success', 'wishlist created successfully.');

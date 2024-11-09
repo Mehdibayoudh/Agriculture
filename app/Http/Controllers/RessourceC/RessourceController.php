@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Ressource;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RessourceController extends Controller
 {
@@ -15,11 +16,13 @@ class RessourceController extends Controller
 
     public function index()
     {
+        $user = Auth::user();
+        $conecteduser = $user->id;
         $Ressources = Ressource::all();
 
         // Fetch the authenticated user's wishlists
         // $wishlists = Wishlist::where('user_id', auth()->id())->get();
-        $wishlists = Wishlist::where('user_id', 1)->get();
+        $wishlists = Wishlist::where('user_id', $conecteduser)->get();
         return view('Front.Ressource.index', compact('Ressources', 'wishlists'));
     }
 
@@ -45,9 +48,10 @@ class RessourceController extends Controller
             // 'user_id' => 'required|exists:users,id',
 
         ]);
-        //hard coding user for now
+        $user = Auth::user();
+        $conecteduser = $user->id;
         $data = $request->all();
-        $data['user_id'] = 1;
+        $data['user_id'] = $conecteduser;
 
         //image upload
         if ($request->hasFile('image')) {

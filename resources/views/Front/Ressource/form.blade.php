@@ -7,6 +7,7 @@
 
 <body>
 
+
     <form action="{{ $route }}" method="POST" class=" contact-one__form" enctype="multipart/form-data">
         @csrf
         @if($ressource->exists)
@@ -65,7 +66,7 @@
             <!-- Image -->
             <div class="col-md-6">
                 <label for="image">Image (optional)</label>
-                <input type="file" name="image" id="image" class="form-control-file" style=" padding-left: 0; padding-right: 0; padding-bottom: 30px;">
+                <input type="file" name="image" id="image" class="form-control-file" style=" padding-left: 0; padding-right: 0; padding-bottom: 30px;" onchange="uploadImage(event)">
                 @error('image')
                 <span class="text-danger">{{ $message }}</span>
                 @enderror
@@ -81,7 +82,41 @@
 
 
 
+    <script>
+        async function uploadImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const formData = new FormData();
+                formData.append('image', file); // Make sure this matches the form input name
 
+                try {
+                    const response = await fetch("{{ route('caption') }}", {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        },
+                        body: formData,
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch image description');
+                    }
+
+                    const data = await response.json();
+                    console.log('Response data from Laravel:', data); // Log the entire response
+
+                    if (data.caption) {
+                        document.getElementById('description').value = data.caption;
+                    } else {
+                        console.error('No caption returned');
+                    }
+
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            }
+        }
+    </script>
 </body>
 
 </html>
