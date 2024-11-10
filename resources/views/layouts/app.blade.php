@@ -67,9 +67,9 @@
                         <ul>
                             <li><a href="{{ url('/jardins') }}">all gardens</a></li>
                             @auth
-                                @if (auth()->user()->role === 'jardinier')
-                                    <li><a href="{{ route('getJardinierGardens', ['etat' => 1]) }}">My Gardens</a></li>
-                                @endif
+                            @if (auth()->user()->role === 'jardinier')
+                            <li><a href="{{ route('getJardinierGardens', ['etat' => 1]) }}">My Gardens</a></li>
+                            @endif
                             @endauth
 
                         </ul>
@@ -81,14 +81,6 @@
                         <ul>
                             <li><a href="{{ url('/ressource') }}">ressources</a></li>
                             <li><a href="{{ url('/ressource/create') }}">create ressource</a></li>
-                        </ul>
-                    </li>
-                    <!-- wishlist -->
-                    <li class="dropdown">
-                        <a href="{{ url('/wishlists') }}">Wishlist</a>
-                        <ul>
-                            <li><a href="{{ url('/wishlists') }}">My Wishlists</a></li>
-                            <li><a href="{{ url('/wishlists/create') }}">create Wishlist</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -106,32 +98,47 @@
 
                     <!-- Check if the user is authenticated -->
                     @auth
-                        <li>
-                            <form action="{{ route('logout') }}" method="POST" style="display: inline;">
-                                @csrf
-                                <button class="btn btn-outline-danger" style="margin-left: 10px; font-size: 16px;"
-                                    type="submit">Logout</button>
-                            </form>
-                        </li>
+                    <li>
+                        <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                            @csrf
+                            <button class="btn btn-outline-danger" style="margin-left: 10px; font-size: 16px;"
+                                type="submit">Logout</button>
+                        </form>
+                    </li>
                     @endauth
                     @guest
-                        <li>
-                            <a class="btn btn-success" style="color: white" href="{{ route('loginPage') }}">Login</a>
+                    <li>
+                        <a class="btn btn-success" style="color: white" href="{{ route('loginPage') }}">Login</a>
 
-                        </li>
+                    </li>
 
-                        <li>
-                            <a class="btn btn-success" style="color: white" href="{{ route('registerPage') }}">Register</a>
+                    <li>
+                        <a class="btn btn-success" style="color: white" href="{{ route('registerPage') }}">Register</a>
 
-                        </li>
+                    </li>
                     @endguest
+
+                    <li class="dropdown">
+                        <a style="color: #ff0000c2; font-size: 30px; cursor: pointer;"><i class="fa fa-heart"></i></a>
+                        <ul>
+                            <li><a href="{{ url('/wishlists') }}">My Wishlists</a></li>
+                            <li><a href="{{ url('/wishlists/create') }}">create Wishlist</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a style="color: #75ed437a; font-size: 30px; cursor: pointer;"><i class="fa fa-cloud-sun" aria-hidden="true"></i></a>
+                        <ul>
+                            <li><a href="{{ url('/weather') }}">Check Weather</a></li>
+
+                        </ul>
+                    </li>
                 </ul>
             </div><!-- /.container -->
         </nav>
         <!-- /.main-menu -->
     </header><!-- /.main-header -->
 
-    <div >
+    <div>
         @yield('content') <!-- Content will be injected here -->
     </div>
 
