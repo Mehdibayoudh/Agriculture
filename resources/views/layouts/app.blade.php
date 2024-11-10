@@ -125,6 +125,13 @@
                             <li><a href="{{ url('/wishlists/create') }}">create Wishlist</a></li>
                         </ul>
                     </li>
+                    <li class="dropdown">
+                        <a style="color: #75ed437a; font-size: 30px; cursor: pointer;"><i class="fa fa-cloud-sun" aria-hidden="true"></i></a>
+                        <ul>
+                            <li><a href="{{ url('/weather') }}">Check Weather</a></li>
+
+                        </ul>
+                    </li>
                 </ul>
             </div><!-- /.container -->
         </nav>
