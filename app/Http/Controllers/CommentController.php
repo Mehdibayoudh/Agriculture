@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Models\Blog;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class CommentController extends Controller
 {
@@ -21,7 +23,7 @@ class CommentController extends Controller
         // Create and save the comment
         $comment = new Comment();
         $comment->content = $request->input('content');
-        $comment->user_id = 1; // Assuming the user is logged in
+        $comment->user_id = Auth::id(); // Assuming the user is logged in
         $comment->blog_id = $blog->id;
 
         $comment->save();
@@ -36,7 +38,7 @@ class CommentController extends Controller
     public function destroy(Comment $comment)
     {
         // Check if the user is authorized to delete the comment
-        if (1 !== $comment->user_id) {
+        if (Auth::id() !== $comment->user_id) {
             return redirect()->back()->with('error', 'Unauthorized action.');
         }
 

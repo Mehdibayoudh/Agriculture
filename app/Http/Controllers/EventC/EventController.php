@@ -37,9 +37,12 @@ class EventController extends Controller
     /**
      * Display the specified event.
      */
-    public function show(Event $event)
+    public function show($id)
     {
-     }
+        $event = Event::with('sponsors', 'user')->findOrFail($id);
+        return view('Front.Event.show', compact('event'));
+    }
+
 
     /**
      * Show the form for editing the specified event.
@@ -63,4 +66,20 @@ class EventController extends Controller
     {
 
     }
+    public function participate(Event $event)
+    {
+        $user = auth()->user();
+
+        // Check if the user is already participating in this event
+        if ($event->participants()->where('user_id', $user->id)->exists()) {
+            return redirect()->back()->with('message', 'You are already participating in this event.');
+        }
+
+        // Add the user to the event's participants
+        $event->participants()->attach($user->id);
+
+        return redirect()->back()->with('message', 'You have successfully registered for the event.');
+    }
+
+
 }

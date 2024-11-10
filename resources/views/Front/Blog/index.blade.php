@@ -31,8 +31,8 @@
                 <div class="col-sm-12 col-md-12 col-lg-3">
                     <div class="product-sidebar">
                         <div class="product-sidebar__single product-sidebar__search-widget">
-                            <form action="#">
-                                <input type="text" placeholder="Search">
+                            <form method="GET" action="{{ route('blogs.search') }}">
+                                <input type="text" placeholder="Search" name="search" value="{{ request('search') }}">
                                 <button class="organik-icon-magnifying-glass" type="submit"></button>
                             </form>
                         </div><!-- /.product-sidebar__single -->
@@ -52,47 +52,55 @@
                     <div class="product-sorter">
                         <p>Showing {{ count($blogs) }} results</p>
                     </div><!-- /.product-sorter -->
+                   
+
                     <div class="row">
     @foreach($blogs as $blog)
-        <div class="col-md-6 col-lg-4 mb-4">
-            <div class="product-card border rounded shadow-sm p-3 d-flex flex-column" style="height: 100%;">
-                <div class="product-card__image mb-3">
-                    @if ($blog->image)
-                        <img src="{{ asset('storage/' . $blog->image) }}" alt="Blog Image" style="width: 100%; height: auto;">
+        <div class="col-md-6 col-lg-4 mb-4"> <!-- Each blog card takes 1/3rd of the row on large screens -->
+        <div class="product-card border rounded shadow-sm p-3 d-flex flex-column" style="height: 100%;">
+                <!-- Blog Image Section -->
+                <div class="product-card__image">
+                    @if($blog->image)
+                        <img src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blog->titre }}" style="width: 100%; height: auto;">
                     @else
-                        <img src="path/to/default/image.jpg" alt="Default Image" style="width: 100%; height: auto;">
+                        <img src="assets/images/products/default-image.jpg" alt="Default Image" style="width: 100%; height: auto;">
                     @endif
                 </div><!-- /.product-card__image -->
 
-                <div class="product-card__content p-3 flex-grow-1">
-    <div class="d-flex flex-column">
-        <!-- Blog Title -->
-        <h3 class="product-title mb-2">
-            <a href="blogs/{{ $blog->id }}">{{ $blog->titre }}</a>
-        </h3>
+                <!-- Blog Content Section -->
+                <div class="product-card__content">
+                    <div style="display: flex; flex-direction: column;">
+                        <!-- Blog Title and Content -->
+                        <div>
+                            <div class="product-card__left">
+                                <h3><a href="blogs/{{ $blog->id }}">{{ $blog->titre }}</a></h3>
+                                <p>{{ Str::limit($blog->content, 100) }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.product-card__content -->
 
-        <!-- Blog Content -->
-        <p class="product-description mb-3">{{ Str::limit($blog->content, 100) }}</p>
-    </div>
-</div>
-<!-- /.product-card__content -->
-
+                <!-- Action Buttons for Blog (Edit & Delete) -->
+                @if (auth()->id() === $blog->utilisateur_id) <!-- Check if the authenticated user is the owner -->
                 <div class="product-card__actions d-flex justify-content-end mt-auto">
                     <a href="blogs/{{ $blog->id }}/edit"  title="Edit">
                         <i class="fa fa-edit pr-1"></i> <!-- FontAwesome Edit Icon -->
                     </a>
-                    <form action="blogs/{{ $blog->id }}" method="POST" style="display:inline;">
-                        @csrf
+                    <form action="{{ route('blogs.destroy', $blog->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this blog?');" style="display:inline;">                        @csrf
                         @method('DELETE')
                         <button type="submit" title="Delete" style="border: none; background: none;">
-        <i class="fa fa-trash"></i> <!-- FontAwesome Trash Icon -->
+        <i class="fa fa-trash pr-2"></i> <!-- FontAwesome Trash Icon -->
     </button>
                     </form>
                 </div><!-- /.product-card__actions -->
+                @endif
+
             </div><!-- /.product-card -->
-        </div><!-- /.col-md-6 col-lg-4 -->
+        </div><!-- /.col -->
     @endforeach
 </div><!-- /.row -->
+
+
 
 
 

@@ -18,15 +18,34 @@ class Jardin extends Model
         'nom',
         'localisation',
         'type',
+        'description',
         'surface',
+        'etat',
         'utilisateur_id',
+        'photo',
     ];
+
+    // Enum for garden types
+    const GARDEN_TYPES = [
+        'Vegetable',
+        'Fruit',
+        'Flower',
+        'Herb' ,
+        'Mixed'
+    ];
+
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
 
     // Define the relationship between Jardin and Utilisateur (one-to-many inverse)
 
     public function utilisateur()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'utilisateur_id');
     }
 
 

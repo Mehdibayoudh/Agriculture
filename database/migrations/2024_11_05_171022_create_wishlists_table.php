@@ -12,17 +12,14 @@ return new class extends Migration
      * @return void
      */
     public function up()
-{
-    Schema::create('plantes', function (Blueprint $table) {
-        $table->id();
-        $table->string('nom');
-        $table->string('type');
-        $table->text('besoins');
-        $table->foreignId('jardin_id')->constrained('jardins')->onDelete('cascade');
-        $table->timestamps();
-    });
-}
-
+    {
+        Schema::create('wishlists', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->timestamps();
+        });
+    }
 
     /**
      * Reverse the migrations.
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('plantes');
+        Schema::dropIfExists('wishlists');
     }
 };

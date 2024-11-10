@@ -6,12 +6,12 @@
             <div class="card my-4">
                 <!-- Add Event Button -->
                 <div class="d-flex justify-content-end">
-                    <a href="{{ route('eventadmin.create') }}" class="btn btn-primary mx-3 my-3">Add Event</a>
+                    <a href="{{ route('eventadmin.create') }}" class="btn btn-primary mx-3 my-3" style="background: #60be74">Add Event</a>
                 </div>
-
-                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                    <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                        <h6 class="text-white text-capitalize ps-3">Events Table</h6>
+                <br>
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2" >
+                    <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3" style="background: #60be74">
+                        <h6 class="text-white text-capitalize ps-3" >Events Table</h6>
                     </div>
                 </div>
 
@@ -23,6 +23,7 @@
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Title</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Location</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sponsors</th>
                                 <th class="text-secondary opacity-7"></th>
                             </tr>
                             </thead>
@@ -41,6 +42,18 @@
                                     </td>
                                     <td class="align-middle text-center text-sm">
                                         <span class="text-secondary text-xs font-weight-bold">{{ $event->date }}</span>
+                                    </td>
+                                    <td>
+                                        <!-- Sponsors Column -->
+                                        @if($event->sponsors->isNotEmpty())
+                                            <ul>
+                                                @foreach($event->sponsors as $sponsor)
+                                                    <li>{{ $sponsor->name }} - {{ $sponsor->industry }}</li>
+                                                @endforeach
+                                            </ul>
+                                        @else
+                                            <p class="text-xs text-secondary mb-0">No sponsors assigned</p>
+                                        @endif
                                     </td>
                                     <td class="align-middle">
                                         <a href="{{ route('eventadmin.edit', $event->id) }}" class="text-secondary font-weight-bold text-xs">

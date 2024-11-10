@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BlogController extends Controller
 {
@@ -15,12 +16,35 @@ class BlogController extends Controller
         $blogs = Blog::all();
         return view('Front.Blog.index', compact('blogs'));
     }
-    
+
     public function indexA()
     {
         $blogs = Blog::all();
         return view('Back.Blog.index', compact('blogs'));
     }
+
+    public function MyBlogs()
+{
+    $blogs = Blog::where('utilisateur_id', Auth::id())->get();
+     // Convert the collection to an array for easier reading
+    return view('Front.Blog.index', compact('blogs'));
+}
+
+public function search(Request $request)
+{
+    // Get the search query from the request
+    $searchQuery = $request->input('search');
+
+    // Perform the search on the blog title and content (or any other relevant columns)
+    $blogs = Blog::where('titre', 'LIKE', '%' . $searchQuery . '%')
+        ->orWhere('content', 'LIKE', '%' . $searchQuery . '%')
+        ->get();
+
+    // Return the view with the search results
+    return view('Front.Blog.index', compact('blogs'));
+}
+
+
 
     /**
      * Show the form for creating a new blog.
@@ -44,7 +68,7 @@ class BlogController extends Controller
         $blog = new Blog();
         $blog->titre = $request->input('titre');
         $blog->content = $request->input('content');
-        $blog->utilisateur_id = 1;
+        $blog->utilisateur_id = Auth::id();
         $blog->date = now(); // Store the current date and time in the 'date' field
 
         // Handle file upload
