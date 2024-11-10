@@ -15,6 +15,7 @@ class BlogController extends Controller
         $blogs = Blog::all();
         return view('Front.Blog.index', compact('blogs'));
     }
+    
     public function indexA()
     {
         $blogs = Blog::all();
@@ -108,4 +109,12 @@ class BlogController extends Controller
 
         return redirect()->route('blogs.index')->with('success', 'Blog deleted successfully.');
     }
+
+    public function destroyA(Blog $blog)
+    {
+        $blog->delete();
+
+        return redirect()->route('admin.blogs.index')->with('success', 'Blog deleted successfully.');
+    }
+
 }

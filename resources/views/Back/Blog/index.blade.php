@@ -43,7 +43,7 @@
                                     </td>
                                     <td class="align-middle">
 
-                                    <form action="{{ route('blogs.destroy', $blog->id) }}" method="POST" style="display:inline;">
+                                    <form action="{{ route('admin.blogs.destroy', $blog->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
                         <button type="submit" title="Delete" style="border: none; background: none;">

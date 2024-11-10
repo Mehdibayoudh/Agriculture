@@ -5,7 +5,7 @@ use App\Http\Controllers\EventC\EventController;
 use App\Http\Controllers\JardinController;
 use App\Http\Controllers\PlanteController;
 use App\Http\Controllers\BlogController;
-
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\RessourceController;
 use Illuminate\Support\Facades\Route;
 
@@ -39,6 +39,9 @@ Route::get('plantes', [PlanteController::class, 'index']);
 Route::resource('plante', PlanteController::class);
 
 Route::resource('blogs', BlogController::class);
-
+Route::post('/blogs/{blog}/comments', [CommentController::class, 'store'])->name('comments.store');
+Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
 
 Route::get('admin/blogs', [BlogController::class, 'indexA'])->name('admin.blogs.index');
+Route::delete('admin/blogs/{blog}', [BlogController::class, 'destroyA'])->name('admin.blogs.destroy');
+
