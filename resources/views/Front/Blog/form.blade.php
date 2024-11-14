@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 
 <body>
 
@@ -16,16 +15,17 @@
             <div class="form-group">
                 <label for="titre">Titre</label>
                 <input type="text" class="form-control" id="titre" name="titre"
-                       value="{{ old('titre', $blog->titre ?? '') }}" required>
+                       value="{{ old('titre', $blog->titre ?? '') }}" >
                 @error('titre')
                 <span class="text-danger">{{ $message }}</span>
                 @enderror
             </div>
 
-            <!-- Blog Content -->
+            <!-- Blog Content with Emoji Picker and Font Style -->
             <div class="form-group">
                 <label for="content">Content</label>
-                <textarea class="form-control" id="content" name="content" rows="5" required>{{ old('content', $blog->content ?? '') }}</textarea>
+                <div class="d-flex align-items-center mb-2">
+                <textarea class="form-control" id="content" name="content" rows="5" style="font-family: Arial;">{{ old('content', $blog->content ?? '') }}</textarea>
                 @error('content')
                 <span class="text-danger">{{ $message }}</span>
                 @enderror
@@ -54,5 +54,4 @@
     </div>
 
 </body>
-
 </html>

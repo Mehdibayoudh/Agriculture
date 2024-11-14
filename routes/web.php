@@ -12,10 +12,13 @@ use App\Http\Controllers\RessourceC\RessourceAdminController;
 use App\Http\Controllers\PlanteCategorieController;
 use App\Http\Controllers\SponsorAdminController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WeatherApiController;
 use App\Http\Controllers\WishlistC\WishlistController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BadWordFilterController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +40,7 @@ Route::get('/admin', function () {
 });
 
 
-// Ressource & Wishlist
+// Ressource & Wishlist & weather api
 Route::resource('ressource', RessourceController::class);
 Route::resource('ressourceadmin', RessourceAdminController::class);
 
@@ -45,6 +48,8 @@ Route::resource('wishlists', WishlistController::class);
 Route::post('wishlists/add-ressource/{ressource}', [WishlistController::class, 'addRessource'])->name('wishlists.add-ressource');
 Route::post('wishlists/{wishlist}/detach-ressource/{ressource}', [WishlistController::class, 'detachRessource'])->name('wishlists.detach-ressource');
 Route::get('wishlists/{wishlist}', [WishlistController::class, 'show'])->name('wishlists.show');
+
+Route::get('/weather', [WeatherApiController::class, 'showWeather'])->name('weather.show');
 
 
 //JARDINS
@@ -88,6 +93,10 @@ Route::get('/myblogs', [BlogController::class, 'MyBlogs'])->name('user.blogs');
 Route::get('/blog/search', [BlogController::class, 'search'])->name('blogs.search');
 Route::post('/blogs/{blog}/comments', [CommentController::class, 'store'])->name('comments.store');
 Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+Route::get('comments/{comment}/edit', [CommentController::class, 'edit'])->name('comments.edit');
+Route::put('comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
+Route::post('/filter-bad-words', [BadWordFilterController::class, 'filterBadWords']);
+
 
 });
 
@@ -104,6 +113,9 @@ Route::middleware(['role:admin'])->group(function () {
     Route::post('/generate-image', [EventAdminController::class, 'generateImage'])->name('generate.image');
     Route::get('admin/blogs', [BlogController::class, 'indexA'])->name('admin.blogs.index');
     Route::delete('admin/blogs/{blog}', [BlogController::class, 'destroyA'])->name('admin.blogs.destroy');
+    Route::delete('admin/comments/{comment}', [CommentController::class, 'destroyA'])->name('admin.comments.destroy');
+
+
 
 });
 // Routes for admin users only
@@ -119,6 +131,4 @@ Route::middleware(['role:user'])->group(function () {
 */
 
 //USER
-
-
 

@@ -13,7 +13,7 @@
         <div class="page-header__bg" style="background-image: url(assets/images/backgrounds/page-header-bg-1-1.jpg);"></div>
         <!-- /.page-header__bg -->
         <div class="container">
-            <h2>Products</h2>
+            <h2>Ressources</h2>
             <ul class="thm-breadcrumb list-unstyled">
                 <li><a href="index.html">Home</a></li>
                 <li>/</li>
@@ -25,133 +25,82 @@
 
     <section class="products-page">
         <div class="container">
-            <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-3">
-                    <div class="product-sidebar">
-                        <div style="padding-bottom: 20px;">
-                            <a class="thm-btn" href="{{ route('ressource.create') }}">Create Ressource</a>
-                        </div>
-                        <div class="product-sidebar__single product-sidebar__search-widget">
-                            <form action="#">
-                                <input type="text" placeholder="Search">
-                                <button class="organik-icon-magnifying-glass" type="submit"></button>
-                            </form>
-                        </div><!-- /.product-sidebar__single -->
-                        <div class="product-sidebar__single">
-                            <h3>Price</h3>
-                            <div class="product-sidebar__price-range">
-                                <div class="range-slider-price" id="range-slider-price"></div>
-                                <div class="form-group">
-                                    <div class="left">
-                                        <p>$<span id="min-value-rangeslider"></span></p>
-                                        <span>-</span>
-                                        <p>$<span id="max-value-rangeslider"></span></p>
-                                    </div><!-- /.left -->
-                                    <div class="right">
-                                        <input type="submit" class="thm-btn" value="Filter">
-                                    </div><!-- /.right -->
+
+            <div class="col-sm-12 col-md-12 col-lg-12">
+
+                <div class="row">
+                    @foreach($Ressources as $ressource)
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="product-card">
+
+                            <div class="product-card__image">
+                                @if($ressource->image)
+                                <img src="{{ asset('storage/' . $ressource->image) }}" alt="{{ $ressource->titre }}" style="width: 300px; height: 300px;">
+                                @else
+                                <img src="assets/images/products/product-1-1.jpg" alt="">
+                                @endif
+
+                                <div class="product-card__image-content">
+                                    <a href="{{ route('ressource.edit', $ressource->id) }}"><i class="fa fa-edit"></i></a>
+                                    <form action="{{ route('ressource.destroy', $ressource->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this ressource?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" style="border:none; background:#ff003e; padding: 10px; border-radius: 100%; margin-left: 5px;">
+                                            <i class="fa fa-trash" style="color: white; margin-left: 10px; margin-right: 10px;"></i>
+                                        </button>
+                                    </form>
+
+
                                 </div>
-                            </div><!-- /.product-sidebar__price-range -->
-                        </div><!-- /.product-sidebar__single -->
-                        <div class="product-sidebar__single">
-                            <h3>Categories</h3>
-                            <ul class="list-unstyled product-sidebar__links">
-                                <li><a href="#">Vegetables <i class="fa fa-angle-right"></i></a></li>
-                                <li><a href="#">Fresh Fruits <i class="fa fa-angle-right"></i></a></li>
-                                <li><a href="#">Dairy Products <i class="fa fa-angle-right"></i></a></li>
-                                <li><a href="#">Tomatos <i class="fa fa-angle-right"></i></a></li>
-                                <li><a href="#">Oranges <i class="fa fa-angle-right"></i></a></li>
-                            </ul><!-- /.list-unstyled product-sidebar__links -->
-                        </div><!-- /.product-sidebar__single -->
-                    </div><!-- /.product-sidebar -->
-                </div><!-- /.col-sm-12 col-md-12 col-lg-3 -->
-                <div class="col-sm-12 col-md-12 col-lg-9">
-                    <div class="product-sorter">
-                        <p>Showing 1–9 of 12 results</p>
-                        <div class="product-sorter__select">
-                            <select class="selectpicker">
-                                <option value="#">Sort by popular</option>
-                                <option value="#">Sort by popular</option>
-                                <option value="#">Sort by popular</option>
-                                <option value="#">Sort by popular</option>
-                            </select>
-                        </div><!-- /.product-sorter__select -->
-                    </div><!-- /.product-sorter -->
-                    <div class="row">
-                        @foreach($Ressources as $ressource)
-                        <div class="col-md-6 col-lg-4 mb-4"> <!-- Each product takes 1/3rd of the row on large screens -->
-                            <div class="product-card">
 
-                                <div class="product-card__image">
-                                    @if($ressource->image)
-                                    <img src="{{ asset('storage/' . $ressource->image) }}" alt="{{ $ressource->titre }}" style="width: 100%; height: auto;">
-                                    @else
-                                    <img src="assets/images/products/product-1-1.jpg" alt=""> <!-- @endif -->
+                            </div><!-- /.product-card__image -->
 
-                                    <div class="product-card__image-content">
-                                        <a href="{{ route('ressource.edit', $ressource->id) }}"><i class="fa fa-edit"></i></a>
-                                        <form action="{{ route('ressource.destroy', $ressource->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this ressource?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" style="border:none; background:#ff003e; padding: 10px; border-radius: 100%; margin-left: 5px;">
-                                                <i class="fa fa-trash" style="color: white; margin-left: 10px; margin-right: 10px;"></i>
-                                            </button>
-                                        </form>
-
-
-                                    </div>
-
-                                </div><!-- /.product-card__image -->
-
-                                <div class="product-card__content">
-                                    <div style="display: flex; flex-direction: column;">
-                                        <div>
-                                            <div class="product-card__left">
-                                                <h3><a href="event-details/{{ $ressource->id }}">{{ $ressource->titre }}</a></h3>
-                                                <p>{{ $ressource->type }}</p>
-                                            </div>
-                                            <div class="product-card__right">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
+                            <div class="product-card__content">
+                                <div style="display: flex; flex-direction: column;">
+                                    <div>
+                                        <div class="product-card__left">
+                                            <h3><a href="event-details/{{ $ressource->id }}">{{ $ressource->titre }}</a></h3>
+                                            <p>{{ $ressource->type }}</p>
                                         </div>
-                                        <!-- Add to Wishlist Form -->
-                                        <div style="padding-top: 10px;">
-                                            <form action="{{ route('wishlists.add-ressource', $ressource->id) }}" method="POST" style="display:inline;">
-                                                @csrf
-                                                <select style="    padding-left: 0;
+                                        <div class="product-card__right">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <!-- Add to Wishlist Form -->
+                                    <div style="padding-top: 10px;">
+                                        <form action="{{ route('wishlists.add-ressource', $ressource->id) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            <select style="    padding-left: 0;
                                                                     padding-right: 0;
                                                                     height: 40px;
                                                                     font-size: small;" name="wishlist_id" id="wishlist-select" required>
-                                                    <option value="">Select a Wishlist</option>
-                                                    @foreach($wishlists as $wishlist)
-                                                    <option value="{{ $wishlist->id }}">{{ $wishlist->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                                <button type="submit" style="    background-color: #60be74;
+                                                <option value="">Select a Wishlist</option>
+                                                @foreach($wishlists as $wishlist)
+                                                <option value="{{ $wishlist->id }}">{{ $wishlist->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            <button type="submit" style="    background-color: #60be74;
                                                     color: white;
                                                     border: solid thin #000000;
                                                     font-size: small;
                                                     height: 40px;">Add + </button>
-                                            </form>
-                                        </div>
+                                        </form>
                                     </div>
-                                </div><!-- /.product-card__content -->
+                                </div>
+                            </div><!-- /.product-card__content -->
 
-                            </div><!-- /.product-card -->
-                        </div><!-- /.col -->
-                        @endforeach
-                    </div><!-- /.row -->
+                        </div><!-- /.product-card -->
+                    </div><!-- /.col -->
+                    @endforeach
+                </div><!-- /.row -->
 
 
-                    <div class="text-center">
-                        <a href="#" class="thm-btn products__load-more">Load More</a><!-- /.thm-btn -->
-                    </div><!-- /.text-center -->
-                </div><!-- /.col-sm-12 col-md-12 col-lg-9 -->
-            </div><!-- /.row -->
+
+            </div><!-- /.col-sm-12 col-md-12 col-lg-9 -->
         </div><!-- /.container -->
     </section><!-- /.products-page -->
 

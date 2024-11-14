@@ -19,7 +19,7 @@ class BlogController extends Controller
 
     public function indexA()
     {
-        $blogs = Blog::all();
+        $blogs = Blog::with('comments')->get();
         return view('Back.Blog.index', compact('blogs'));
     }
 
