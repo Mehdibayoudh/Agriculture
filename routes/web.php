@@ -14,7 +14,11 @@ use App\Http\Controllers\SponsorAdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WeatherApiController;
 use App\Http\Controllers\WishlistC\WishlistController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BadWordFilterController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -77,13 +81,23 @@ Route::middleware('auth')->group(function () {
     Route::resource('event', EventController::class);
     Route::get('events/{id}', [EventController::class, 'show'])->name('event.show');
     Route::get('plantes', [PlanteController::class, 'index']);
-    Route::resource('plante', PlanteController::class);
-    Route::get('jardins/{Id}/plante/', [PlanteController::class, 'index'])->name('listPlante');
-    Route::get('jardins/{id}/plante/create', [PlanteController::class, 'create'])->name('createPlante');
-    Route::get('jardins/{Id}/plante/{planteId}', [PlanteController::class, 'show'])->name('showPlante');
-    Route::get('jardins/{jardinId}/plante/{planteId}/edit', [PlanteController::class, 'edit'])->name('editPlante');
-    Route::get('jardins/{jardinId}/plante/{planteId}/showOtherPlants', [PlanteController::class, 'showOtherPlants'])->name('showOtherPlants');
-    Route::post('/events/{event}/participate', [EventController::class, 'participate'])->name('events.participate');
+Route::resource('plante', PlanteController::class);
+Route::get('jardins/{Id}/plante/', [PlanteController::class, 'index'])->name('listPlante');
+Route::get('jardins/{id}/plante/create', [PlanteController::class, 'create'])->name('createPlante');
+Route::get('jardins/{Id}/plante/{planteId}', [PlanteController::class, 'show'])->name('showPlante');
+Route::get('jardins/{jardinId}/plante/{planteId}/edit', [PlanteController::class, 'edit'])->name('editPlante');
+Route::get('jardins/{jardinId}/plante/{planteId}/showOtherPlants', [PlanteController::class, 'showOtherPlants'])->name('showOtherPlants');
+Route::post('/events/{event}/participate', [EventController::class, 'participate'])->name('events.participate');
+Route::resource('blogs', BlogController::class);
+Route::get('/myblogs', [BlogController::class, 'MyBlogs'])->name('user.blogs');
+Route::get('/blog/search', [BlogController::class, 'search'])->name('blogs.search');
+Route::post('/blogs/{blog}/comments', [CommentController::class, 'store'])->name('comments.store');
+Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+Route::get('comments/{comment}/edit', [CommentController::class, 'edit'])->name('comments.edit');
+Route::put('comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
+Route::post('/filter-bad-words', [BadWordFilterController::class, 'filterBadWords']);
+
+
 });
 
 
@@ -97,6 +111,12 @@ Route::middleware(['role:admin'])->group(function () {
     Route::resource('eventadmin', EventAdminController::class);
     Route::resource('planteCategorie', PlanteCategorieController::class);
     Route::post('/generate-image', [EventAdminController::class, 'generateImage'])->name('generate.image');
+    Route::get('admin/blogs', [BlogController::class, 'indexA'])->name('admin.blogs.index');
+    Route::delete('admin/blogs/{blog}', [BlogController::class, 'destroyA'])->name('admin.blogs.destroy');
+    Route::delete('admin/comments/{comment}', [CommentController::class, 'destroyA'])->name('admin.comments.destroy');
+
+
+
 });
 // Routes for admin users only
 Route::middleware(['role:jardinier'])->group(function () {
@@ -111,3 +131,4 @@ Route::middleware(['role:user'])->group(function () {
 */
 
 //USER
+

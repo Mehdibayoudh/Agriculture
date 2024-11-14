@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Checkout Page || Oganik || HTML Template For Organic Stores</title>
@@ -33,6 +33,12 @@
     <link rel="stylesheet" href="{{ asset('assets/vendors/odometer/odometer.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendors/swiper/swiper.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendors/tiny-slider/tiny-slider.min.css') }}" />
+     <!-- Emoji Button Library -->
+     <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@4.6.2/dist/index.min.js"></script>
+    <!-- Font Awesome (for icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Custom Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 
     <!-- template styles -->
     <link rel="stylesheet" href="{{ asset('assets/css/organik.css') }}" />
@@ -90,6 +96,15 @@
                             <li><a href="{{ url('/product-details') }}">Product Details</a></li>
                             <li><a href="{{ url('/cart') }}">Cart Page</a></li>
                             <li><a href="{{ url('/checkout') }}">Checkout</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="{{ url('/blogs') }}">Blogs</a>
+                        <ul>
+                            <li><a href="{{ url('/blogs') }}">Blogs</a></li>
+                            <li><a href="{{ url('/myblogs') }}">My Blogs</a></li>
+                            <li><a href="{{ url('/blogs/create') }}">Create Blog</a></li>
                         </ul>
                     </li>
                     <li>
